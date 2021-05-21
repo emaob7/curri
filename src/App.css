@@ -1,0 +1,9 @@
+
+.App-header {
+  background-color: rgb(238, 237, 237);
+  /*background-image: url("../src/componentes/Imagenes/fondos/wave.svg");*/
+  background-size:cover;
+  background-position:top;
+  background: cover;
+
+}
