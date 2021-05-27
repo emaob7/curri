@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Experiencia = ( props, {navigation} ) => {
+const Cursos = ( props, {navigation} ) => {
   const firebase = props.firebase;
   const classes = useStyles();
-  const [expe, setExpe] = useState([
-    { id2: uuidv4(), puesto: "", empre: "", ubicacion: "",finicio: "",ffinal: "", tareas: "" }
+  const [cur, setCur] = useState([
+    { id2: uuidv4(), tit: "", ins: "",dur:"", cul: "" }
   ]);
   const arrayGu = []//este
 
@@ -41,35 +41,35 @@ const Experiencia = ( props, {navigation} ) => {
   
 
   const handleChangeInput = (id2, event) => {
-    const newExpe = expe.map((i) => {
+    const newCur = cur.map((i) => {
       if (id2 === i.id2) {
         i[event.target.name] = event.target.value;
       }
       return i;
     });
 
-    setExpe(newExpe);
+    setCur(newCur);
   };
 
   const handleAddFields = () => {
-    setExpe([
-      ...expe,
-      {id2: uuidv4(), puesto: "", empre: "", ubicacion: "",finicio: "",ffinal: "", tareas: "" },
+    setCur([
+      ...cur,
+      { id2: uuidv4(), tit: "", ins: "",dur:"", cul: ""},
     ]);
   };
 
 
   const handleRemoveFields = (id2) => {
-    const values = [...expe];
+    const values = [...cur];
     values.splice(
       values.findIndex((value) => value.id2 === id2),
       1
     );
-    setExpe(values);
+    setCur(values);
   };
 
   const guardarDatosp = () => {
-    const inputF = {...arrayGu, expe};
+    const inputF = {...arrayGu, cur};
     const { id } = props.match.params;
 
     firebase.db
@@ -83,92 +83,70 @@ const Experiencia = ( props, {navigation} ) => {
 
   return (
     <Papel>
-      <h1>Agrega tus experiencias especificas</h1>
-      <h3>Sólo experiencias relacionadas al puesto, empieza con las más recientes</h3>
+      <h1>Otros cursos de capacitación</h1>
+      <h3>Agrega sólo los cursos o capacitaciones relacionados al puesto, evita agregar cursos que no tengan relación con el puesto que vas a solicitar</h3>
       <form className={classes.root} onSubmit={handleSubmit}>
-        {expe.map((inputField) => (
+        {cur.map((inputField) => (
           <Paper key={inputField.id2} className={classes.div}>
             <Container >
               
             <Grid container spacing={1}>
             <Grid item xs={12} md={12}>
-            <h5> - {inputField.empre}</h5>
+            <h5> - {inputField.tit}</h5>
             </Grid>
-
             <Grid item xs={12} md={6}>
             <TextField
-              name="empre"
+              name="tit"
               variant="outlined"
+              helperText="ej: Ofimática Básica"
               fullWidth
               size="small"
-              label="Empresa / Institución"
-              value={inputField.empre}
+              label="Certificado o titulo"
+              value={inputField.tit}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="puesto"
+              name="ins"
               variant="outlined"
               fullWidth
               size="small"
-              label="Puesto"
-              value={inputField.puesto}
+              helperText="ej: SNPP"
+              label="Institución/Página Web"
+              value={inputField.ins}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
             
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={6}>
             <TextField
-              name="ubicacion"
+              name="dur"
               variant="outlined"
+              helperText="ej: 100 Horas"
               fullWidth
               size="small"
-              label="Ubicación"
-              value={inputField.ubicacion}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
-            />
-            </Grid>
-             <Grid item xs={12} md={6}>
-            <TextField
-              name="finicio"
-              variant="outlined"
-              fullWidth
-              size="small"
-              label="Desde fecha"
-              value={inputField.finicio}
+              label="Duración"
+              value={inputField.dur}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="ffinal"
+              name="cul"
               variant="outlined"
+              helperText="ej: 2019"
               fullWidth
               size="small"
-              label="Hasta fecha"
-              value={inputField.ffinal}
+              label="Fecha que culminaste"
+              value={inputField.cul}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
-            <Grid item xs={12} md={12}>
-            <TextField
-              name="tareas"
-              variant="outlined"
-              fullWidth
-              multiline
-              rows={3}
-              size="small"
-              label="Tareas o logros relevantes"
-              value={inputField.tareas}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
-            />
-            </Grid>
-           
             <Grid item xs={12} md={6}>
             <Tooltip title="Quitar" placement="top">
             <IconButton
-              disabled={expe.length === 1}
+              disabled={cur.length === 1}
               onClick={() => handleRemoveFields(inputField.id2)}
               color="secondary"
             >
@@ -201,4 +179,4 @@ const Experiencia = ( props, {navigation} ) => {
   );
 };
 
-export default consumerFirebase(Experiencia);
+export default consumerFirebase(Cursos);

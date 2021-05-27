@@ -60,7 +60,7 @@ class AppNavBar extends Component {
     const  [{sesion}, dispatch] = this.context;
     return sesion ? (sesion.autenticado ? (
       <div>
-        <AppBar position="static">
+        <AppBar position="fixed" style={{ background: '#ffa000' }} >
           <BarSession />
           
         </AppBar>

@@ -1,13 +1,10 @@
 import React from "react";
-import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetail from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-import ListItemText from '@material-ui/core/ListItemText'
-
+import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Papel from "../../Children/Papel";
@@ -15,35 +12,48 @@ import Papel from "../../Children/Papel";
 export const Review = ({ formData, navigation }) => {
   const { go } = navigation;
   const {
-    firstName,
-    lastName,
-    nickName,
-    address,
-    city,
-    state,
-    zip,
-    phone,
-    email,
+    obje,
+  nom,
+  ape,
+  prof,
+  cin,
+  nprof,
+  naci,
+  fena,
+  dir,
+  tel,
+  email,
+  nomref,
+  telref,
+  nomref1,
+  telref1,
   } = formData;
 
   return (
     <Papel>
      
-      <h3>Review</h3>
-      <RenderAccordion summary="Names" go={ go } details={[
-        { 'First Name': firstName },
-        { 'Last Name': lastName },
-        { 'Nick Name': nickName },
+      <h3>Revisar para continuar</h3>
+      <RenderAccordion summary="Datos Personales" go={ go } details={[
+        { 'Nombre ': nom },
+        { 'Apellidos ': ape },
+        { 'Profesión ': prof },
+        { 'CIN-DNI ': cin },
+        { 'Profesional Número ': nprof },
+        { 'Nacionalidad ': naci },
+        { 'Fecha de Nacimiento ': fena },
+        { 'Dirección ': dir },
+        { 'Telefono ': tel },
+        { 'Email ': email },
       ]} />
-      <RenderAccordion summary="Address" go={ go } details={[
-        { 'Address': address },
-        { 'City': city },
-        { 'State': state },
-        { 'Zip': zip },
+      <RenderAccordion summary="Objetivos" go={ go } details={[
+        { 'Objetivos ': obje },
+
       ]} />
-      <RenderAccordion summary="Contact" go={ go } details={[
-        { 'Phone': phone },
-        { 'Email': email },
+      <RenderAccordion summary="Referecia" go={ go } details={[
+        { 'Nombre ': nomref },
+        { 'Telefono ': telref },
+        { 'Nombre ': nomref1 },
+        { 'Telefono ': telref1 },
       ]} />
       <Button
         color="primary"
@@ -51,7 +61,7 @@ export const Review = ({ formData, navigation }) => {
         style={{ marginTop: '1.5rem' }}
         onClick={() => go('submit')}
       >
-        Submit
+        Guardar
       </Button>
 
     </Papel>

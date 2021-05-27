@@ -1,28 +1,32 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import {
-  Container,
-  Paper,
   Grid,
   Typography,
   Card,
   CardContent,
   CardActions,
+  Table,
+  TableHead,
+  TableBody,
+  TableCell,
+  TableRow,
 } from "@material-ui/core";
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
 import { consumerFirebase } from "../../server";
 import { Link } from "react-router-dom";
+import Papel from "../Children/Papel";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetail from "@material-ui/core/AccordionDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ListItemText from "@material-ui/core/ListItemText";
+import IconButton from "@material-ui/core/IconButton";
+import EditIcon from "@material-ui/icons/Edit";
 
 const style = {
   cardGrid: {
     paddingTop: 8,
     paddingBottom: 8,
-  },
-  paper: {
-    backgroundColor: "#f5f5f5",
-    padding: "20px",
-    minHeight: 650,
-    marginTop: 8,
   },
   icon: {
     marginRight: 0.5,
@@ -106,73 +110,188 @@ class NuevoCu extends Component {
 
   render() {
     return (
-      <Container style={style.cardGrid}>
-        <Paper style={style.paper}>
+      <>
+        <Papel>
           <Typography variant="h4" color="textSecondary">
             Curriculums
           </Typography>
           <div style={style.div}></div>
 
-          <Button   style={style.botones}
-                        variant="outlined"
-                        size="small"
-                        color="primary"
-                        component={Link} button to="/step/nuevo/"
-                        >Nuevo</Button>
+          <Button
+            style={style.botones}
+            variant="outlined"
+            size="small"
+            color="primary"
+            component={Link}
+            button
+            to="/step/nuevo/"
+          >
+            Nuevo
+          </Button>
 
-          <Grid item xs={12} sm={12} style={style.gridTextfield}>
-            <Grid container spacing={2}>
-              {this.state.datosps.map((card) => (
-                <Grid item key={card.id} xs={12} sm={6} md={4}>
-                  <Card style={style.card}>
-                    <CardContent style={style.cardContent}>
-                      <Typography gutterBottom variant="h6" component="h2">
-                        {card.nom +
-                          " - " +
-                          card.ape}
-                      </Typography>
-                      <Typography gutterBottom variant="h9" component="h2">
-                            {card.cin}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        style={style.botones}
-                        to="chart"
-                        target="_blank"
-                        size="small"
-                        variant="contained"
-                        color="primary"
-                        href={card.fotos}
-                        startIcon={<PictureAsPdfIcon />}
-                      >
-                        Ver documento
-                      </Button>
-                      <Button
-                        style={style.botones}
-                        variant="contained"
-                        size="small"
-                        color="primary"
-                        onClick={() => this.editarCurriculum(card.id)}
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        variant="contained"
-                        size="small"
-                        color="secondary"
-                        onClick={() => this.eliminarDatosps(card.id)}
-                      >
-                        Eliminar
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
+          <Grid container spacing={2}>
+            {this.state.datosps.map((card) => (
+              <Grid item key={card.id} xs={12} sm={12} md={12}>
+                <Card style={style.card}>
+                  <CardContent style={style.cardContent}>
+                    <Typography gutterBottom variant="h6" component="h2">
+                      {card.nom + " " + card.ape}
+                    </Typography>
+
+                    <Accordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        Datos Personales
+                      </AccordionSummary>
+                      <AccordionDetail>
+                        <ul>
+                          <li> Nombre Completo: {card.nom + " " + card.ape}</li>
+                          <li>CIN/ DNI: {card.cin}</li>
+                          <li>Profesión: {card.prof}</li>
+                          <li>Número Profesional: {card.nprof}</li>
+                          <li>Nacionalidad: {card.naci}</li>
+                          <li>Fecha de Nacimiento: {card.fena}</li>
+                          <li>Direccion: {card.dir}</li>
+                          <li>Telefono: {card.tel}</li>
+                          <li>Correo: {card.email}</li>
+                        </ul>
+                      </AccordionDetail>
+                    </Accordion>
+
+                    <Accordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        Resumen Profesional
+                      </AccordionSummary>
+                      <AccordionDetail>
+                        <ul>
+                          <li>{card.obje}</li>
+                        </ul>
+                      </AccordionDetail>
+                    </Accordion>
+
+                    <Accordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        Experiencia Específica
+                      </AccordionSummary>
+                      <AccordionDetail>
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Puesto</TableCell>
+                              <TableCell>Empresa Institución</TableCell>
+                              <TableCell>Ubicación</TableCell>
+                              <TableCell>Desde</TableCell>
+                              <TableCell>Hasta</TableCell>
+                              <TableCell>Tareas realizadas</TableCell>
+                            </TableRow>
+                          </TableHead>
+
+                          <TableBody>
+                            {card.expe.map((exp) => (
+                              <TableRow key={exp.id2}>
+                                <TableCell>{exp.puesto}</TableCell>
+                                <TableCell>{exp.empre}</TableCell>
+                                <TableCell>{exp.ubicacion}</TableCell>
+                                <TableCell>
+                                  <Typography
+                                    variant="caption"
+                                    display="block"
+                                    gutterBottom
+                                  >
+                                    {exp.finicio}
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography
+                                    variant="caption"
+                                    display="block"
+                                    gutterBottom
+                                  >
+                                    {exp.ffinal}
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>{exp.tareas}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </AccordionDetail>
+                    </Accordion>
+
+                    <Accordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        Experiencia General
+                      </AccordionSummary>
+                      <AccordionDetail>
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Puesto</TableCell>
+                              <TableCell>Empresa Institución</TableCell>
+                              <TableCell>Ubicación</TableCell>
+                              <TableCell>Desde</TableCell>
+                              <TableCell>Hasta</TableCell>
+                              <TableCell>Tareas realizadas</TableCell>
+                            </TableRow>
+                          </TableHead>
+
+                          <TableBody>
+                            {card.expeG.map((exp) => (
+                              <TableRow key={exp.id2}>
+                                <TableCell>{exp.puesto}</TableCell>
+                                <TableCell>{exp.empre}</TableCell>
+                                <TableCell>{exp.ubicacion}</TableCell>
+                                <TableCell>
+                                  <Typography
+                                    variant="caption"
+                                    display="block"
+                                    gutterBottom
+                                  >
+                                    {exp.finicio}
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography
+                                    variant="caption"
+                                    display="block"
+                                    gutterBottom
+                                  >
+                                    {exp.ffinal}
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>{exp.tareas}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </AccordionDetail>
+                    </Accordion>
+                  </CardContent>
+
+                  <CardActions>
+                    <Button
+                      style={style.botones}
+                      variant="contained"
+                      size="small"
+                      color="primary"
+                      onClick={() => this.editarCurriculum(card.id)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      color="secondary"
+                      onClick={() => this.eliminarDatosps(card.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
-        </Paper>
-      </Container>
+        </Papel>
+      </>
     );
   }
 }

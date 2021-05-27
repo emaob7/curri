@@ -22,6 +22,9 @@ import NuevoOb from "./componentes/vistas/NuevoOb";
 import CurriculumList from "./componentes/vistas/CurriculumList";
 import { MultiStepForm } from "./componentes/vistas/MultiStepForm";
 import Experiencia from "./componentes/vistas/stepForm/Experiencia";
+import ExperienciaG from "./componentes/vistas/stepForm/ExperienciaG";
+import Educacion from "./componentes/vistas/stepForm/Educacion";
+import Cursos from "./componentes/vistas/stepForm/Cursos";
 
 
 
@@ -79,7 +82,7 @@ function App(props) {
         <MuiThemeProvider theme={theme}>
           
           
-          <AppNavBarSimple />
+
           <AppNavBar />
           <div  className="App-header">
          <Scroll showBelow={250}/>
@@ -108,6 +111,24 @@ function App(props) {
                 path="/experiencia/nuevo/:id"
                 autenticadoFirebase="{firebase.auth.currentUser}"
                 component={Experiencia}
+              />
+               <RutaAutenticada
+                exact
+                path="/experienciag/nuevo/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={ExperienciaG}
+              />
+              <RutaAutenticada
+                exact
+                path="/educacion/nuevo/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={Educacion}
+              />
+               <RutaAutenticada
+                exact
+                path="/cursos/nuevo/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={Cursos}
               />
             
 

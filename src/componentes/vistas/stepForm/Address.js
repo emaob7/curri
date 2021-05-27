@@ -1,73 +1,47 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Papel from "../../Children/Papel";
+import { Grid } from "@material-ui/core";
 
 
 export const Address = ({ formData, setForm, navigation }) => {
-  const { address, city, state, zip } = formData;
+  const {obje } = formData;
   return (
     <Papel>
       
-      <h3>Address</h3>
+      <h3>Objetivos</h3>
       
-      <TextField
-        label="Address"
-        name="address"
-        value={address}
-        onChange={setForm}
-        margin="normal"
-        variant="outlined"
-        autoComplete="off"
-        fullWidth
-      />
-      <TextField
-        label="City"
-        name="city"
-        value={city}
-        onChange={setForm}
-        margin="normal"
-        variant="outlined"
-        autoComplete="off"
-        fullWidth
-      />
-      <TextField
-        label="State"
-        name="state"
-        value={state}
-        onChange={setForm}
-        margin="normal"
-        variant="outlined"
-        autoComplete="off"
-        fullWidth
-      />
-      <TextField
-        label="Zip"
-        name="zip"
-        type="number"
-        value={zip}
-        onChange={setForm}
-        margin="normal"
-        variant="outlined"
-        autoComplete="off"
-        fullWidth
-      />
+      <Grid item xs={12} md={12}>
+            <TextField
+              name="obje"
+              label="Objetivo Profesional"
+              variant="outlined"
+              helperText="ej: Quiero trabajar en la Empresa para ayudar al excelente equipo y aprender de ellos"
+              size="small"
+              multiline
+              rows={5}
+              fullWidth
+              onChange={setForm}
+              value={obje}
+            />
+          </Grid>
+     
       <div style={{ marginTop: "1rem" }}>
         <Button
-          color="secondary"
-          variant="contained"
+          color="Gray"
+          variant="outlined"
           style={{ marginRight: "1rem" }}
           onClick={() => navigation.previous()}
         >
-          Back
+          Atrás
         </Button>
         <Button
           color="primary"
           variant="contained"
           onClick={() => navigation.next()}
         >
-          Next
+          Siguiente
         </Button>
       </div>
     </Papel>

@@ -5,21 +5,23 @@ import { Address } from "./stepForm/Address";
 import { Contact } from "./stepForm/Contact";
 import { Review } from "./stepForm/Review";
 import { Submit } from "./stepForm/Submit";
-import Experiencia from "./stepForm/Experiencia";
 
 const defaultData = {
-  firstName: "",
-  lastName: "",
-  nickName: "",
-  address: "",
-  city: "",
-  state: "",
-  zip: "",
-  phone: "",
+  obje: "",
+  nom: "",
+  ape: "",
+  prof: "",
+  cin: "",
+  nprof: "",
+  naci: "",
+  fena: "",
+  dir: "",
+  tel: "",
   email: "",
-  nombre:"",
-  apellido:"",
-  experiencia: [],
+  nomref:"",
+  telref:"",
+  nomref1:"",
+  telref1:"",
   
 };
 
@@ -27,7 +29,6 @@ const steps = [
   { id: "names" },
   { id: "address" },
   { id: "contact" },
-  { id: "experiencia"},
   { id: "review" },
   { id: "submit" },
   
@@ -49,8 +50,6 @@ export const MultiStepForm = () => {
       return <Address {...props} />;
     case "contact":
       return <Contact {...props} />;
-      case "experiencia":
-      return <Experiencia {...props} />;
     case "review":
       return <Review {...props} />;
     case "submit":

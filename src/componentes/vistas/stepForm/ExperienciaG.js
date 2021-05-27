@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Experiencia = ( props, {navigation} ) => {
+const ExperienciaG = ( props, {navigation} ) => {
   const firebase = props.firebase;
   const classes = useStyles();
-  const [expe, setExpe] = useState([
+  const [expeG, setExpeG] = useState([
     { id2: uuidv4(), puesto: "", empre: "", ubicacion: "",finicio: "",ffinal: "", tareas: "" }
   ]);
   const arrayGu = []//este
@@ -41,35 +41,35 @@ const Experiencia = ( props, {navigation} ) => {
   
 
   const handleChangeInput = (id2, event) => {
-    const newExpe = expe.map((i) => {
+    const newExpeG = expeG.map((i) => {
       if (id2 === i.id2) {
         i[event.target.name] = event.target.value;
       }
       return i;
     });
 
-    setExpe(newExpe);
+    setExpeG(newExpeG);
   };
 
   const handleAddFields = () => {
-    setExpe([
-      ...expe,
+    setExpeG([
+      ...expeG,
       {id2: uuidv4(), puesto: "", empre: "", ubicacion: "",finicio: "",ffinal: "", tareas: "" },
     ]);
   };
 
 
   const handleRemoveFields = (id2) => {
-    const values = [...expe];
+    const values = [...expeG];
     values.splice(
       values.findIndex((value) => value.id2 === id2),
       1
     );
-    setExpe(values);
+    setExpeG(values);
   };
 
   const guardarDatosp = () => {
-    const inputF = {...arrayGu, expe};
+    const inputF = {...arrayGu, expeG};
     const { id } = props.match.params;
 
     firebase.db
@@ -83,10 +83,10 @@ const Experiencia = ( props, {navigation} ) => {
 
   return (
     <Papel>
-      <h1>Agrega tus experiencias especificas</h1>
-      <h3>Sólo experiencias relacionadas al puesto, empieza con las más recientes</h3>
+      <h1>Agrega tus experiencias generales</h1>
+      <h3>Puedes agregar experiencias que no esten relacionadas al puesto, empieza con las más recientes, también puedes agregar voluntariados</h3>
       <form className={classes.root} onSubmit={handleSubmit}>
-        {expe.map((inputField) => (
+        {expeG.map((inputField) => (
           <Paper key={inputField.id2} className={classes.div}>
             <Container >
               
@@ -94,7 +94,7 @@ const Experiencia = ( props, {navigation} ) => {
             <Grid item xs={12} md={12}>
             <h5> - {inputField.empre}</h5>
             </Grid>
-
+            
             <Grid item xs={12} md={6}>
             <TextField
               name="empre"
@@ -117,7 +117,6 @@ const Experiencia = ( props, {navigation} ) => {
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
-            
             <Grid item xs={12} md={12}>
             <TextField
               name="ubicacion"
@@ -166,13 +165,15 @@ const Experiencia = ( props, {navigation} ) => {
             </Grid>
            
             <Grid item xs={12} md={6}>
+            
             <Tooltip title="Quitar" placement="top">
             <IconButton
-              disabled={expe.length === 1}
+              disabled={expeG.length === 1}
               onClick={() => handleRemoveFields(inputField.id2)}
               color="secondary"
             >
               <DeleteIcon />
+              
             </IconButton>
             </Tooltip>
             <Tooltip title="Agregar" placement="top">
@@ -201,4 +202,4 @@ const Experiencia = ( props, {navigation} ) => {
   );
 };
 
-export default consumerFirebase(Experiencia);
+export default consumerFirebase(ExperienciaG);

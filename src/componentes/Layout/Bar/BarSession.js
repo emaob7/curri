@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
   Toolbar,
-  Typography,
   IconButton,
   Button,
   Drawer,
@@ -17,8 +16,17 @@ import { MenuDerecha } from "./menuDerecha";
 import { MenuIzquierdaU } from "./menuIzquierdaU";
 import fotoUsuarioTemp from "../../../logo.svg";
 import { withRouter } from "react-router-dom";
+import boton from  "../../Imagenes/membrete/boton.png";
+import { Link } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 
 
+const style={
+  foto: {
+    width: "7%",
+    height: "7%",
+  },
+}
 
 const styles = (theme) => ({
   sectionDesktop: {
@@ -125,8 +133,13 @@ class BarSession extends Component {
           </div>
         </Drawer>
         <Toolbar>
-
-          <Typography variant="h6">Permisos administrativos activado!</Typography>
+        <Grid item xs={12} sm={5} md={5}>
+          <Link  to="/">
+          <Tooltip title="Ir a inicio">
+            <img  src ={boton} style={style.foto} />
+            </Tooltip>
+           </Link>
+            </Grid>
           <div className={classes.grow}></div>
           <div className={classes.sectionDesktop}>
             
