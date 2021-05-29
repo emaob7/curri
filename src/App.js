@@ -3,7 +3,6 @@ import "./App.css";
 import Grid from "@material-ui/core/Grid";
 import {Snackbar } from "@material-ui/core";
 import AppNavBar from "./componentes/Layout/AppNavBar";
-import AppNavBarSimple from "./componentes/Layout/AppNavBarSimple";
 import Footer from "./componentes/Layout/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
@@ -25,6 +24,9 @@ import Experiencia from "./componentes/vistas/stepForm/Experiencia";
 import ExperienciaG from "./componentes/vistas/stepForm/ExperienciaG";
 import Educacion from "./componentes/vistas/stepForm/Educacion";
 import Cursos from "./componentes/vistas/stepForm/Cursos";
+import Idiomas from "./componentes/vistas/stepForm/Idiomas";
+import Herramientas from "./componentes/vistas/stepForm/Herramientas";
+import Referencias from "./componentes/vistas/stepForm/Referencias";
 
 
 
@@ -126,15 +128,30 @@ function App(props) {
               />
                <RutaAutenticada
                 exact
+                path="/idiomas/nuevo/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={Idiomas}
+              />
+               <RutaAutenticada
+                exact
+                path="/referencias/nuevo/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={Referencias}
+              />
+
+<RutaAutenticada
+                exact
+                path="/herramientas/nuevo/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={Herramientas}
+              />
+               <RutaAutenticada
+                exact
                 path="/cursos/nuevo/:id"
                 autenticadoFirebase="{firebase.auth.currentUser}"
                 component={Cursos}
               />
             
-
-              
-
-
               <RutaAutenticada
                 exact
                 path="/step/nuevo/"

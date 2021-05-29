@@ -135,7 +135,7 @@ const Cursos = ( props, {navigation} ) => {
             <TextField
               name="cul"
               variant="outlined"
-              helperText="ej: 2019"
+              helperText="ej: Ene 2019"
               fullWidth
               size="small"
               label="Fecha que culminaste"

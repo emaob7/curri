@@ -30,7 +30,7 @@ const Educacion = ( props, {navigation} ) => {
   const firebase = props.firebase;
   const classes = useStyles();
   const [edu, setEdu] = useState([
-    { id2: uuidv4(), tit: "", ins: "",dur:"", cul: "" }
+    { id2: uuidv4(), tit: "", ins: "",dur:"",des:"", cul: "" }
   ]);
   const arrayGu = []//este
 
@@ -54,7 +54,7 @@ const Educacion = ( props, {navigation} ) => {
   const handleAddFields = () => {
     setEdu([
       ...edu,
-      { id2: uuidv4(), tit: "", ins: "",dur:"", cul: ""},
+      { id2: uuidv4(), tit: "", ins: "",dur:"",des:"", cul: ""},
     ]);
   };
 
@@ -119,7 +119,7 @@ const Educacion = ( props, {navigation} ) => {
             />
             </Grid>
             
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
             <TextField
               name="dur"
               variant="outlined"
@@ -131,11 +131,23 @@ const Educacion = ( props, {navigation} ) => {
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
+            <TextField
+              name="des"
+              variant="outlined"
+              helperText="ej: Ene 2021"
+              fullWidth
+              size="small"
+              label="Fecha que empezaste"
+              value={inputField.des}
+              onChange={(event) => handleChangeInput(inputField.id2, event)}
+            />
+            </Grid>
+            <Grid item xs={12} md={4}>
             <TextField
               name="cul"
               variant="outlined"
-              helperText="ej: 2019"
+              helperText="ej: Dic 2021"
               fullWidth
               size="small"
               label="Fecha que culminaste"

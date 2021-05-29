@@ -111,6 +111,8 @@ class NuevoCu extends Component {
   render() {
     return (
       <>
+      <Grid container spacing={2}>
+      <Grid item  xs={12} sm={12} md={12}>
         <Papel>
           <Typography variant="h4" color="textSecondary">
             Curriculums
@@ -129,7 +131,7 @@ class NuevoCu extends Component {
             Nuevo
           </Button>
 
-          <Grid container spacing={2}>
+          
             {this.state.datosps.map((card) => (
               <Grid item key={card.id} xs={12} sm={12} md={12}>
                 <Card style={style.card}>
@@ -137,7 +139,7 @@ class NuevoCu extends Component {
                     <Typography gutterBottom variant="h6" component="h2">
                       {card.nom + " " + card.ape}
                     </Typography>
-
+                    
                     <Accordion>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Datos Personales
@@ -157,6 +159,7 @@ class NuevoCu extends Component {
                       </AccordionDetail>
                     </Accordion>
 
+                    
                     <Accordion>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Resumen Profesional
@@ -222,6 +225,7 @@ class NuevoCu extends Component {
                         Experiencia General
                       </AccordionSummary>
                       <AccordionDetail>
+                        
                         <Table>
                           <TableHead>
                             <TableRow>
@@ -263,6 +267,142 @@ class NuevoCu extends Component {
                             ))}
                           </TableBody>
                         </Table>
+
+                      </AccordionDetail>
+                    </Accordion>
+
+                    <Accordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        Educación
+                      </AccordionSummary>
+                      <AccordionDetail> 
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Titulo de Grado</TableCell>
+                              <TableCell>Institución</TableCell>
+                              <TableCell>Duración</TableCell>
+                              <TableCell>Fecha de Culminación</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {card.edu.map((ed) => (
+                              <TableRow key={ed.id2}>
+                                <TableCell>{ed.tit}</TableCell>
+                                <TableCell>{ed.ins}</TableCell>
+                                <TableCell>{ed.dur}</TableCell>
+                                <TableCell>{ed.cul}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+
+                      </AccordionDetail>
+                    </Accordion>
+
+                    <Accordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        Capacitaciones y otros Cursos
+                      </AccordionSummary>
+                      <AccordionDetail>
+                        
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Titulo de Grado</TableCell>
+                              <TableCell>Institución</TableCell>
+                              <TableCell>Duración</TableCell>
+                              <TableCell>Fecha de Culminación</TableCell>
+                            </TableRow>
+                          </TableHead>
+
+                          <TableBody>
+                            {card.cur.map((cu) => (
+                              <TableRow key={cu.id2}>
+                                <TableCell>{cu.tit}</TableCell>
+                                <TableCell>{cu.ins}</TableCell>
+                                <TableCell>{cu.dur}</TableCell>
+                                <TableCell>{cu.cul}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+
+                      </AccordionDetail>
+                    </Accordion>
+
+                    <Accordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        Idiomas
+                      </AccordionSummary>
+                      <AccordionDetail> 
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Idioma</TableCell>
+                              <TableCell>Nivel</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {card.idi.map((idis) => (
+                              <TableRow key={idis.id2}>
+                                <TableCell>{idis.idio}</TableCell>
+                                <TableCell>{idis.niv}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+
+                      </AccordionDetail>
+                    </Accordion>
+
+                    <Accordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        Herramientas y Habilidades
+                      </AccordionSummary>
+                      <AccordionDetail> 
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Habilidades</TableCell>
+                              <TableCell>Nivel</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {card.herra.map((herr) => (
+                              <TableRow key={herr.id2}>
+                                <TableCell>{herr.her}</TableCell>
+                                <TableCell>{herr.niv}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+
+                      </AccordionDetail>
+                    </Accordion>
+
+                    <Accordion>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        Referencias
+                      </AccordionSummary>
+                      <AccordionDetail> 
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Nombre Completo</TableCell>
+                              <TableCell>Teléfono</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {card.refe.map((refes) => (
+                              <TableRow key={refes.id2}>
+                                <TableCell>{refes.nom}</TableCell>
+                                <TableCell>{refes.tel}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+
                       </AccordionDetail>
                     </Accordion>
                   </CardContent>
@@ -289,8 +429,10 @@ class NuevoCu extends Component {
                 </Card>
               </Grid>
             ))}
-          </Grid>
+          
         </Papel>
+        </Grid>
+        </Grid>
       </>
     );
   }
