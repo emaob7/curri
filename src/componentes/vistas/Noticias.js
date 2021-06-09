@@ -261,11 +261,7 @@ class Noticias extends Component {
                     <CardMedia
                       style={style.cardMedia}
                       image={
-                        card.fotos
-                          ? card.fotos[0]
-                            ? card.fotos[0]
-                            : logo
-                          : logo
+                        card.fotos ? card.fotos[0] ? card.fotos[0] : logo : logo
                       }
                       title="Mi Inmueble"
                     />

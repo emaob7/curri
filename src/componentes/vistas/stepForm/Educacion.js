@@ -77,7 +77,7 @@ const Educacion = ( props, {navigation} ) => {
       .doc(id)
       .set(inputF, { merge: true })
       .then((success) => {
-        console.log("Bien");
+        props.history.push("/");
       });
   };
 

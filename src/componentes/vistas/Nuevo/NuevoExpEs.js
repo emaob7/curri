@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Experiencia = ( props, {navigation} ) => {
+const NuevoExpEs = ( props) => {
   const firebase = props.firebase;
   const classes = useStyles();
   const [expe, setExpe] = useState([
@@ -77,7 +77,7 @@ const Experiencia = ( props, {navigation} ) => {
       .doc(id)
       .set(inputF, { merge: true })
       .then((success) => {
-        props.history.push("/");
+        props.history.push("/nuevo/experienciag/" + id);;
       });
   };
 
@@ -201,4 +201,4 @@ const Experiencia = ( props, {navigation} ) => {
   );
 };
 
-export default consumerFirebase(Experiencia);
+export default consumerFirebase(NuevoExpEs);

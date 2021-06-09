@@ -3,10 +3,10 @@ import { Grid, Typography, TextField, Button } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 //import CKEditor from 'ckeditor4-react';
 //import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { consumerFirebase } from "../../server";
-import { openMensajePantalla } from "../../sesion/actions/snackbarAction";
+import { consumerFirebase } from "../../../server";
+import { openMensajePantalla } from "../../../sesion/actions/snackbarAction";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Papel from "../Children/Papel";
+import Papel from "../../Children/Papel";
 
 const style = {
   load: {
@@ -33,7 +33,7 @@ const style = {
   },
 };
 
-class NuevoOb extends Component {
+class NuevoObs extends Component {
   state = {
     datosp: {
       obje: "",
@@ -52,12 +52,7 @@ class NuevoOb extends Component {
 async componentDidMount() {
   const {id} = this.props.match.params;
   
-  const datospCollection = this.props.firebase.db.collection("Datosps");
-  const datospDB = await datospCollection.doc(id).get();
-
-  this.setState({
-    datosp : datospDB.data()
-  })
+  
 
 }
 
@@ -72,41 +67,12 @@ guardarDatosp = () => {
       .doc(id)
       .set(datosp, {merge: true})
       .then( success => {
-          this.props.history.push("/");
+          this.props.history.push("/nuevo/experienciae/" + id);
       })
 
 }
   
-  /*entraDatoEnEstado = (e) => {
-    let objep_ = Object.assign({}, this.state.objep);
-    objep_[e.target.name] = e.target.value;
-    this.setState({
-      objep: objep_,
-    });
-  };
-
-  guardarObjep = () => {
-    const objep = this.state;
-    this.setState({ loading: true });
-    setTimeout(() => {
-      this.setState({ loading: false });
-    }, 8000);
-    //Crearle a cada image(archivo) un alias, ese alias es la referencia con la cual posteriormente lo invocaras
-    //Ademas ese alias sera almacenado en la base de datos(firestore/firebase)
-    objep.propietario = this.props.firebase.auth.currentUser.uid;
-    this.props.firebase.db
-      .collection("Objeps")
-      .add(objep)
-      .then((success) => {
-        this.props.history.push("/experiencia/nuevo");
-      })
-      .catch((error) => {
-        openMensajePantalla({
-          open: true,
-          mensaje: error,
-        });
-      });
-  };*/
+  
 
   render() {
     const { loading } = this.state;
@@ -152,4 +118,4 @@ guardarDatosp = () => {
   }
 }
 
-export default consumerFirebase(NuevoOb);
+export default consumerFirebase(NuevoObs);

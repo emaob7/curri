@@ -6,10 +6,10 @@ import {
   Button,
 } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
-import { consumerFirebase } from "../../server";
+import { consumerFirebase } from "../../../server";
 import { v4 as uuidv4 } from "uuid";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Papel from "../Children/Papel";
+import Papel from "../../Children/Papel";
 
 const style = {
   load: {
@@ -36,7 +36,7 @@ const style = {
   },
 };
 
-class NuevoDatosp extends Component {
+class NuevoDatos extends Component {
   state = {
     datosp: {
       nom: "",
@@ -49,7 +49,6 @@ class NuevoDatosp extends Component {
       dir: "",
       tel: "",
       email: "",
-      expe:[],
       fotos: [],
     },
     archivos: [],
@@ -63,89 +62,27 @@ class NuevoDatosp extends Component {
     this.setState({datosp});
 }
 
-  subirImagenes = imagenes =>{
-    const { datosp } = this.state;
-    const {id} = this.props.match.params;
+ 
 
-    //agregar un nombre dinamico por cada imagen que necesites subir al firestorage
 
-    Object.keys(imagenes).forEach(key=>{
-        let codigoDinamico = uuidv4();
-        let nombreImagen = imagenes[key].name;
-        let extension = nombreImagen.split(".").pop();
-        imagenes[key].alias = (nombreImagen.split(".")[0]  + "_" + codigoDinamico + "." + extension ).replace(/\s/g,"_").toLowerCase();
-    })
 
-    this.props.firebase.guardarDocumentos(imagenes).then(urlImagenes => {
-      datosp.fotos =  datosp.fotos.concat(urlImagenes);
-
-        this.props.firebase.db
-            .collection("Datosps")
-            .doc(id)
-            .set(datosp, {merge: true})
-            .then(success =>{
-                this.setState({
-                  datosp 
-                })
-            })
-    })
-}
-
-eliminarFoto = fotoUrl => async () =>{
-    
-    const {datosp} = this.state;
-    const {id} = this.props.match.params;
-
-    let fotoID = fotoUrl.match(/[\w-]+.(jpg|png|jepg|gif|svg)/);
-    fotoID = fotoID[0];
-
-    await this.props.firebase.eliminarDocumento(fotoID);
-
-    let fotoList = this.state.datosp.fotos.filter(foto => {
-        return foto !== fotoUrl;
-    })
-
-    datosp.fotos = fotoList;
-
-    this.props.firebase.db
-        .collection("Datosps")
-        .doc(id)
-        .set(datosp, {merge: true})
-        .then(success => {
-            this.setState({
-              datosp
-            })
-        })
-}
-
-async componentDidMount() {
+ async componentDidMount() {
     const {id} = this.props.match.params;
     
-    const datospCollection = this.props.firebase.db.collection("Datosps");
-    const datospDB = await datospCollection.doc(id).get();
 
-    this.setState({
-      datosp : datospDB.data()
-    })
-
-}
+ }
 
 guardarDatosp = () => {
     const {datosp} = this.state;
     const {id} = this.props.match.params;
-
-
-
     datosp.propietario = this.props.firebase.auth.currentUser.uid;
     
-    
-
     this.props.firebase.db
         .collection("Datosps")
         .doc(id)
         .set(datosp, {merge: true})
         .then( success => {
-            this.props.history.push("/");
+            this.props.history.push("/nuevo/objetivo/" + id);
         })
 
 }
@@ -318,4 +255,4 @@ guardarDatosp = () => {
   }
 }
 
-export default consumerFirebase(NuevoDatosp);
+export default consumerFirebase(NuevoDatos);

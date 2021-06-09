@@ -20,9 +20,9 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetail from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AccordionActions from '@material-ui/core/AccordionActions';
+import ListItemText from "@material-ui/core/ListItemText";
+import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
-import Agregar from "../Children/Agregar";
 
 const style = {
   cardGrid: {
@@ -37,7 +37,6 @@ const style = {
   link: {
     display: "flex",
   },
-    
   div: {
     marginBottom: 22,
     backgroundColor: "#0071bc",
@@ -64,7 +63,6 @@ const style = {
     paddingBottom: "1%",
     marginTop: "-3%",
     marginBottom: "1%",
-    
   },
 
   cardContent: {
@@ -115,43 +113,43 @@ class NuevoCu extends Component {
   };
 
   editarDatosp = (id) => {
-    this.props.history.push("/editar/datosp/" + id);
+    this.props.history.push("/datosp/nuevo/" + id);
   };
 
   editarResumen = (id) => {
-    this.props.history.push("/editar/objetivo/" + id);
+    this.props.history.push("/objetivo/nuevo/" + id);
   };
 
   editarExperiencia = (id) => {
-    this.props.history.push("/editar/experiencia/" + id);
+    this.props.history.push("/experiencia/nuevo/" + id);
   };
 
   editarExperienciag = (id) => {
-    this.props.history.push("/editar/experienciag/" + id);
+    this.props.history.push("/experienciag/nuevo/" + id);
   };
 
   editarEducacion = (id) => {
-    this.props.history.push("/editar/educacion/" + id);
+    this.props.history.push("/educacion/nuevo/" + id);
   };
 
   editarEducacion = (id) => {
-    this.props.history.push("/editar/educacion/" + id);
+    this.props.history.push("/educacion/nuevo/" + id);
   };
 
   editarCursos = (id) => {
-    this.props.history.push("/editar/cursos/" + id);
+    this.props.history.push("/cursos/nuevo/" + id);
   };
 
   editarIdiomas = (id) => {
-    this.props.history.push("/editar/idiomas/" + id);
+    this.props.history.push("/idiomas/nuevo/" + id);
   };
 
   editarHerramientas = (id) => {
-    this.props.history.push("/editar/herramientas/" + id);
+    this.props.history.push("/herramientas/nuevo/" + id);
   };
 
   editarReferencias = (id) => {
-    this.props.history.push("/editar/referencias/" + id);
+    this.props.history.push("/referencias/nuevo/" + id);
   };
 
   render() {
@@ -172,7 +170,7 @@ class NuevoCu extends Component {
             color="primary"
             component={Link}
             button
-            to="/nuevo/datos/:id"
+            to="/step/nuevo/"
           >
             Nuevo
           </Button>
@@ -219,13 +217,11 @@ class NuevoCu extends Component {
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Resumen Profesional
                       </AccordionSummary>
-                      {card.obje? 
                       <AccordionDetail style={style.acordeon}>
                         <ul>
                           <li>{card.obje}</li>
                         </ul>
                       </AccordionDetail>
-                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
@@ -236,12 +232,11 @@ class NuevoCu extends Component {
                     </Button>
                     </AccordionActions>
                     </Accordion>
+  <Accordion>
 
-                    <Accordion>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Experiencia Específica
                       </AccordionSummary>
-                      {card.expe? 
                       <AccordionDetail style={style.acordeon}>
                         <Table>
                           <TableHead>
@@ -254,8 +249,10 @@ class NuevoCu extends Component {
                               <TableCell>Tareas realizadas</TableCell>
                             </TableRow>
                           </TableHead>
-                          <TableBody>
+                           
+                          <TableBody> 
                             {card.expe.map((exp) => (
+                                
                               <TableRow key={exp.id2}>
                                 <TableCell>{exp.puesto}</TableCell>
                                 <TableCell>{exp.empre}</TableCell>
@@ -280,13 +277,13 @@ class NuevoCu extends Component {
                                 </TableCell>
                                 <TableCell>{exp.tareas}</TableCell>
                               </TableRow>
-                            ))} 
-                          </TableBody>  
+                            ))}
+                          </TableBody>
                         </Table>
                       </AccordionDetail>
-                      :<Agregar/>}
                       <AccordionActions>
                         <Button
+                      size="small"
                       color="primary"
                       startIcon={<EditIcon />}
                       onClick={() => this.editarExperiencia(card.id)}
@@ -294,12 +291,11 @@ class NuevoCu extends Component {
                     </Button>
                     </AccordionActions>
                     </Accordion>
-
+                    
                     <Accordion>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Experiencia General
                       </AccordionSummary>
-                      {card.expeG? 
                       <AccordionDetail style={style.acordeon}>
                         
                         <Table>
@@ -345,8 +341,7 @@ class NuevoCu extends Component {
                         </Table>
 
                       </AccordionDetail>
-                     :<Agregar/>}
-                     <AccordionActions>
+                      <AccordionActions>
                         <Button
                       size="small"
                       color="primary"
@@ -361,7 +356,6 @@ class NuevoCu extends Component {
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Educación
                       </AccordionSummary>
-                      {card.edu? 
                       <AccordionDetail style={style.acordeon}> 
                         <Table>
                           <TableHead>
@@ -384,7 +378,6 @@ class NuevoCu extends Component {
                           </TableBody>
                         </Table>
                       </AccordionDetail>
-                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
@@ -400,7 +393,6 @@ class NuevoCu extends Component {
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Capacitaciones y otros Cursos
                       </AccordionSummary>
-                      {card.cur? 
                       <AccordionDetail style={style.acordeon}>
                         
                         <Table>
@@ -426,7 +418,6 @@ class NuevoCu extends Component {
                         </Table>
 
                       </AccordionDetail>
-                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
@@ -437,11 +428,11 @@ class NuevoCu extends Component {
                     </Button>
                     </AccordionActions>
                     </Accordion>
+
                     <Accordion>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Idiomas
                       </AccordionSummary>
-                      {card.idi?
                       <AccordionDetail style={style.acordeon}> 
                         <Table>
                           <TableHead>
@@ -461,7 +452,6 @@ class NuevoCu extends Component {
                         </Table>
 
                       </AccordionDetail>
-                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
@@ -477,7 +467,6 @@ class NuevoCu extends Component {
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Herramientas y Habilidades
                       </AccordionSummary>
-                      {card.herra?
                       <AccordionDetail style={style.acordeon}> 
                         <Table>
                           <TableHead>
@@ -497,7 +486,6 @@ class NuevoCu extends Component {
                         </Table>
 
                       </AccordionDetail>
-                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
@@ -513,7 +501,6 @@ class NuevoCu extends Component {
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Referencias
                       </AccordionSummary>
-                      {card.refe?
                       <AccordionDetail style={style.acordeon}> 
                         <Table>
                           <TableHead>
@@ -533,7 +520,6 @@ class NuevoCu extends Component {
                         </Table>
 
                       </AccordionDetail>
-                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
