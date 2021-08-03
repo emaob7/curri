@@ -24,15 +24,14 @@ const style = {
   },
 };
 
-class NuevoExpG extends Component  {
+class Educacion3 extends Component  {
   state = {
     datosp: {
-      puestog: "", 
-      empreg: "", 
-      ubicaciong: "",
-      finiciog: "",
-      ffinalg: "", 
-      tareasg: "",
+      tit3: "", 
+      ins3: "",
+      dur3:"",
+      des3:"", 
+      cul3: ""
 
     },
     loading: false,
@@ -58,7 +57,7 @@ class NuevoExpG extends Component  {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-      this.props.history.push("/");
+          this.props.history.push("/"); 
       }) 
 
 }
@@ -72,7 +71,7 @@ guardarDatosA = () => {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-          this.props.history.push("/nuevo/experienciag2/"+ id); 
+          this.props.history.push("/nuevo/educacion4/"+ id); 
       }) 
 
 }
@@ -83,91 +82,90 @@ guardarDatosA = () => {
       <React.Fragment>
       
           <Papel>
-          <h1>Agrega tus experiencias Generales</h1>
-          <h3>Son aquellas experiencias que no tienen relación directa con el puesto al que postulas</h3>
-            <Grid container spacing={1}>
-      
+      <h1>Agrega detalles de tu Educación</h1>
+      <h3>Puedes empezar a agregar primero tu nivel Universitario, relacionado al puesto.</h3>
+      <Grid container spacing={1}>
+            <Grid item xs={12} md={12}>
+            </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="empreg"
+              name="tit3"
               variant="outlined"
+              helperText="ej: Ingenieria de Software"
               fullWidth
               size="small"
-              label="Empresa / Institución"
-              value={this.state.datosp.empreg}
+              label="Titulo obtenido"
+              value={this.state.datosp.tit3}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="puestog"
+              name="ins3"
               variant="outlined"
               fullWidth
               size="small"
-              label="Puesto"
-              value={this.state.datosp.puestog}
+              helperText="ej: Universidad Nacional de Villarrica del Espiritu Santo"
+              label="Institución/Universidad/Colegio"
+              value={this.state.datosp.ins3}
               onChange={this.cambiarDato}
             />
             </Grid>
             
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={4}>
             <TextField
-              name="ubicaciong"
+              name="dur3"
               variant="outlined"
+              helperText="ej: 6 años"
               fullWidth
               size="small"
-              label="Ubicación"
-              value={this.state.datosp.ubicaciong}
+              label="Duración"
+              value={this.state.datosp.dur3}
               onChange={this.cambiarDato}
             />
             </Grid>
-             <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
             <TextField
-              name="finiciog"
+              name="des3"
               variant="outlined"
+              helperText="ej: Ene 2021"
               fullWidth
               size="small"
-              label="Desde fecha"
-              value={this.state.datosp.finiciog}
+              label="Fecha que empezaste"
+              value={this.state.datosp.des3}
               onChange={this.cambiarDato}
             />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
             <TextField
-              name="ffinalg"
+              name="cul3"
               variant="outlined"
+              helperText="ej: Dic 2021"
               fullWidth
               size="small"
-              label="Hasta fecha"
-              value={this.state.datosp.ffinalg}
+              label="Fecha que culminaste"
+              value={this.state.datosp.cul3}
               onChange={this.cambiarDato}
             />
             </Grid>
-            <Grid item xs={12} md={12}>
-            <TextField
-              style={style.text}
-              name="tareasg"
-              variant="outlined"
-              fullWidth
-              multiline
-              rows={3}
-              size="small"
-              label="Tareas o logros relevantes"
-              value={this.state.datosp.tareasg}
-              onChange={this.cambiarDato}
-            />
-            </Grid>
-           
+                      
             </Grid>
           
-      
-            <Grid item xs={12}> 
+
+      <Grid item xs={12}> 
       <Fab disabled aria-label="like" 
       style={style.button} size="small">
   1
 </Fab>
-
-      <Tooltip title="Agregar Experiencia" placement="top">
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  2
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  3
+</Fab>
+      <Tooltip title="Agregar Educación" placement="top">
         <Fab
         style={style.button} 
         color="primary" 
@@ -198,4 +196,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(NuevoExpG);
+export default consumerFirebase(Educacion3);

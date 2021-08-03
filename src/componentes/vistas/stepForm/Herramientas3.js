@@ -28,11 +28,11 @@ const style = {
   },
 };
 
-class Idiomas extends Component  {
+class Herramientas3 extends Component  {
   state = {
     datosp: {
-      idi: "", 
-      niv: "",
+      her3: "", 
+      nive3: "",
     
 
     },
@@ -73,7 +73,7 @@ guardarDatosA = () => {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-          this.props.history.push("/add/idiomas2/"+ id); 
+          this.props.history.push("/editar/herramientas4/"+ id); 
       }) 
 
 }
@@ -84,21 +84,21 @@ guardarDatosA = () => {
       <React.Fragment>
       
           <Papel>
-          <h1>Idiomas</h1>
-      <h3>Agrega idiomas relevantes para el puesto y tu nivel de manejo del idioma</h3>           
+          <h1>Herramientas</h1>
+      <h3>Agrega herramientas e indica con que nivel manejas el mismo, no olvides agregar herramientas que te hagan destacar de los demás postulantes.</h3>           
       
       <Grid container spacing={1}>
       <Grid item xs={12} md={12}>
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <TextField
-                    name="idio"
+                    name="her3"
                     variant="outlined"
-                    helperText="ej: Inglés"
+                    helperText="ej: Photoshop, Microsoft Word, Excel"
                     fullWidth
                     size="small"
-                    label="Idioma"
-                    value={this.state.datosp.idio}
+                    label="Herramienta"
+                    value={this.state.datosp.her3}
                     onChange={this.cambiarDato}
                   />
                 </Grid>
@@ -106,8 +106,8 @@ guardarDatosA = () => {
                 <Grid item xs={12} md={6}>
                   <FormControl style={{margin: 6, marginLeft: 16 }}>
                     <Select
-                      name="niv"
-                      value={this.state.datosp.niv}
+                      name="nive3"
+                      value={this.state.datosp.nive3}
                       onChange={this.cambiarDato}
                       displayEmpty
                     >
@@ -127,8 +127,16 @@ guardarDatosA = () => {
       style={style.button} size="small">
   1
 </Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  2
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  3
+</Fab>
 
-      <Tooltip title="Agregar Idioma" placement="top">
+      <Tooltip title="Agregar Herramienta" placement="top">
         <Fab
         style={style.button} 
         color="primary" 
@@ -161,4 +169,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(Idiomas);
+export default consumerFirebase(Herramientas3);

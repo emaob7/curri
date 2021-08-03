@@ -1,100 +1,92 @@
-import React, { useState } from "react";
-import { consumerFirebase } from "../../../server/";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from "@material-ui/icons/Add";
-import { v4 as uuidv4 } from "uuid";
-import { makeStyles } from "@material-ui/core/styles";
-import Papel from "../../Children/Papel";
-import { Container, Grid, Paper, Tooltip } from "@material-ui/core";
+import React, { Component } from "react";
+import {
+  Grid,
+  TextField,
+} from "@material-ui/core";
+import { consumerFirebase } from "../../../server";
+import Papel from '../../Children/Papel';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Tooltip from '@material-ui/core/Tooltip';
 
+const style = {
+  load: {
+    backgroundColor: "#4dabf5",
+  },
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-    },
+  text: {
+    marginBottom: 20,
   },
   button: {
-    margin: theme.spacing(1),
+    marginTop: 22,
+    marginRight: 17,
   },
-  div:{
-    backgroundColor:"#fff59d",
-    marginBottom:theme.spacing(2),
-  },
-}));
+};
 
-const NuevoExpEs = ( props) => {
-  const firebase = props.firebase;
-  const classes = useStyles();
-  const [expe, setExpe] = useState([
-    { id2: uuidv4(), puesto: "", empre: "", ubicacion: "",finicio: "",ffinal: "", tareas: "" }
-  ]);
-  const arrayGu = []//este
+class NuevoExpEs extends Component  {
+  state = {
+    datosp: {
+      puesto: "", 
+      empre: "", 
+      ubicacion: "",
+      finicio: "",
+      ffinal: "", 
+      tareas: "",
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    },
+    loading: false,
+   
   };
 
-  
-
-  const handleChangeInput = (id2, event) => {
-    const newExpe = expe.map((i) => {
-      if (id2 === i.id2) {
-        i[event.target.name] = event.target.value;
-      }
-      return i;
-    });
-
-    setExpe(newExpe);
-  };
-
-  const handleAddFields = () => {
-    setExpe([
-      ...expe,
-      {id2: uuidv4(), puesto: "", empre: "", ubicacion: "",finicio: "",ffinal: "", tareas: "" },
-    ]);
-  };
+  cambiarDato = e => {
+    let datosp = Object.assign({}, this.state.datosp);
+    datosp[e.target.name] = e.target.value;
+    this.setState({datosp});
+}
 
 
-  const handleRemoveFields = (id2) => {
-    const values = [...expe];
-    values.splice(
-      values.findIndex((value) => value.id2 === id2),
-      1
-    );
-    setExpe(values);
-  };
 
-  const guardarDatosp = () => {
-    const inputF = {...arrayGu, expe};
-    const { id } = props.match.params;
 
-    firebase.db
+
+ guardarDatosp = () => {
+  const {datosp} = this.state;
+  const {id} = this.props.match.params;
+
+  this.props.firebase.db
       .collection("Datosps")
       .doc(id)
-      .set(inputF, { merge: true })
-      .then((success) => {
-        props.history.push("/nuevo/experienciag/" + id);;
-      });
-  };
+      .set(datosp, {merge: true})
+     .then( success => {
+          this.props.history.push("/nuevo/experienciag/"+ id); 
+      }) 
 
-  return (
-    <Papel>
-      <h1>Agrega tus experiencias especificas</h1>
-      <h3>Sólo experiencias relacionadas al puesto, empieza con las más recientes</h3>
-      <form className={classes.root} onSubmit={handleSubmit}>
-        {expe.map((inputField) => (
-          <Paper key={inputField.id2} className={classes.div}>
-            <Container >
-              
+}
+
+guardarDatosA = () => {
+  const {datosp} = this.state;
+  const {id} = this.props.match.params;
+
+  this.props.firebase.db
+      .collection("Datosps")
+      .doc(id)
+      .set(datosp, {merge: true})
+     .then( success => {
+          this.props.history.push("/nuevo/experienciae2/"+ id); 
+      }) 
+
+}
+
+  render() {
+    const { loading } = this.state;
+    return (
+      <React.Fragment>
+      
+          <Papel>
+          <h1>Agrega tus experiencias especificas</h1>
+          <h3>Sólo experiencias relacionadas al puesto, empieza con las más recientes</h3>
             <Grid container spacing={1}>
-            <Grid item xs={12} md={12}>
-            <h5> - {inputField.empre}</h5>
-            </Grid>
-
+      
             <Grid item xs={12} md={6}>
             <TextField
               name="empre"
@@ -102,8 +94,8 @@ const NuevoExpEs = ( props) => {
               fullWidth
               size="small"
               label="Empresa / Institución"
-              value={inputField.empre}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
+              value={this.state.datosp.empre}
+              onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -113,8 +105,8 @@ const NuevoExpEs = ( props) => {
               fullWidth
               size="small"
               label="Puesto"
-              value={inputField.puesto}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
+              value={this.state.datosp.puesto}
+              onChange={this.cambiarDato}
             />
             </Grid>
             
@@ -125,8 +117,8 @@ const NuevoExpEs = ( props) => {
               fullWidth
               size="small"
               label="Ubicación"
-              value={inputField.ubicacion}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
+              value={this.state.datosp.ubicacion}
+              onChange={this.cambiarDato}
             />
             </Grid>
              <Grid item xs={12} md={6}>
@@ -136,8 +128,8 @@ const NuevoExpEs = ( props) => {
               fullWidth
               size="small"
               label="Desde fecha"
-              value={inputField.finicio}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
+              value={this.state.datosp.finicio}
+              onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -147,12 +139,13 @@ const NuevoExpEs = ( props) => {
               fullWidth
               size="small"
               label="Hasta fecha"
-              value={inputField.ffinal}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
+              value={this.state.datosp.ffinal}
+              onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={12}>
             <TextField
+              style={style.text}
               name="tareas"
               variant="outlined"
               fullWidth
@@ -160,45 +153,48 @@ const NuevoExpEs = ( props) => {
               rows={3}
               size="small"
               label="Tareas o logros relevantes"
-              value={inputField.tareas}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
+              value={this.state.datosp.tareas}
+              onChange={this.cambiarDato}
             />
             </Grid>
            
-            <Grid item xs={12} md={6}>
-            <Tooltip title="Quitar" placement="top">
-            <IconButton
-              disabled={expe.length === 1}
-              onClick={() => handleRemoveFields(inputField.id2)}
-              color="secondary"
-            >
-              <DeleteIcon />
-            </IconButton>
-            </Tooltip>
-            <Tooltip title="Agregar" placement="top">
-            <IconButton onClick={handleAddFields} color="primary">
-              <AddIcon />
-            </IconButton>
-            </Tooltip>
             </Grid>
-            </Grid>
-            </Container>
-          </Paper>
-        ))}
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          onClick={guardarDatosp}
-        >
-          Guardar cambios
-        </Button>
-      </form>
+          
+            <Grid item xs={12}> 
+      <Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  1
+</Fab>
 
-      
-    </Papel>
-  );
-};
+      <Tooltip title="Agregar Experiencia" placement="top">
+        <Fab
+        style={style.button} 
+        color="primary" 
+        aria-label="add" 
+        size="small" 
+        onClick={this.guardarDatosA} >
+        <AddIcon />
+      </Fab>
+      </Tooltip>
+      </Grid>
+                
+      <Fab 
+      style={style.button} 
+      color="primary" 
+      aria-label="next" 
+      size="medium" 
+      variant="extended"
+      onClick={this.guardarDatosp}
+      >
+      <NavigateNextIcon />
+        Siguiente
+      </Fab>
+        </Papel>
+    </React.Fragment>
+
+    
+    );
+  }
+}
 
 export default consumerFirebase(NuevoExpEs);

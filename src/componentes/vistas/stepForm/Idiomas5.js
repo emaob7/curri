@@ -28,11 +28,11 @@ const style = {
   },
 };
 
-class Idiomas extends Component  {
+class Idiomas5 extends Component  {
   state = {
     datosp: {
-      idi: "", 
-      niv: "",
+      idi5: null, 
+      niv5: null,
     
 
     },
@@ -64,19 +64,7 @@ class Idiomas extends Component  {
 
 }
 
-guardarDatosA = () => {
-  const {datosp} = this.state;
-  const {id} = this.props.match.params;
 
-  this.props.firebase.db
-      .collection("Datosps")
-      .doc(id)
-      .set(datosp, {merge: true})
-     .then( success => {
-          this.props.history.push("/add/idiomas2/"+ id); 
-      }) 
-
-}
 
   render() {
     const { loading } = this.state;
@@ -92,13 +80,13 @@ guardarDatosA = () => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <TextField
-                    name="idio"
+                    name="idio5"
                     variant="outlined"
                     helperText="ej: Inglés"
                     fullWidth
                     size="small"
                     label="Idioma"
-                    value={this.state.datosp.idio}
+                    value={this.state.datosp.idio5}
                     onChange={this.cambiarDato}
                   />
                 </Grid>
@@ -106,8 +94,8 @@ guardarDatosA = () => {
                 <Grid item xs={12} md={6}>
                   <FormControl style={{margin: 6, marginLeft: 16 }}>
                     <Select
-                      name="niv"
-                      value={this.state.datosp.niv}
+                      name="niv5"
+                      value={this.state.datosp.niv5}
                       onChange={this.cambiarDato}
                       displayEmpty
                     >
@@ -127,17 +115,24 @@ guardarDatosA = () => {
       style={style.button} size="small">
   1
 </Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  2
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  3
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  4
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  5
+</Fab>
 
-      <Tooltip title="Agregar Idioma" placement="top">
-        <Fab
-        style={style.button} 
-        color="primary" 
-        aria-label="add" 
-        size="small" 
-        onClick={this.guardarDatosA} >
-        <AddIcon />
-      </Fab>
-      </Tooltip>
+     
       </Grid>
                 
       <Fab 
@@ -161,4 +156,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(Idiomas);
+export default consumerFirebase(Idiomas5);

@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NuevoEdu = ( props, {navigation} ) => {
+const Cursos = ( props, {navigation} ) => {
   const firebase = props.firebase;
   const classes = useStyles();
-  const [edu, setEdu] = useState([
-    { id2: uuidv4(), tit: "", ins: "",dur:"",des:"", cul: "" }
+  const [cur, setCur] = useState([
+    { id2: uuidv4(), tit: "", ins: "",dur:"", cul: "" }
   ]);
   const arrayGu = []//este
 
@@ -41,35 +41,35 @@ const NuevoEdu = ( props, {navigation} ) => {
   
 
   const handleChangeInput = (id2, event) => {
-    const newEdu = edu.map((i) => {
+    const newCur = cur.map((i) => {
       if (id2 === i.id2) {
         i[event.target.name] = event.target.value;
       }
       return i;
     });
 
-    setEdu(newEdu);
+    setCur(newCur);
   };
 
   const handleAddFields = () => {
-    setEdu([
-      ...edu,
-      { id2: uuidv4(), tit: "", ins: "",dur:"",des:"", cul: ""},
+    setCur([
+      ...cur,
+      { id2: uuidv4(), tit: "", ins: "",dur:"", cul: ""},
     ]);
   };
 
 
   const handleRemoveFields = (id2) => {
-    const values = [...edu];
+    const values = [...cur];
     values.splice(
       values.findIndex((value) => value.id2 === id2),
       1
     );
-    setEdu(values);
+    setCur(values);
   };
 
   const guardarDatosp = () => {
-    const inputF = {...arrayGu, edu};
+    const inputF = {...arrayGu, cur};
     const { id } = props.match.params;
 
     firebase.db
@@ -83,13 +83,12 @@ const NuevoEdu = ( props, {navigation} ) => {
 
   return (
     <Papel>
-      <h1>Agrega detalles de tu Educación</h1>
-      <h3>Puedes empezar a agregar primero tu nivel Universitario, relacionado al puesto.</h3>
+      <h1>Otros cursos de capacitación</h1>
+      <h3>Agrega sólo los cursos o capacitaciones relacionados al puesto, evita agregar cursos que no tengan relación con el puesto que vas a solicitar</h3>
       <form className={classes.root} onSubmit={handleSubmit}>
-        {edu.map((inputField) => (
+        {cur.map((inputField) => (
           <Paper key={inputField.id2} className={classes.div}>
-            <Container >
-              
+            <Container >    
             <Grid container spacing={1}>
             <Grid item xs={12} md={12}>
             <h5> - {inputField.tit}</h5>
@@ -98,10 +97,10 @@ const NuevoEdu = ( props, {navigation} ) => {
             <TextField
               name="tit"
               variant="outlined"
-              helperText="ej: Ingenieria de Software"
+              helperText="ej: Ofimática Básica"
               fullWidth
               size="small"
-              label="Titulo obtenido"
+              label="Certificado o titulo"
               value={inputField.tit}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
@@ -112,18 +111,18 @@ const NuevoEdu = ( props, {navigation} ) => {
               variant="outlined"
               fullWidth
               size="small"
-              helperText="ej: Universidad Nacional de Villarrica del Espiritu Santo"
-              label="Institución/Universidad/Colegio"
+              helperText="ej: SNPP"
+              label="Institución/Página Web"
               value={inputField.ins}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
             
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6}>
             <TextField
               name="dur"
               variant="outlined"
-              helperText="ej: 6 años"
+              helperText="ej: 100 Horas"
               fullWidth
               size="small"
               label="Duración"
@@ -131,23 +130,11 @@ const NuevoEdu = ( props, {navigation} ) => {
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
-            <Grid item xs={12} md={4}>
-            <TextField
-              name="des"
-              variant="outlined"
-              helperText="ej: Ene 2021"
-              fullWidth
-              size="small"
-              label="Fecha que empezaste"
-              value={inputField.des}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
-            />
-            </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6}>
             <TextField
               name="cul"
               variant="outlined"
-              helperText="ej: Dic 2021"
+              helperText="ej: Ene 2019"
               fullWidth
               size="small"
               label="Fecha que culminaste"
@@ -155,13 +142,10 @@ const NuevoEdu = ( props, {navigation} ) => {
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
-           
-             
-           
             <Grid item xs={12} md={6}>
             <Tooltip title="Quitar" placement="top">
             <IconButton
-              disabled={edu.length === 1}
+              disabled={cur.length === 1}
               onClick={() => handleRemoveFields(inputField.id2)}
               color="secondary"
             >
@@ -194,4 +178,4 @@ const NuevoEdu = ( props, {navigation} ) => {
   );
 };
 
-export default consumerFirebase(NuevoEdu);
+export default consumerFirebase(Cursos);

@@ -1,34 +1,32 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
 import {
   Grid,
+  Button,
+  IconButton,
   Typography,
-  Card,
-  CardContent,
   CardActions,
   Table,
   TableHead,
   TableBody,
   TableCell,
   TableRow,
+  AccordionActions,
+  AccordionSummary,
+  Accordion,
+  
+
 } from "@material-ui/core";
+
+import AccordionDetail from "@material-ui/core/AccordionDetails";
 import { consumerFirebase } from "../../server";
 import { Link } from "react-router-dom";
 import Papel from "../Children/Papel";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetail from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import AccordionActions from '@material-ui/core/AccordionActions';
-import ListItemText from "@material-ui/core/ListItemText";
-import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
+import Agregar from "../Children/Agregar";
 
 const style = {
-  cardGrid: {
-    paddingTop: 8,
-    paddingBottom: 8,
-  },
+  
   icon: {
     marginRight: 0.5,
     width: 20,
@@ -37,6 +35,7 @@ const style = {
   link: {
     display: "flex",
   },
+    
   div: {
     marginBottom: 22,
     backgroundColor: "#0071bc",
@@ -63,6 +62,7 @@ const style = {
     paddingBottom: "1%",
     marginTop: "-3%",
     marginBottom: "1%",
+    
   },
 
   cardContent: {
@@ -75,22 +75,20 @@ const style = {
   },
 };
 
-class NuevoCu extends Component {
+class CurriculumEdit extends Component {
   state = {
-    datosps: [],
+    datosp: [],
   };
-
+ 
   async componentDidMount() {
-    let objectQuery = this.props.firebase.db.collection("Datosps");
-    const snapshot = await objectQuery.get();
-    const arrayDatops = snapshot.docs.map((doc) => {
-      let data = doc.data();
-      let id = doc.id;
-      return { id, ...data };
-    });
+    const {id} = this.props.match.params;
+    
+    const datospCollection = this.props.firebase.db.collection("Datosps");
+    const datospDB = await datospCollection.doc(id).get();
+
     this.setState({
-      datosps: arrayDatops,
-    });
+      datosp : datospDB.data()
+    })
   }
 
   eliminarDatosps = (id) => {
@@ -112,44 +110,48 @@ class NuevoCu extends Component {
     });
   };
 
-  editarDatosp = (id) => {
-    this.props.history.push("/datosp/nuevo/" + id);
+  editarDatosp = () => {
+    const {id} = this.props.match.params;
+    this.props.history.push("/editar/datosp/" + id);
   };
 
-  editarResumen = (id) => {
-    this.props.history.push("/objetivo/nuevo/" + id);
+  editarResumen = () => {
+    const {id} = this.props.match.params;
+    this.props.history.push("/editar/objetivo/" + id);
   };
 
-  editarExperiencia = (id) => {
-    this.props.history.push("/experiencia/nuevo/" + id);
+  editarExperiencia = () => {
+    const {id} = this.props.match.params;
+    this.props.history.push("/editar/experiencia/" + id);
+  };
+/*
+  editarExperienciag = () => {
+    this.props.history.push("/editar/experienciag/" + id);
   };
 
-  editarExperienciag = (id) => {
-    this.props.history.push("/experienciag/nuevo/" + id);
+  editarEducacion = () => {
+    this.props.history.push("/editar/educacion/" + id);
   };
 
-  editarEducacion = (id) => {
-    this.props.history.push("/educacion/nuevo/" + id);
+  editarEducacion = () => {
+    this.props.history.push("/editar/educacion/" + id);
   };
 
-  editarEducacion = (id) => {
-    this.props.history.push("/educacion/nuevo/" + id);
+  editarCursos = () => {
+    this.props.history.push("/editar/cursos/" + id);
   };
 
-  editarCursos = (id) => {
-    this.props.history.push("/cursos/nuevo/" + id);
+  editarIdiomas = () => {
+    this.props.history.push("/editar/idiomas/" + id);
   };
 
-  editarIdiomas = (id) => {
-    this.props.history.push("/idiomas/nuevo/" + id);
+  editarHerramientas = () => {
+    this.props.history.push("/editar/herramientas/" + id);
   };
-
-  editarHerramientas = (id) => {
-    this.props.history.push("/herramientas/nuevo/" + id);
-  };
-
-  editarReferencias = (id) => {
-    this.props.history.push("/referencias/nuevo/" + id);
+*/
+  editarReferencias = () => {
+    const {id} = this.props.match.params;
+    this.props.history.push("/editar/referencias/" + id);
   };
 
   render() {
@@ -158,30 +160,19 @@ class NuevoCu extends Component {
       <Grid container spacing={2}>
       <Grid item  xs={12} sm={12} md={12}>
         <Papel>
-          <Typography variant="h4" color="textSecondary">
-            Curriculums
+          <Typography variant="h6" color="textSecondary">
+            Secciones de su Curriculum
           </Typography>
-          <div style={style.div}></div>
+         
 
-          <Button
-            style={style.botones}
-            variant="outlined"
-            size="small"
-            color="primary"
-            component={Link}
-            button
-            to="/step/nuevo/"
-          >
-            Nuevo
-          </Button>
 
           
-            {this.state.datosps.map((card) => (
-              <Grid item key={card.id} xs={12} sm={12} md={12}>
-                <Card style={style.card}>
-                  <CardContent style={style.cardContent}>
+           
+              <Grid item  xs={12} sm={12} md={12}>
+                <div style={style.card}>
+                  
                     <Typography gutterBottom variant="h6" component="h2">
-                      {card.nom + " " + card.ape}
+                      {this.state.datosp.nom + " " + this.state.datosp.ape}
                     </Typography>
                     
                     <Accordion >
@@ -191,15 +182,15 @@ class NuevoCu extends Component {
                       </AccordionSummary>
                       <AccordionDetail style={style.acordeon}>
                         <ul >
-                          <li> Nombre Completo: {card.nom + " " + card.ape}</li>
-                          <li>CIN/ DNI: {card.cin}</li>
-                          <li>Profesión: {card.prof}</li>
-                          <li>Número Profesional: {card.nprof}</li>
-                          <li>Nacionalidad: {card.naci}</li>
-                          <li>Fecha de Nacimiento: {card.fena}</li>
-                          <li>Direccion: {card.dir}</li>
-                          <li>Telefono: {card.tel}</li>
-                          <li>Correo: {card.email}</li>
+                          <li> Nombre Completo: {this.state.datosp.nom + " " + this.state.datosp.ape}</li>
+                          <li>CIN/ DNI: {this.state.datosp.cin}</li>
+                          <li>Profesión: {this.state.datosp.prof}</li>
+                          <li>Número Profesional: {this.state.datosp.nprof}</li>
+                          <li>Nacionalidad: {this.state.datosp.naci}</li>
+                          <li>Fecha de Nacimiento: {this.state.datosp.fena}</li>
+                          <li>Direccion: {this.state.datosp.dir}</li>
+                          <li>Telefono: {this.state.datosp.tel}</li>
+                          <li>Correo: {this.state.datosp.email}</li>
                         </ul>
                         
                       </AccordionDetail>
@@ -208,7 +199,7 @@ class NuevoCu extends Component {
                       size="small"
                       color="primary"
                       startIcon={<EditIcon />}
-                      onClick={() => this.editarDatosp(card.id)}
+                      onClick={() => this.editarDatosp()}
                     > Editar
                     </Button>
                     </AccordionActions>
@@ -217,26 +208,29 @@ class NuevoCu extends Component {
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Resumen Profesional
                       </AccordionSummary>
+                      {this.state.datosp.obje? 
                       <AccordionDetail style={style.acordeon}>
                         <ul>
-                          <li>{card.obje}</li>
+                          <li>{this.state.datosp.obje}</li>
                         </ul>
                       </AccordionDetail>
+                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
                       color="primary"
                       startIcon={<EditIcon />}
-                      onClick={() => this.editarResumen(card.id)}
+                      onClick={() => this.editarResumen(this.state.datosp.id)}
                     > Editar
                     </Button>
                     </AccordionActions>
                     </Accordion>
-  <Accordion>
 
+                    <Accordion>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Experiencia Específica
                       </AccordionSummary>
+                      {this.state.datosp.empre? 
                       <AccordionDetail style={style.acordeon}>
                         <Table>
                           <TableHead>
@@ -249,21 +243,18 @@ class NuevoCu extends Component {
                               <TableCell>Tareas realizadas</TableCell>
                             </TableRow>
                           </TableHead>
-                           
-                          <TableBody> 
-                            {card.expe.map((exp) => (
-                                
-                              <TableRow key={exp.id2}>
-                                <TableCell>{exp.puesto}</TableCell>
-                                <TableCell>{exp.empre}</TableCell>
-                                <TableCell>{exp.ubicacion}</TableCell>
+                          <TableBody>
+                              <TableRow >
+                                <TableCell>{this.state.datosp.puesto}</TableCell>
+                                <TableCell>{this.state.datosp.empre}</TableCell>
+                                <TableCell>{this.state.datosp.ubicacion}</TableCell>
                                 <TableCell>
                                   <Typography
                                     variant="caption"
                                     display="block"
                                     gutterBottom
                                   >
-                                    {exp.finicio}
+                                    {this.state.datosp.finicio}
                                   </Typography>
                                 </TableCell>
                                 <TableCell>
@@ -272,30 +263,128 @@ class NuevoCu extends Component {
                                     display="block"
                                     gutterBottom
                                   >
-                                    {exp.ffinal}
+                                    {this.state.datosp.ffinal}
                                   </Typography>
                                 </TableCell>
-                                <TableCell>{exp.tareas}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </AccordionDetail>
-                      <AccordionActions>
-                        <Button
+                                <TableCell>{this.state.datosp.tareas}</TableCell>
+                                <TableCell><IconButton
                       size="small"
                       color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarExperiencia(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
-                    </Accordion>
+                      onClick={() => this.editarExperienciag()}
+                    ><EditIcon /> 
+                    </IconButton></TableCell>
                     
+                              </TableRow>
+                              {this.state.datosp.empre2?
+                              <TableRow >
+                                <TableCell>{this.state.datosp.puesto2}</TableCell>
+                                <TableCell>{this.state.datosp.empre2}</TableCell>
+                                <TableCell>{this.state.datosp.ubicacion2}</TableCell>
+                                <TableCell>
+                                  <Typography
+                                    variant="caption"
+                                    display="block"
+                                    gutterBottom
+                                  >
+                                    {this.state.datosp.finicio2}
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>
+                                  <Typography
+                                    variant="caption"
+                                    display="block"
+                                    gutterBottom
+                                  >
+                                    {this.state.datosp.ffinal2}
+                                  </Typography>
+                                </TableCell>
+                                <TableCell>{this.state.datosp.tareas2}</TableCell>
+                                <TableCell><IconButton
+                      size="small"
+                      color="primary"
+                      onClick={() => this.editarExperienciag()}
+                    ><EditIcon /> 
+                    </IconButton></TableCell>
+                              </TableRow>
+                              :<Agregar/>}
+{this.state.datosp.empre3?
+  <TableRow >
+    <TableCell>{this.state.datosp.puesto3}</TableCell>
+    <TableCell>{this.state.datosp.empre3}</TableCell>
+    <TableCell>{this.state.datosp.ubicacion3}</TableCell>
+    <TableCell>
+      <Typography
+        variant="caption"
+        display="block"
+        gutterBottom
+      >
+        {this.state.datosp.finicio3}
+      </Typography>
+    </TableCell>
+    <TableCell>
+      <Typography
+        variant="caption"
+        display="block"
+        gutterBottom
+      >
+        {this.state.datosp.ffinal3}
+      </Typography>
+    </TableCell>
+    <TableCell>{this.state.datosp.tareas3}</TableCell>
+    <TableCell><IconButton
+size="small"
+color="primary"
+onClick={() => this.editarExperienciag()}
+><EditIcon /> 
+</IconButton></TableCell>
+  </TableRow>
+  :<Agregar/>}
+
+{this.state.datosp.empre4?
+  <TableRow >
+    <TableCell>{this.state.datosp.puesto4}</TableCell>
+    <TableCell>{this.state.datosp.empre4}</TableCell>
+    <TableCell>{this.state.datosp.ubicacion4}</TableCell>
+    <TableCell>
+      <Typography
+        variant="caption"
+        display="block"
+        gutterBottom
+      >
+        {this.state.datosp.finicio4}
+      </Typography>
+    </TableCell>
+    <TableCell>
+      <Typography
+        variant="caption"
+        display="block"
+        gutterBottom
+      >
+        {this.state.datosp.ffinal4}
+      </Typography>
+    </TableCell>
+    <TableCell>{this.state.datosp.tareas4}</TableCell>
+    <TableCell><IconButton
+size="small"
+color="primary"
+onClick={() => this.editarExperienciag()}
+><EditIcon /> 
+</IconButton></TableCell>
+  </TableRow>
+  :<Agregar/>}
+                            
+                          </TableBody>  
+                        </Table>
+                      </AccordionDetail>
+                      :<Agregar/>}
+                     
+                    </Accordion>
+
                     <Accordion>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Experiencia General
                       </AccordionSummary>
+                      {this.state.datosp.empreg? 
                       <AccordionDetail style={style.acordeon}>
                         
                         <Table>
@@ -311,18 +400,17 @@ class NuevoCu extends Component {
                           </TableHead>
 
                           <TableBody>
-                            {card.expeG.map((exp) => (
-                              <TableRow key={exp.id2}>
-                                <TableCell>{exp.puesto}</TableCell>
-                                <TableCell>{exp.empre}</TableCell>
-                                <TableCell>{exp.ubicacion}</TableCell>
+                              <TableRow >
+                                <TableCell>{this.state.datosp.puestog}</TableCell>
+                                <TableCell>{this.state.datosp.empreg}</TableCell>
+                                <TableCell>{this.state.datosp.ubicaciong}</TableCell>
                                 <TableCell>
                                   <Typography
                                     variant="caption"
                                     display="block"
                                     gutterBottom
                                   >
-                                    {exp.finicio}
+                                    {this.state.datosp.finiciog}
                                   </Typography>
                                 </TableCell>
                                 <TableCell>
@@ -331,31 +419,94 @@ class NuevoCu extends Component {
                                     display="block"
                                     gutterBottom
                                   >
-                                    {exp.ffinal}
+                                    {this.state.datosp.ffinalg}
                                   </Typography>
                                 </TableCell>
-                                <TableCell>{exp.tareas}</TableCell>
+                                <TableCell>{this.state.datosp.tareasg}</TableCell>
+                                <TableCell><IconButton
+size="small"
+color="primary"
+onClick={() => this.editarExperienciag()}
+><EditIcon /> 
+</IconButton></TableCell>
                               </TableRow>
-                            ))}
+   {this.state.datosp.emprg2?
+  <TableRow >
+    <TableCell>{this.state.datosp.puestg2}</TableCell>
+    <TableCell>{this.state.datosp.emprg2}</TableCell>
+    <TableCell>{this.state.datosp.ubicaciog2}</TableCell>
+    <TableCell>
+      <Typography
+        variant="caption"
+        display="block"
+        gutterBottom
+      >
+        {this.state.datosp.finicig2}
+      </Typography>
+    </TableCell>
+    <TableCell>
+      <Typography
+        variant="caption"
+        display="block"
+        gutterBottom
+      >
+        {this.state.datosp.ffinag2}
+      </Typography>
+    </TableCell>
+    <TableCell>{this.state.datosp.tareag2}</TableCell>
+    <TableCell><IconButton
+size="small"
+color="primary"
+onClick={() => this.editarExperienciag()}
+><EditIcon /> 
+</IconButton></TableCell>
+  </TableRow>
+  :<Agregar/>}
+     {this.state.datosp.emprg3?
+  <TableRow >
+    <TableCell>{this.state.datosp.puestg3}</TableCell>
+    <TableCell>{this.state.datosp.emprg3}</TableCell>
+    <TableCell>{this.state.datosp.ubicaciog3}</TableCell>
+    <TableCell>
+      <Typography
+        variant="caption"
+        display="block"
+        gutterBottom
+      >
+        {this.state.datosp.finicig3}
+      </Typography>
+    </TableCell>
+    <TableCell>
+      <Typography
+        variant="caption"
+        display="block"
+        gutterBottom
+      >
+        {this.state.datosp.ffinag3}
+      </Typography>
+    </TableCell>
+    <TableCell>{this.state.datosp.tareag3}</TableCell>
+    <TableCell><IconButton
+size="small"
+color="primary"
+onClick={() => this.editarExperienciag()}
+><EditIcon /> 
+</IconButton></TableCell>
+  </TableRow>
+  :<Agregar/>}
                           </TableBody>
                         </Table>
 
                       </AccordionDetail>
-                      <AccordionActions>
-                        <Button
-                      size="small"
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarExperienciag(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
+                     :<Agregar/>}
+
                     </Accordion>
 
                     <Accordion>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Educación
                       </AccordionSummary>
+                      {this.state.datosp.edu? 
                       <AccordionDetail style={style.acordeon}> 
                         <Table>
                           <TableHead>
@@ -367,23 +518,24 @@ class NuevoCu extends Component {
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {card.edu.map((ed) => (
-                              <TableRow key={ed.id2}>
-                                <TableCell>{ed.tit}</TableCell>
-                                <TableCell>{ed.ins}</TableCell>
-                                <TableCell>{ed.dur}</TableCell>
-                                <TableCell>{ed.cul}</TableCell>
+                           
+                              <TableRow >
+                                <TableCell>{this.state.datosp.tit}</TableCell>
+                                <TableCell>{this.state.datosp.ins}</TableCell>
+                                <TableCell>{this.state.datosp.dur}</TableCell>
+                                <TableCell>{this.state.datosp.cul}</TableCell>
                               </TableRow>
-                            ))}
+                            
                           </TableBody>
                         </Table>
                       </AccordionDetail>
+                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
                       color="primary"
                       startIcon={<EditIcon />}
-                      onClick={() => this.editarEducacion(card.id)}
+                      onClick={() => this.editarEducacion()}
                     > Editar
                     </Button>
                     </AccordionActions>
@@ -393,6 +545,7 @@ class NuevoCu extends Component {
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Capacitaciones y otros Cursos
                       </AccordionSummary>
+                      {this.state.datosp.cur? 
                       <AccordionDetail style={style.acordeon}>
                         
                         <Table>
@@ -406,33 +559,34 @@ class NuevoCu extends Component {
                           </TableHead>
 
                           <TableBody>
-                            {card.cur.map((cu) => (
-                              <TableRow key={cu.id2}>
-                                <TableCell>{cu.tit}</TableCell>
-                                <TableCell>{cu.ins}</TableCell>
-                                <TableCell>{cu.dur}</TableCell>
-                                <TableCell>{cu.cul}</TableCell>
+                            
+                              <TableRow >
+                                <TableCell>{this.state.datosp.tit}</TableCell>
+                                <TableCell>{this.state.datosp.ins}</TableCell>
+                                <TableCell>{this.state.datosp.dur}</TableCell>
+                                <TableCell>{this.state.datosp.cul}</TableCell>
                               </TableRow>
-                            ))}
+                            
                           </TableBody>
                         </Table>
 
                       </AccordionDetail>
+                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
                       color="primary"
                       startIcon={<EditIcon />}
-                      onClick={() => this.editarCursos(card.id)}
+                      onClick={() => this.editarCursos()}
                     > Editar
                     </Button>
                     </AccordionActions>
                     </Accordion>
-
                     <Accordion>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Idiomas
                       </AccordionSummary>
+                      {this.state.datosp.idi?
                       <AccordionDetail style={style.acordeon}> 
                         <Table>
                           <TableHead>
@@ -442,22 +596,23 @@ class NuevoCu extends Component {
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {card.idi.map((idis) => (
-                              <TableRow key={idis.id2}>
-                                <TableCell>{idis.idio}</TableCell>
-                                <TableCell>{idis.niv}</TableCell>
+                            
+                              <TableRow >
+                                <TableCell>{this.state.datosp.idio}</TableCell>
+                                <TableCell>{this.state.datosp.niv}</TableCell>
                               </TableRow>
-                            ))}
+                            
                           </TableBody>
                         </Table>
 
                       </AccordionDetail>
+                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
                       color="primary"
                       startIcon={<EditIcon />}
-                      onClick={() => this.editarIdiomas(card.id)}
+                      onClick={() => this.editarIdiomas()}
                     > Editar
                     </Button>
                     </AccordionActions>
@@ -467,6 +622,7 @@ class NuevoCu extends Component {
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Herramientas y Habilidades
                       </AccordionSummary>
+                      {this.state.datosp.herra?
                       <AccordionDetail style={style.acordeon}> 
                         <Table>
                           <TableHead>
@@ -476,22 +632,22 @@ class NuevoCu extends Component {
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {card.herra.map((herr) => (
-                              <TableRow key={herr.id2}>
-                                <TableCell>{herr.her}</TableCell>
-                                <TableCell>{herr.niv}</TableCell>
+                           
+                              <TableRow >
+                                <TableCell>{this.state.datosp.her}</TableCell>
+                                <TableCell>{this.state.datosp.niv}</TableCell>
                               </TableRow>
-                            ))}
                           </TableBody>
                         </Table>
 
                       </AccordionDetail>
+                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
                       color="primary"
                       startIcon={<EditIcon />}
-                      onClick={() => this.editarHerramientas(card.id)}
+                      onClick={() => this.editarHerramientas()}
                     > Editar
                     </Button>
                     </AccordionActions>
@@ -501,6 +657,7 @@ class NuevoCu extends Component {
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         Referencias
                       </AccordionSummary>
+                      {this.state.datosp.refe?
                       <AccordionDetail style={style.acordeon}> 
                         <Table>
                           <TableHead>
@@ -510,42 +667,40 @@ class NuevoCu extends Component {
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {card.refe.map((refes) => (
-                              <TableRow key={refes.id2}>
-                                <TableCell>{refes.nom}</TableCell>
-                                <TableCell>{refes.tel}</TableCell>
+                            
+                              <TableRow >
+                                <TableCell>{this.state.datosp.nom}</TableCell>
+                                <TableCell>{this.state.datosp.tel}</TableCell>
                               </TableRow>
-                            ))}
                           </TableBody>
                         </Table>
 
                       </AccordionDetail>
+                      :<Agregar/>}
                       <AccordionActions>
                         <Button
                       size="small"
                       color="primary"
                       startIcon={<EditIcon />}
-                      onClick={() => this.editarReferencias(card.id)}
+                      onClick={() => this.editarReferencias()}
                     > Editar
                     </Button>
                     </AccordionActions>
                     </Accordion>
-                  </CardContent>
 
                   <CardActions>
-                    
-                    <Button
-                      variant="contained"
+                  <Button
                       size="small"
-                      color="secondary"
-                      onClick={() => this.eliminarDatosps(card.id)}
-                    >
-                      Eliminar
+                      color="primary"
+                      startIcon={<EditIcon />}
+                      onClick={() => this.editarReferencias()}
+                    > Editar
                     </Button>
+                   
                   </CardActions>
-                </Card>
+                </div>
               </Grid>
-            ))}
+            
           
         </Papel>
         </Grid>
@@ -555,4 +710,4 @@ class NuevoCu extends Component {
   }
 }
 
-export default consumerFirebase(NuevoCu);
+export default consumerFirebase(CurriculumEdit);

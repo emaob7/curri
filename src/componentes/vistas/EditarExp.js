@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import {
   Grid,
   TextField,
+  Fab, Button,
 } from "@material-ui/core";
-import { consumerFirebase } from "../../../server";
-import Papel from '../../Children/Papel';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Tooltip from '@material-ui/core/Tooltip';
+import { consumerFirebase } from "../../server";
+import Papel from "../Children/Papel";
 
 const style = {
   load: {
@@ -18,21 +15,21 @@ const style = {
   text: {
     marginBottom: 20,
   },
-  button: {
-    marginTop: 22,
-    marginRight: 17,
+  submit: {
+    marginLeft: 22,
+
   },
 };
 
-class NuevoExpG extends Component  {
+class EditarExp extends Component  {
   state = {
     datosp: {
-      puestog: "", 
-      empreg: "", 
-      ubicaciong: "",
-      finiciog: "",
-      ffinalg: "", 
-      tareasg: "",
+      puesto: "", 
+      empre: "", 
+      ubicacion: "",
+      finicio: "",
+      ffinal: "", 
+      tareas: "",
 
     },
     loading: false,
@@ -45,7 +42,17 @@ class NuevoExpG extends Component  {
     this.setState({datosp});
 }
 
+async componentDidMount() {
+  const {id} = this.props.match.params;
+  
+  const datospCollection = this.props.firebase.db.collection("Datosps");
+  const datospDB = await datospCollection.doc(id).get();
 
+  this.setState({
+    datosp : datospDB.data()
+  })
+
+}
 
 
 
@@ -58,24 +65,13 @@ class NuevoExpG extends Component  {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-      this.props.history.push("/");
+          this.props.history.push("/curriculum/edit/"+ id); 
       }) 
-
 }
-
-guardarDatosA = () => {
-  const {datosp} = this.state;
+handleCancelar = () => {
   const {id} = this.props.match.params;
-
-  this.props.firebase.db
-      .collection("Datosps")
-      .doc(id)
-      .set(datosp, {merge: true})
-     .then( success => {
-          this.props.history.push("/nuevo/experienciag2/"+ id); 
-      }) 
-
-}
+  this.props.history.push("/curriculum/edit/" + id);
+};
 
   render() {
     const { loading } = this.state;
@@ -83,113 +79,102 @@ guardarDatosA = () => {
       <React.Fragment>
       
           <Papel>
-          <h1>Agrega tus experiencias Generales</h1>
-          <h3>Son aquellas experiencias que no tienen relación directa con el puesto al que postulas</h3>
+          <h1>1. Experiencia especifica</h1>
+          <h3>Sólo experiencias relacionadas al puesto, empieza con las más recientes</h3>
             <Grid container spacing={1}>
-      
+
             <Grid item xs={12} md={6}>
             <TextField
-              name="empreg"
+              name="empre"
               variant="outlined"
               fullWidth
               size="small"
               label="Empresa / Institución"
-              value={this.state.datosp.empreg}
+              value={this.state.datosp.empre}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="puestog"
+              name="puesto"
               variant="outlined"
               fullWidth
               size="small"
               label="Puesto"
-              value={this.state.datosp.puestog}
+              value={this.state.datosp.puesto}
               onChange={this.cambiarDato}
             />
             </Grid>
             
             <Grid item xs={12} md={12}>
             <TextField
-              name="ubicaciong"
+              name="ubicacion"
               variant="outlined"
               fullWidth
               size="small"
               label="Ubicación"
-              value={this.state.datosp.ubicaciong}
+              value={this.state.datosp.ubicacion}
               onChange={this.cambiarDato}
             />
             </Grid>
              <Grid item xs={12} md={6}>
             <TextField
-              name="finiciog"
+              name="finicio"
               variant="outlined"
               fullWidth
               size="small"
               label="Desde fecha"
-              value={this.state.datosp.finiciog}
+              value={this.state.datosp.finicio}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="ffinalg"
+              name="ffinal"
               variant="outlined"
               fullWidth
               size="small"
               label="Hasta fecha"
-              value={this.state.datosp.ffinalg}
+              value={this.state.datosp.ffinal}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={12}>
             <TextField
               style={style.text}
-              name="tareasg"
+              name="tareas"
               variant="outlined"
               fullWidth
               multiline
               rows={3}
               size="small"
               label="Tareas o logros relevantes"
-              value={this.state.datosp.tareasg}
+              value={this.state.datosp.tareas}
               onChange={this.cambiarDato}
             />
             </Grid>
            
             </Grid>
           
-      
-            <Grid item xs={12}> 
-      <Fab disabled aria-label="like" 
-      style={style.button} size="small">
-  1
-</Fab>
-
-      <Tooltip title="Agregar Experiencia" placement="top">
-        <Fab
-        style={style.button} 
-        color="primary" 
-        aria-label="add" 
-        size="small" 
-        onClick={this.guardarDatosA} >
-        <AddIcon />
-      </Fab>
-      </Tooltip>
-      </Grid>
-                
-      <Fab 
-      style={style.button} 
-      color="primary" 
-      aria-label="next" 
-      size="medium" 
-      variant="extended"
-      onClick={this.guardarDatosp}
-      >
-      <NavigateNextIcon />
-        Siguiente
-      </Fab>
+            
+            <Grid item xs={12} md={6}>
+            <Fab
+              variant="contained"
+              size="medium"
+              color="primary"
+              onClick={this.guardarDatosp}
+            >
+              Guardar
+            </Fab>
+            <Button
+              color="primary"
+              size="medium"
+              style={style.submit}
+              onClick={this.handleCancelar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
         </Papel>
     </React.Fragment>
 
@@ -198,4 +183,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(NuevoExpG);
+export default consumerFirebase(EditarExp);

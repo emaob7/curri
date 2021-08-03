@@ -2,13 +2,9 @@ import React, { Component } from "react";
 import {
   Grid,
   TextField,
+  Button,
 } from "@material-ui/core";
 import { consumerFirebase } from "../../../server";
-import Papel from '../../Children/Papel';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const style = {
   load: {
@@ -19,20 +15,19 @@ const style = {
     marginBottom: 20,
   },
   button: {
-    marginTop: 22,
-    marginRight: 17,
+    margin: 22,
   },
 };
 
-class NuevoExpG extends Component  {
+class ExperienciaE4 extends Component  {
   state = {
     datosp: {
-      puestog: "", 
-      empreg: "", 
-      ubicaciong: "",
-      finiciog: "",
-      ffinalg: "", 
-      tareasg: "",
+      puesto4: "", 
+      empre4: "", 
+      ubicacion4: "",
+      finicio4: "",
+      ffinal4: "", 
+      tareas4: "",
 
     },
     loading: false,
@@ -51,29 +46,15 @@ class NuevoExpG extends Component  {
 
  guardarDatosp = () => {
   const {datosp} = this.state;
-  const {id} = this.props.match.params;
-
+ const idDoc = this.props.id;
+ 
   this.props.firebase.db
       .collection("Datosps")
-      .doc(id)
+      .doc(idDoc)
       .set(datosp, {merge: true})
-     .then( success => {
-      this.props.history.push("/");
-      }) 
-
-}
-
-guardarDatosA = () => {
-  const {datosp} = this.state;
-  const {id} = this.props.match.params;
-
-  this.props.firebase.db
-      .collection("Datosps")
-      .doc(id)
-      .set(datosp, {merge: true})
-     .then( success => {
-          this.props.history.push("/nuevo/experienciag2/"+ id); 
-      }) 
+     /* .then( success => {
+          this.props.history.push("/nuevo/experienciag/"+ idDoc); 
+      }) */
 
 }
 
@@ -82,115 +63,95 @@ guardarDatosA = () => {
     return (
       <React.Fragment>
       
-          <Papel>
-          <h1>Agrega tus experiencias Generales</h1>
-          <h3>Son aquellas experiencias que no tienen relación directa con el puesto al que postulas</h3>
+          
+              
             <Grid container spacing={1}>
-      
+            
+
             <Grid item xs={12} md={6}>
             <TextField
-              name="empreg"
+              name="empre4"
               variant="outlined"
               fullWidth
               size="small"
               label="Empresa / Institución"
-              value={this.state.datosp.empreg}
+              value={this.state.datosp.empre4}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="puestog"
+              name="puesto4"
               variant="outlined"
               fullWidth
               size="small"
               label="Puesto"
-              value={this.state.datosp.puestog}
+              value={this.state.datosp.puesto4}
               onChange={this.cambiarDato}
             />
             </Grid>
             
             <Grid item xs={12} md={12}>
             <TextField
-              name="ubicaciong"
+              name="ubicacion4"
               variant="outlined"
               fullWidth
               size="small"
               label="Ubicación"
-              value={this.state.datosp.ubicaciong}
+              value={this.state.datosp.ubicacion4}
               onChange={this.cambiarDato}
             />
             </Grid>
              <Grid item xs={12} md={6}>
             <TextField
-              name="finiciog"
+              name="finicio4"
               variant="outlined"
               fullWidth
               size="small"
               label="Desde fecha"
-              value={this.state.datosp.finiciog}
+              value={this.state.datosp.finicio4}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="ffinalg"
+              name="ffinal4"
               variant="outlined"
               fullWidth
               size="small"
               label="Hasta fecha"
-              value={this.state.datosp.ffinalg}
+              value={this.state.datosp.ffinal4}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={12}>
             <TextField
               style={style.text}
-              name="tareasg"
+              name="tareas4"
               variant="outlined"
               fullWidth
               multiline
               rows={3}
               size="small"
               label="Tareas o logros relevantes"
-              value={this.state.datosp.tareasg}
+              value={this.state.datosp.tareas4}
               onChange={this.cambiarDato}
             />
             </Grid>
            
             </Grid>
           
+        
+        <Button
+          style={style.button}
+          variant="contained"
+          color="primary"
+          type="submit"
+          onClick={this.guardarDatosp}
+        >
+          Guardar cambios
+        </Button>
       
-            <Grid item xs={12}> 
-      <Fab disabled aria-label="like" 
-      style={style.button} size="small">
-  1
-</Fab>
-
-      <Tooltip title="Agregar Experiencia" placement="top">
-        <Fab
-        style={style.button} 
-        color="primary" 
-        aria-label="add" 
-        size="small" 
-        onClick={this.guardarDatosA} >
-        <AddIcon />
-      </Fab>
-      </Tooltip>
-      </Grid>
-                
-      <Fab 
-      style={style.button} 
-      color="primary" 
-      aria-label="next" 
-      size="medium" 
-      variant="extended"
-      onClick={this.guardarDatosp}
-      >
-      <NavigateNextIcon />
-        Siguiente
-      </Fab>
-        </Papel>
     </React.Fragment>
 
     
@@ -198,4 +159,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(NuevoExpG);
+export default consumerFirebase(ExperienciaE4);

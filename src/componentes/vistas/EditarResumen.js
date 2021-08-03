@@ -1,38 +1,25 @@
 import React, { Component } from "react";
-import { Grid, Typography, TextField, Button } from "@material-ui/core";
+import { Grid, Typography, TextField, Fab } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 //import CKEditor from 'ckeditor4-react';
 //import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { consumerFirebase } from "../../../server";
+import { consumerFirebase } from "../../server";
+import { openMensajePantalla } from "../../sesion/actions/snackbarAction";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Papel from "../../Children/Papel";
+import Papel from "../Children/Papel";
 
 const style = {
   load: {
     backgroundColor: "#4dabf5",
   },
 
-  icon: {
-    marginRight: 0.5,
-    width: 20,
-    height: 20,
-  },
+  submit: {
+    marginLeft: 22,
 
-  div: {
-    marginBottom: 22,
-    backgroundColor: "#0071bc",
-    width: 80,
-    height: 5,
-  },
-
-  avatar: {
-    margin: 10,
-    width: 100,
-    height: 100,
   },
 };
 
-class NuevoObs extends Component {
+class EditarResumen extends Component {
   state = {
     datosp: {
       obje: "",
@@ -51,7 +38,12 @@ class NuevoObs extends Component {
 async componentDidMount() {
   const {id} = this.props.match.params;
   
-  
+  const datospCollection = this.props.firebase.db.collection("Datosps");
+  const datospDB = await datospCollection.doc(id).get();
+
+  this.setState({
+    datosp : datospDB.data()
+  })
 
 }
 
@@ -66,12 +58,16 @@ guardarDatosp = () => {
       .doc(id)
       .set(datosp, {merge: true})
       .then( success => {
-          this.props.history.push("/nuevo/experienciae/" + id);
+          this.props.history.push("/");
       })
 
 }
   
-  
+handleCancelar = () => {
+  const {id} = this.props.match.params;
+  this.props.history.push("/curriculum/edit/" + id);
+};
+ 
 
   render() {
     const { loading } = this.state;
@@ -98,18 +94,23 @@ guardarDatosp = () => {
           </Grid>
 
           <Grid item xs={6} md={6}>
-            <Button
-              type="button"
-              fullWidth
+          <Fab
               variant="contained"
-              size="large"
+              size="medium"
               color="primary"
-              startIcon={<SaveIcon />}
-              style={style.submit}
               onClick={this.guardarDatosp}
             >
-              Guardar y continuar
-            </Button>
+              Guardar
+            </Fab>
+            <Fab
+              
+              variant="contained"
+              size="medium"
+              style={style.submit}
+              onClick={this.handleCancelar}
+            >
+              Cancelar
+            </Fab>
           </Grid>
         </Grid>
       </Papel>
@@ -117,4 +118,4 @@ guardarDatosp = () => {
   }
 }
 
-export default consumerFirebase(NuevoObs);
+export default consumerFirebase(EditarResumen);

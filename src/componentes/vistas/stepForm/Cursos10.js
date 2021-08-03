@@ -6,8 +6,7 @@ import {
 import { consumerFirebase } from "../../../server";
 import Papel from '../../Children/Papel';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 const style = {
   load: {
@@ -23,13 +22,13 @@ const style = {
   },
 };
 
-class Referencias extends Component  {
+class Cursos10 extends Component  {
   state = {
     datosp: {
-      ref1: "", 
-      tel1: "",
-      ref2:"", 
-      tel2: "",
+      tit10: "", 
+      ins10: "",
+      dur10:"", 
+      cul10: "",
 
     },
     loading: false,
@@ -62,82 +61,120 @@ class Referencias extends Component  {
 
 
 
-
-
   render() {
     const { loading } = this.state;
     return (
       <React.Fragment>
       
           <Papel>
-          <h1>Referencias</h1>
-      <h3>Agrega sólo si consideras necesario</h3>           
-      <Grid container spacing={1}>
+          <h1>Otros cursos de capacitación</h1>
+      <h3>Agrega sólo los cursos o capacitaciones relacionados al puesto, evita agregar cursos que no tengan relación con el puesto que vas a solicitar</h3>           <Grid container spacing={1}>
       
       <Grid item xs={12} md={6}>
             <TextField
-              name="ref1"
+              name="tit10"
               variant="outlined"
-              helperText="ej: Hugo César Ortigoza"
+              helperText="ej: Ofimática Básica"
               fullWidth
               size="small"
-              label="1- Referencia"
-              value={this.state.datosp.ref1}
+              label="Certificado o titulo"
+              value={this.state.datosp.tit10}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="tel1"
+              name="ins10"
               variant="outlined"
               fullWidth
               size="small"
-              helperText="ej: +595981745130"
-              label="Teléfono"
-              value={this.state.datosp.tel1}
+              helperText="ej: SNPP"
+              label="Institución/Página Web"
+              value={this.state.datosp.ins10}
               onChange={this.cambiarDato} />
             </Grid>
             
             <Grid item xs={12} md={6}>
             <TextField
-              name="ref2"
+              name="dur10"
               variant="outlined"
-              helperText="ej: Dra. Luisa Bordón"
+              helperText="ej: 100 Horas"
               fullWidth
               size="small"
-              label="2- Referencia"
-              value={this.state.datosp.ref2}
+              label="Duración"
+              value={this.state.datosp.dur10}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="tel2"
+              name="cul10"
               variant="outlined"
-              helperText="ej: 0983454586"
+              helperText="ej: Ene 2019"
               fullWidth
               size="small"
-              label="Teléfono"
-              value={this.state.datosp.tel2}
+              label="Fecha que culminaste"
+              value={this.state.datosp.cul10}
               onChange={this.cambiarDato}
             />
             </Grid>          
       
             <Grid item xs={12}> 
-      
+      <Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  1
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  2
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  3
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  4
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  5
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  6
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  7
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  8
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  9
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  10
+</Fab>
+
+   
       </Grid>
                 
       <Fab 
       style={style.button} 
       color="primary" 
-      aria-label="save" 
+      aria-label="next" 
       size="medium" 
       variant="extended"
       onClick={this.guardarDatosp}
       >
-        Guardar
+      <NavigateNextIcon />
+        Siguiente
       </Fab>
-
       </Grid>
         </Papel>
         
@@ -148,4 +185,4 @@ class Referencias extends Component  {
   }
 }
 
-export default consumerFirebase(Referencias);
+export default consumerFirebase(Cursos10);

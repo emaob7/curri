@@ -1,123 +1,114 @@
-import React, { useState } from "react";
-import { consumerFirebase } from "../../../server";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from "@material-ui/icons/Add";
-import { v4 as uuidv4 } from "uuid";
-import { makeStyles } from "@material-ui/core/styles";
-import Papel from "../../Children/Papel";
+import React, { Component } from "react";
 import {
-  Container,
   Grid,
-  Paper,
-  Tooltip,
+  TextField,  
   FormControl,
   FormHelperText,
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { consumerFirebase } from "../../../server";
+import Papel from '../../Children/Papel';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Tooltip from '@material-ui/core/Tooltip';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-    },
+const style = {
+  load: {
+    backgroundColor: "#4dabf5",
+  },
+
+  text: {
+    marginBottom: 20,
   },
   button: {
-    margin: theme.spacing(1),
+    marginTop: 22,
+    marginRight: 17,
   },
-  div: {
-    backgroundColor: "#fff59d",
-    marginBottom: theme.spacing(2),
-  },
-}));
+};
 
-const Herramientas = (props, { navigation }) => {
-  const firebase = props.firebase;
-  const classes = useStyles();
-  const [herra, setHerra] = useState([{ id2: uuidv4(), her: "", niv: "" }]);
-  const arrayGu = []; //este
+class Herramientas extends Component  {
+  state = {
+    datosp: {
+      her: "", 
+      nive: "",
+    
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    },
+    loading: false,
+   
   };
 
-  const handleChangeInput = (id2, event) => {
-    const newHerra = herra.map((i) => {
-      if (id2 === i.id2) {
-        i[event.target.name] = event.target.value;
-      }
-      return i;
-    });
+  cambiarDato = e => {
+    let datosp = Object.assign({}, this.state.datosp);
+    datosp[e.target.name] = e.target.value;
+    this.setState({datosp});
+}
 
-    setHerra(newHerra);
-  };
 
-  const handleAddFields = () => {
-    setHerra([...herra, { id2: uuidv4(), her: "", niv: "" }]);
-  };
 
-  const handleRemoveFields = (id2) => {
-    const values = [...herra];
-    values.splice(
-      values.findIndex((value) => value.id2 === id2),
-      1
-    );
-    setHerra(values);
-  };
 
-  const guardarDatosp = () => {
-    const inputF = { ...arrayGu, herra };
-    const { id } = props.match.params;
 
-    firebase.db
+ guardarDatosp = () => {
+  const {datosp} = this.state;
+  const {id} = this.props.match.params;
+
+  this.props.firebase.db
       .collection("Datosps")
       .doc(id)
-      .set(inputF, { merge: true })
-      .then((success) => {
-        props.history.push("/");
-      });
-  };
+      .set(datosp, {merge: true})
+     .then( success => {
+      this.props.history.push("/");
+      }) 
 
-  return (
-    <Papel>
-      <h1>Agrega Herramientas que domines</h1>
-      <h3>
-        Puedes agregar herramientas o habilidades que domines que te hagan destacar del resto de postulantes
-      </h3>
-      <form className={classes.root} onSubmit={handleSubmit}>
-        {herra.map((inputField) => (
-          <Paper key={inputField.id2} className={classes.div}>
-            <Container>
-              <Grid container spacing={1}>
-                <Grid item xs={12} md={12}>
-                  <h5> - {inputField.her}</h5>
+}
+
+guardarDatosA = () => {
+  const {datosp} = this.state;
+  const {id} = this.props.match.params;
+
+  this.props.firebase.db
+      .collection("Datosps")
+      .doc(id)
+      .set(datosp, {merge: true})
+     .then( success => {
+          this.props.history.push("/editar/herramientas2/"+ id); 
+      }) 
+
+}
+
+  render() {
+    const { loading } = this.state;
+    return (
+      <React.Fragment>
+      
+          <Papel>
+          <h1>Herramientas</h1>
+      <h3>Agrega herramientas e indica con que nivel manejas el mismo, no olvides agregar herramientas que te hagan destacar de los demás postulantes.</h3>           
+      
+      <Grid container spacing={1}>
+      <Grid item xs={12} md={12}>
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <TextField
                     name="her"
                     variant="outlined"
-                    helperText="ej: Microsoft Office Excel/Vehículos pesados/etc."
+                    helperText="ej: Photoshop, Microsoft Word, Excel"
                     fullWidth
                     size="small"
                     label="Herramienta"
-                    value={inputField.her}
-                    onChange={(event) =>
-                      handleChangeInput(inputField.id2, event)
-                    }
+                    value={this.state.datosp.her}
+                    onChange={this.cambiarDato}
                   />
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                  <FormControl style={{margin: 15}}>
+                  <FormControl style={{margin: 6, marginLeft: 16 }}>
                     <Select
-                      name="niv"
-                      value={inputField.niv}
-                      onChange={(event) =>
-                        handleChangeInput(inputField.id2, event)
-                      }
+                      name="nive"
+                      value={this.state.datosp.nive}
+                      onChange={this.cambiarDato}
                       displayEmpty
                     >
                       <MenuItem value="">
@@ -129,40 +120,45 @@ const Herramientas = (props, { navigation }) => {
                     </Select>
                     <FormHelperText>ej: Nivel Avanzado</FormHelperText>
                   </FormControl>
-                </Grid>
+                </Grid>       
+      
+            <Grid item xs={12}> 
+      <Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  1
+</Fab>
 
-                <Grid item xs={12} md={6}>
-                  <Tooltip title="Quitar" placement="top">
-                    <IconButton
-                      disabled={herra.length === 1}
-                      onClick={() => handleRemoveFields(inputField.id2)}
-                      color="secondary"
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Agregar" placement="top">
-                    <IconButton onClick={handleAddFields} color="primary">
-                      <AddIcon />
-                    </IconButton>
-                  </Tooltip>
-                </Grid>
-              </Grid>
-            </Container>
-          </Paper>
-        ))}
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          onClick={guardarDatosp}
-        >
-          Guardar cambios
-        </Button>
-      </form>
-    </Papel>
-  );
-};
+      <Tooltip title="Agregar Herramienta" placement="top">
+        <Fab
+        style={style.button} 
+        color="primary" 
+        aria-label="add" 
+        size="small" 
+        onClick={this.guardarDatosA} >
+        <AddIcon />
+      </Fab>
+      </Tooltip>
+      </Grid>
+                
+      <Fab 
+      style={style.button} 
+      color="primary" 
+      aria-label="next" 
+      size="medium" 
+      variant="extended"
+      onClick={this.guardarDatosp}
+      >
+      <NavigateNextIcon />
+        Siguiente
+      </Fab>
+      </Grid>
+        </Papel>
+        
+    </React.Fragment>
+
+    
+    );
+  }
+}
 
 export default consumerFirebase(Herramientas);

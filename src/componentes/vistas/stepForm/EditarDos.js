@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NuevoEdu = ( props, {navigation} ) => {
+const NuevoExpEs = ( props) => {
   const firebase = props.firebase;
   const classes = useStyles();
-  const [edu, setEdu] = useState([
-    { id2: uuidv4(), tit: "", ins: "",dur:"",des:"", cul: "" }
+  const [expe, setExpe] = useState([
+    { id2: uuidv4(), puesto: "", empre: "", ubicacion: "",finicio: "",ffinal: "", tareas: "" }
   ]);
   const arrayGu = []//este
 
@@ -41,35 +41,35 @@ const NuevoEdu = ( props, {navigation} ) => {
   
 
   const handleChangeInput = (id2, event) => {
-    const newEdu = edu.map((i) => {
+    const newExpe = expe.map((i) => {
       if (id2 === i.id2) {
         i[event.target.name] = event.target.value;
       }
       return i;
     });
 
-    setEdu(newEdu);
+    setExpe(newExpe);
   };
 
   const handleAddFields = () => {
-    setEdu([
-      ...edu,
-      { id2: uuidv4(), tit: "", ins: "",dur:"",des:"", cul: ""},
+    setExpe([
+      ...expe,
+      {id2: uuidv4(), puesto: "", empre: "", ubicacion: "",finicio: "",ffinal: "", tareas: "" },
     ]);
   };
 
 
   const handleRemoveFields = (id2) => {
-    const values = [...edu];
+    const values = [...expe];
     values.splice(
       values.findIndex((value) => value.id2 === id2),
       1
     );
-    setEdu(values);
+    setExpe(values);
   };
 
   const guardarDatosp = () => {
-    const inputF = {...arrayGu, edu};
+    const inputF = {...arrayGu, expe};
     const { id } = props.match.params;
 
     firebase.db
@@ -77,91 +77,98 @@ const NuevoEdu = ( props, {navigation} ) => {
       .doc(id)
       .set(inputF, { merge: true })
       .then((success) => {
-        props.history.push("/");
+        props.history.push("/nuevo/experienciag/" + id);;
       });
   };
 
   return (
     <Papel>
-      <h1>Agrega detalles de tu Educación</h1>
-      <h3>Puedes empezar a agregar primero tu nivel Universitario, relacionado al puesto.</h3>
+      <h1>Agrega tus experiencias especificas</h1>
+      <h3>Sólo experiencias relacionadas al puesto, empieza con las más recientes</h3>
       <form className={classes.root} onSubmit={handleSubmit}>
-        {edu.map((inputField) => (
+        {expe.map((inputField) => (
           <Paper key={inputField.id2} className={classes.div}>
             <Container >
               
             <Grid container spacing={1}>
             <Grid item xs={12} md={12}>
-            <h5> - {inputField.tit}</h5>
+            <h5> - {inputField.empre}</h5>
             </Grid>
+
             <Grid item xs={12} md={6}>
             <TextField
-              name="tit"
+              name="empre"
               variant="outlined"
-              helperText="ej: Ingenieria de Software"
               fullWidth
               size="small"
-              label="Titulo obtenido"
-              value={inputField.tit}
+              label="Empresa / Institución"
+              value={inputField.empre}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="ins"
+              name="puesto"
               variant="outlined"
               fullWidth
               size="small"
-              helperText="ej: Universidad Nacional de Villarrica del Espiritu Santo"
-              label="Institución/Universidad/Colegio"
-              value={inputField.ins}
+              label="Puesto"
+              value={inputField.puesto}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
             
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={12}>
             <TextField
-              name="dur"
+              name="ubicacion"
               variant="outlined"
-              helperText="ej: 6 años"
               fullWidth
               size="small"
-              label="Duración"
-              value={inputField.dur}
+              label="Ubicación"
+              value={inputField.ubicacion}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
-            <Grid item xs={12} md={4}>
+             <Grid item xs={12} md={6}>
             <TextField
-              name="des"
+              name="finicio"
               variant="outlined"
-              helperText="ej: Ene 2021"
               fullWidth
               size="small"
-              label="Fecha que empezaste"
-              value={inputField.des}
+              label="Desde fecha"
+              value={inputField.finicio}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6}>
             <TextField
-              name="cul"
+              name="ffinal"
               variant="outlined"
-              helperText="ej: Dic 2021"
               fullWidth
               size="small"
-              label="Fecha que culminaste"
-              value={inputField.cul}
+              label="Hasta fecha"
+              value={inputField.ffinal}
               onChange={(event) => handleChangeInput(inputField.id2, event)}
             />
             </Grid>
-           
-             
+            <Grid item xs={12} md={12}>
+            <TextField
+              name="tareas"
+              variant="outlined"
+              fullWidth
+              multiline
+              rows={3}
+              size="small"
+              label="Tareas o logros relevantes"
+              value={inputField.tareas}
+              onChange={(event) => handleChangeInput(inputField.id2, event)}
+            />
+            </Grid>
            
             <Grid item xs={12} md={6}>
             <Tooltip title="Quitar" placement="top">
             <IconButton
-              disabled={edu.length === 1}
+              disabled={expe.length === 1}
               onClick={() => handleRemoveFields(inputField.id2)}
               color="secondary"
             >
@@ -194,4 +201,4 @@ const NuevoEdu = ( props, {navigation} ) => {
   );
 };
 
-export default consumerFirebase(NuevoEdu);
+export default consumerFirebase(NuevoExpEs);

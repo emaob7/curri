@@ -28,11 +28,11 @@ const style = {
   },
 };
 
-class Idiomas extends Component  {
+class Idiomas4 extends Component  {
   state = {
     datosp: {
-      idi: "", 
-      niv: "",
+      idi4: null, 
+      niv4: null,
     
 
     },
@@ -73,7 +73,7 @@ guardarDatosA = () => {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-          this.props.history.push("/add/idiomas2/"+ id); 
+          this.props.history.push("/add/idiomas5/"+ id); 
       }) 
 
 }
@@ -92,13 +92,13 @@ guardarDatosA = () => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <TextField
-                    name="idio"
+                    name="idio4"
                     variant="outlined"
                     helperText="ej: Inglés"
                     fullWidth
                     size="small"
                     label="Idioma"
-                    value={this.state.datosp.idio}
+                    value={this.state.datosp.idio4}
                     onChange={this.cambiarDato}
                   />
                 </Grid>
@@ -106,8 +106,8 @@ guardarDatosA = () => {
                 <Grid item xs={12} md={6}>
                   <FormControl style={{margin: 6, marginLeft: 16 }}>
                     <Select
-                      name="niv"
-                      value={this.state.datosp.niv}
+                      name="niv4"
+                      value={this.state.datosp.niv4}
                       onChange={this.cambiarDato}
                       displayEmpty
                     >
@@ -126,6 +126,18 @@ guardarDatosA = () => {
       <Fab disabled aria-label="like" 
       style={style.button} size="small">
   1
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  2
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  3
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  4
 </Fab>
 
       <Tooltip title="Agregar Idioma" placement="top">
@@ -161,4 +173,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(Idiomas);
+export default consumerFirebase(Idiomas4);

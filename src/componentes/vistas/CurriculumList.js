@@ -1,83 +1,57 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
+import IconButton from '@material-ui/core/IconButton';
 import {
   Grid,
   Typography,
   Card,
   CardContent,
   CardActions,
-  Table,
-  TableHead,
-  TableBody,
-  TableCell,
-  TableRow,
+  Fab,
+  Button,
+  Tooltip
 } from "@material-ui/core";
 import { consumerFirebase } from "../../server";
 import { Link } from "react-router-dom";
 import Papel from "../Children/Papel";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetail from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import AccordionActions from '@material-ui/core/AccordionActions';
-import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
-import Agregar from "../Children/Agregar";
+import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/Add';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import DeleteIcon from '@material-ui/icons/Delete';
+import GetAppIcon from '@material-ui/icons/GetApp';
+
+
+
 
 const style = {
   cardGrid: {
     paddingTop: 8,
     paddingBottom: 8,
   },
-  icon: {
-    marginRight: 0.5,
-    width: 20,
-    height: 20,
-  },
-  link: {
-    display: "flex",
-  },
-    
-  div: {
-    marginBottom: 22,
-    backgroundColor: "#0071bc",
-    width: 80,
-    height: 5,
+
+  botones: {
+    marginTop: 22,
+    marginBottom: 35,
+    marginRight: 17,
   },
 
-  gridTextfield: {
-    marginTop: "20px",
-    marginBottom: "-20px",
-  },
-  boton: {
-    marginTop: "-1%",
-    marginBottom: "10px",
-    marginLeft: "5%",
-  },
+
+
   card: {
     height: "100%",
     display: "flex",
     flexDirection: "column",
   },
-  acordeon: {
-    paddingTop: "0px",
-    paddingBottom: "1%",
-    marginTop: "-3%",
-    marginBottom: "1%",
-    
-  },
+
 
   cardContent: {
     flexGrow: 1,
     paddingTop: "4px",
     paddingBottom: "1%",
   },
-  barraBoton: {
-    marginTop: "20px",
-  },
+ 
 };
 
-class NuevoCu extends Component {
+class CurriculumList extends Component {
   state = {
     datosps: [],
   };
@@ -113,46 +87,11 @@ class NuevoCu extends Component {
       datosps: datospsListaNueva,
     });
   };
+  editarCurriculum = (id) => {
+    this.props.history.push("/curriculum/edit/" + id);
+  }
 
-  editarDatosp = (id) => {
-    this.props.history.push("/editar/datosp/" + id);
-  };
 
-  editarResumen = (id) => {
-    this.props.history.push("/editar/objetivo/" + id);
-  };
-
-  editarExperiencia = (id) => {
-    this.props.history.push("/editar/experiencia/" + id);
-  };
-
-  editarExperienciag = (id) => {
-    this.props.history.push("/editar/experienciag/" + id);
-  };
-
-  editarEducacion = (id) => {
-    this.props.history.push("/editar/educacion/" + id);
-  };
-
-  editarEducacion = (id) => {
-    this.props.history.push("/editar/educacion/" + id);
-  };
-
-  editarCursos = (id) => {
-    this.props.history.push("/editar/cursos/" + id);
-  };
-
-  editarIdiomas = (id) => {
-    this.props.history.push("/editar/idiomas/" + id);
-  };
-
-  editarHerramientas = (id) => {
-    this.props.history.push("/editar/herramientas/" + id);
-  };
-
-  editarReferencias = (id) => {
-    this.props.history.push("/editar/referencias/" + id);
-  };
 
   render() {
     return (
@@ -163,403 +102,73 @@ class NuevoCu extends Component {
           <Typography variant="h4" color="textSecondary">
             Curriculums
           </Typography>
-          <div style={style.div}></div>
+          
 
-          <Button
+          <Fab
             style={style.botones}
-            variant="outlined"
-            size="small"
+            variant="extended"
+            size="medium"
             color="primary"
             component={Link}
             button
-            to="/nuevo/datos/:id"
+            to="/nuevo/datos/"
           >
+            <AddIcon/>
             Nuevo
-          </Button>
+          </Fab>
 
-          
+          <Grid container spacing={1}>
             {this.state.datosps.map((card) => (
-              <Grid item key={card.id} xs={12} sm={12} md={12}>
+              <Grid item key={card.id} xs={12} sm={12} md={4} >
                 <Card style={style.card}>
                   <CardContent style={style.cardContent}>
-                    <Typography gutterBottom variant="h6" component="h2">
+                    <Typography gutterBottom variant="h6" >
                       {card.nom + " " + card.ape}
                     </Typography>
-                    
-                    <Accordion >
-                   
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />} >
-                        Datos Personales
-                      </AccordionSummary>
-                      <AccordionDetail style={style.acordeon}>
-                        <ul >
-                          <li> Nombre Completo: {card.nom + " " + card.ape}</li>
-                          <li>CIN/ DNI: {card.cin}</li>
-                          <li>Profesión: {card.prof}</li>
-                          <li>Número Profesional: {card.nprof}</li>
-                          <li>Nacionalidad: {card.naci}</li>
-                          <li>Fecha de Nacimiento: {card.fena}</li>
-                          <li>Direccion: {card.dir}</li>
-                          <li>Telefono: {card.tel}</li>
-                          <li>Correo: {card.email}</li>
-                        </ul>
-                        
-                      </AccordionDetail>
-                      <AccordionActions>
-                        <Button
-                      size="small"
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarDatosp(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
-                    </Accordion>
-                    <Accordion>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        Resumen Profesional
-                      </AccordionSummary>
-                      {card.obje? 
-                      <AccordionDetail style={style.acordeon}>
-                        <ul>
-                          <li>{card.obje}</li>
-                        </ul>
-                      </AccordionDetail>
-                      :<Agregar/>}
-                      <AccordionActions>
-                        <Button
-                      size="small"
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarResumen(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
-                    </Accordion>
-
-                    <Accordion>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        Experiencia Específica
-                      </AccordionSummary>
-                      {card.expe? 
-                      <AccordionDetail style={style.acordeon}>
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Puesto</TableCell>
-                              <TableCell>Empresa Institución</TableCell>
-                              <TableCell>Ubicación</TableCell>
-                              <TableCell>Desde</TableCell>
-                              <TableCell>Hasta</TableCell>
-                              <TableCell>Tareas realizadas</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {card.expe.map((exp) => (
-                              <TableRow key={exp.id2}>
-                                <TableCell>{exp.puesto}</TableCell>
-                                <TableCell>{exp.empre}</TableCell>
-                                <TableCell>{exp.ubicacion}</TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {exp.finicio}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {exp.ffinal}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>{exp.tareas}</TableCell>
-                              </TableRow>
-                            ))} 
-                          </TableBody>  
-                        </Table>
-                      </AccordionDetail>
-                      :<Agregar/>}
-                      <AccordionActions>
-                        <Button
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarExperiencia(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
-                    </Accordion>
-
-                    <Accordion>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        Experiencia General
-                      </AccordionSummary>
-                      {card.expeG? 
-                      <AccordionDetail style={style.acordeon}>
-                        
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Puesto</TableCell>
-                              <TableCell>Empresa Institución</TableCell>
-                              <TableCell>Ubicación</TableCell>
-                              <TableCell>Desde</TableCell>
-                              <TableCell>Hasta</TableCell>
-                              <TableCell>Tareas realizadas</TableCell>
-                            </TableRow>
-                          </TableHead>
-
-                          <TableBody>
-                            {card.expeG.map((exp) => (
-                              <TableRow key={exp.id2}>
-                                <TableCell>{exp.puesto}</TableCell>
-                                <TableCell>{exp.empre}</TableCell>
-                                <TableCell>{exp.ubicacion}</TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {exp.finicio}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {exp.ffinal}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>{exp.tareas}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-
-                      </AccordionDetail>
-                     :<Agregar/>}
-                     <AccordionActions>
-                        <Button
-                      size="small"
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarExperienciag(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
-                    </Accordion>
-
-                    <Accordion>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        Educación
-                      </AccordionSummary>
-                      {card.edu? 
-                      <AccordionDetail style={style.acordeon}> 
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Titulo de Grado</TableCell>
-                              <TableCell>Institución</TableCell>
-                              <TableCell>Duración</TableCell>
-                              <TableCell>Fecha de Culminación</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {card.edu.map((ed) => (
-                              <TableRow key={ed.id2}>
-                                <TableCell>{ed.tit}</TableCell>
-                                <TableCell>{ed.ins}</TableCell>
-                                <TableCell>{ed.dur}</TableCell>
-                                <TableCell>{ed.cul}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </AccordionDetail>
-                      :<Agregar/>}
-                      <AccordionActions>
-                        <Button
-                      size="small"
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarEducacion(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
-                    </Accordion>
-
-                    <Accordion>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        Capacitaciones y otros Cursos
-                      </AccordionSummary>
-                      {card.cur? 
-                      <AccordionDetail style={style.acordeon}>
-                        
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Titulo de Grado</TableCell>
-                              <TableCell>Institución</TableCell>
-                              <TableCell>Duración</TableCell>
-                              <TableCell>Fecha de Culminación</TableCell>
-                            </TableRow>
-                          </TableHead>
-
-                          <TableBody>
-                            {card.cur.map((cu) => (
-                              <TableRow key={cu.id2}>
-                                <TableCell>{cu.tit}</TableCell>
-                                <TableCell>{cu.ins}</TableCell>
-                                <TableCell>{cu.dur}</TableCell>
-                                <TableCell>{cu.cul}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-
-                      </AccordionDetail>
-                      :<Agregar/>}
-                      <AccordionActions>
-                        <Button
-                      size="small"
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarCursos(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
-                    </Accordion>
-                    <Accordion>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        Idiomas
-                      </AccordionSummary>
-                      {card.idi?
-                      <AccordionDetail style={style.acordeon}> 
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Idioma</TableCell>
-                              <TableCell>Nivel</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {card.idi.map((idis) => (
-                              <TableRow key={idis.id2}>
-                                <TableCell>{idis.idio}</TableCell>
-                                <TableCell>{idis.niv}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-
-                      </AccordionDetail>
-                      :<Agregar/>}
-                      <AccordionActions>
-                        <Button
-                      size="small"
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarIdiomas(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
-                    </Accordion>
-
-                    <Accordion>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        Herramientas y Habilidades
-                      </AccordionSummary>
-                      {card.herra?
-                      <AccordionDetail style={style.acordeon}> 
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Habilidades</TableCell>
-                              <TableCell>Nivel</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {card.herra.map((herr) => (
-                              <TableRow key={herr.id2}>
-                                <TableCell>{herr.her}</TableCell>
-                                <TableCell>{herr.niv}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-
-                      </AccordionDetail>
-                      :<Agregar/>}
-                      <AccordionActions>
-                        <Button
-                      size="small"
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarHerramientas(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
-                    </Accordion>
-
-                    <Accordion>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        Referencias
-                      </AccordionSummary>
-                      {card.refe?
-                      <AccordionDetail style={style.acordeon}> 
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Nombre Completo</TableCell>
-                              <TableCell>Teléfono</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {card.refe.map((refes) => (
-                              <TableRow key={refes.id2}>
-                                <TableCell>{refes.nom}</TableCell>
-                                <TableCell>{refes.tel}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-
-                      </AccordionDetail>
-                      :<Agregar/>}
-                      <AccordionActions>
-                        <Button
-                      size="small"
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarReferencias(card.id)}
-                    > Editar
-                    </Button>
-                    </AccordionActions>
-                    </Accordion>
-                  </CardContent>
+ </CardContent>
 
                   <CardActions>
-                    
                     <Button
-                      variant="contained"
+                      startIcon={<GetAppIcon/>}
+                      color="primary"
+                    >
+                      
+                      Descargar
+                    </Button>
+                    <Tooltip title="Vista Previa" placement="top">
+                    <IconButton
+                    aria-label="preview"
                       size="small"
-                      color="secondary"
+                     
+                    >
+                      <VisibilityIcon/>
+                    </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Editar" placement="top">
+                  <IconButton
+                  aria-label="edit"
+                      size="small"
+                      onClick={() => this.editarCurriculum(card.id)}
+                    > 
+                    <EditIcon />
+                    
+                    </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Eliminar" placement="top">
+                    <IconButton
+                    aria-label="delete"
+                      size="small"
                       onClick={() => this.eliminarDatosps(card.id)}
                     >
-                      Eliminar
-                    </Button>
+                      <DeleteIcon />
+                    </IconButton>
+                    </Tooltip>
+
                   </CardActions>
                 </Card>
               </Grid>
             ))}
+            </Grid>
           
         </Papel>
         </Grid>
@@ -569,4 +178,4 @@ class NuevoCu extends Component {
   }
 }
 
-export default consumerFirebase(NuevoCu);
+export default consumerFirebase(CurriculumList);

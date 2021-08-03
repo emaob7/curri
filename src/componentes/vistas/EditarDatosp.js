@@ -3,40 +3,25 @@ import {
   Grid,
   Typography,
   TextField,
-  Button,
+  Fab,
 } from "@material-ui/core";
-import SaveIcon from "@material-ui/icons/Save";
-import { consumerFirebase } from "../../../server";
-import { v4 as uuidv4 } from "uuid";
+import { consumerFirebase } from "../../server";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Papel from "../../Children/Papel";
+import Papel from "../Children/Papel";
 
 const style = {
   load: {
     backgroundColor: "#4dabf5",
   },
+  submit: {
+    marginLeft: 22,
 
-  icon: {
-    marginRight: 0.5,
-    width: 20,
-    height: 20,
   },
 
-  div: {
-    marginBottom: 22,
-    backgroundColor: "#0071bc",
-    width: 80,
-    height: 5,
-  },
 
-  avatar: {
-    margin: 10,
-    width: 100,
-    height: 100,
-  },
 };
 
-class NuevoDatos extends Component {
+class EditarDatosp extends Component {
   state = {
     datosp: {
       nom: "",
@@ -49,9 +34,7 @@ class NuevoDatos extends Component {
       dir: "",
       tel: "",
       email: "",
-      fotos: [],
     },
-    archivos: [],
     loading: false,
    
   };
@@ -62,32 +45,100 @@ class NuevoDatos extends Component {
     this.setState({datosp});
 }
 
- 
+ /* subirImagenes = imagenes =>{
+    const { datosp } = this.state;
+    const {id} = this.props.match.params;
 
+    //agregar un nombre dinamico por cada imagen que necesites subir al firestorage
 
+    Object.keys(imagenes).forEach(key=>{
+        let codigoDinamico = uuidv4();
+        let nombreImagen = imagenes[key].name;
+        let extension = nombreImagen.split(".").pop();
+        imagenes[key].alias = (nombreImagen.split(".")[0]  + "_" + codigoDinamico + "." + extension ).replace(/\s/g,"_").toLowerCase();
+    })
 
- async componentDidMount() {
+    this.props.firebase.guardarDocumentos(imagenes).then(urlImagenes => {
+      datosp.fotos =  datosp.fotos.concat(urlImagenes);
+
+        this.props.firebase.db
+            .collection("Datosps")
+            .doc(id)
+            .set(datosp, {merge: true})
+            .then(success =>{
+                this.setState({
+                  datosp 
+                })
+            })
+    })
+}*/
+/*
+eliminarFoto = fotoUrl => async () =>{
+    
+    const {datosp} = this.state;
+    const {id} = this.props.match.params;
+
+    let fotoID = fotoUrl.match(/[\w-]+.(jpg|png|jepg|gif|svg)/);
+    fotoID = fotoID[0];
+
+    await this.props.firebase.eliminarDocumento(fotoID);
+
+    let fotoList = this.state.datosp.fotos.filter(foto => {
+        return foto !== fotoUrl;
+    })
+
+    datosp.fotos = fotoList;
+
+    this.props.firebase.db
+        .collection("Datosps")
+        .doc(id)
+        .set(datosp, {merge: true})
+        .then(success => {
+            this.setState({
+              datosp 
+            })
+        })
+}*/
+
+async componentDidMount() {
     const {id} = this.props.match.params;
     
+    const datospCollection = this.props.firebase.db.collection("Datosps");
+    const datospDB = await datospCollection.doc(id).get();
 
- }
+    this.setState({
+      datosp : datospDB.data()
+    })
+
+}
 
 guardarDatosp = () => {
     const {datosp} = this.state;
-    const id = uuidv4();
+    const {id} = this.props.match.params;
+
+
+
     datosp.propietario = this.props.firebase.auth.currentUser.uid;
     
+    
+
     this.props.firebase.db
         .collection("Datosps")
         .doc(id)
         .set(datosp, {merge: true})
         .then( success => {
-            this.props.history.push("/nuevo/objetivo/" + id);
+            this.props.history.push("/");
         })
 
 }
 
+handleCancelar = () => {
+  const {id} = this.props.match.params;
+  this.props.history.push("/curriculum/edit/" + id);
+};
+
   render() {
+  
     const { loading } = this.state;
     return (
       <Papel>
@@ -234,18 +285,23 @@ guardarDatosp = () => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Button
-              type="button"
-              fullWidth
+            <Fab
               variant="contained"
-              size="large"
+              size="medium"
               color="primary"
-              startIcon={<SaveIcon />}
-              style={style.submit}
               onClick={this.guardarDatosp}
             >
-              Guardar y continuar
-            </Button>
+              Guardar
+            </Fab>
+            <Fab
+              
+              variant="contained"
+              size="medium"
+              style={style.submit}
+              onClick={this.handleCancelar}
+            >
+              Cancelar
+            </Fab>
           </Grid>
 
         </Grid>
@@ -254,4 +310,4 @@ guardarDatosp = () => {
   }
 }
 
-export default consumerFirebase(NuevoDatos);
+export default consumerFirebase(EditarDatosp);

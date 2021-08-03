@@ -1,100 +1,90 @@
-import React, { useState } from "react";
-import { consumerFirebase } from "../../../server/";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import AddIcon from "@material-ui/icons/Add";
-import { v4 as uuidv4 } from "uuid";
-import { makeStyles } from "@material-ui/core/styles";
-import Papel from "../../Children/Papel";
-import { Container, Grid, Paper, Tooltip } from "@material-ui/core";
+import React, { Component } from "react";
+import {
+  Grid,
+  TextField,
+} from "@material-ui/core";
+import { consumerFirebase } from "../../../server";
+import Papel from '../../Children/Papel';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Tooltip from '@material-ui/core/Tooltip';
 
+const style = {
+  load: {
+    backgroundColor: "#4dabf5",
+  },
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-    },
+  text: {
+    marginBottom: 20,
   },
   button: {
-    margin: theme.spacing(1),
+    marginTop: 22,
+    marginRight: 17,
   },
-  div:{
-    backgroundColor:"#fff59d",
-    marginBottom:theme.spacing(2),
-  },
-}));
+};
 
-const Cursos = ( props, {navigation} ) => {
-  const firebase = props.firebase;
-  const classes = useStyles();
-  const [cur, setCur] = useState([
-    { id2: uuidv4(), tit: "", ins: "",dur:"", cul: "" }
-  ]);
-  const arrayGu = []//este
+class Cursos extends Component  {
+  state = {
+    datosp: {
+      tit: "", 
+      ins: "",
+      dur:"", 
+      cul: "",
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    },
+    loading: false,
+   
   };
 
-  
-
-  const handleChangeInput = (id2, event) => {
-    const newCur = cur.map((i) => {
-      if (id2 === i.id2) {
-        i[event.target.name] = event.target.value;
-      }
-      return i;
-    });
-
-    setCur(newCur);
-  };
-
-  const handleAddFields = () => {
-    setCur([
-      ...cur,
-      { id2: uuidv4(), tit: "", ins: "",dur:"", cul: ""},
-    ]);
-  };
+  cambiarDato = e => {
+    let datosp = Object.assign({}, this.state.datosp);
+    datosp[e.target.name] = e.target.value;
+    this.setState({datosp});
+}
 
 
-  const handleRemoveFields = (id2) => {
-    const values = [...cur];
-    values.splice(
-      values.findIndex((value) => value.id2 === id2),
-      1
-    );
-    setCur(values);
-  };
 
-  const guardarDatosp = () => {
-    const inputF = {...arrayGu, cur};
-    const { id } = props.match.params;
 
-    firebase.db
+
+ guardarDatosp = () => {
+  const {datosp} = this.state;
+  const {id} = this.props.match.params;
+
+  this.props.firebase.db
       .collection("Datosps")
       .doc(id)
-      .set(inputF, { merge: true })
-      .then((success) => {
-        props.history.push("/");
-      });
-  };
+      .set(datosp, {merge: true})
+     .then( success => {
+      this.props.history.push("/");
+      }) 
 
-  return (
-    <Papel>
-      <h1>Otros cursos de capacitación</h1>
-      <h3>Agrega sólo los cursos o capacitaciones relacionados al puesto, evita agregar cursos que no tengan relación con el puesto que vas a solicitar</h3>
-      <form className={classes.root} onSubmit={handleSubmit}>
-        {cur.map((inputField) => (
-          <Paper key={inputField.id2} className={classes.div}>
-            <Container >
-              
-            <Grid container spacing={1}>
-            <Grid item xs={12} md={12}>
-            <h5> - {inputField.tit}</h5>
-            </Grid>
-            <Grid item xs={12} md={6}>
+}
+
+guardarDatosA = () => {
+  const {datosp} = this.state;
+  const {id} = this.props.match.params;
+
+  this.props.firebase.db
+      .collection("Datosps")
+      .doc(id)
+      .set(datosp, {merge: true})
+     .then( success => {
+          this.props.history.push("/add/cursos2/"+ id); 
+      }) 
+
+}
+
+  render() {
+    const { loading } = this.state;
+    return (
+      <React.Fragment>
+      
+          <Papel>
+          <h1>Otros cursos de capacitación</h1>
+      <h3>Agrega sólo los cursos o capacitaciones relacionados al puesto, evita agregar cursos que no tengan relación con el puesto que vas a solicitar</h3>           <Grid container spacing={1}>
+      
+      <Grid item xs={12} md={6}>
             <TextField
               name="tit"
               variant="outlined"
@@ -102,8 +92,8 @@ const Cursos = ( props, {navigation} ) => {
               fullWidth
               size="small"
               label="Certificado o titulo"
-              value={inputField.tit}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
+              value={this.state.datosp.tit}
+              onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -114,9 +104,8 @@ const Cursos = ( props, {navigation} ) => {
               size="small"
               helperText="ej: SNPP"
               label="Institución/Página Web"
-              value={inputField.ins}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
-            />
+              value={this.state.datosp.ins}
+              onChange={this.cambiarDato} />
             </Grid>
             
             <Grid item xs={12} md={6}>
@@ -127,8 +116,8 @@ const Cursos = ( props, {navigation} ) => {
               fullWidth
               size="small"
               label="Duración"
-              value={inputField.dur}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
+              value={this.state.datosp.dur}
+              onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -139,44 +128,48 @@ const Cursos = ( props, {navigation} ) => {
               fullWidth
               size="small"
               label="Fecha que culminaste"
-              value={inputField.cul}
-              onChange={(event) => handleChangeInput(inputField.id2, event)}
+              value={this.state.datosp.cul}
+              onChange={this.cambiarDato}
             />
-            </Grid>
-            <Grid item xs={12} md={6}>
-            <Tooltip title="Quitar" placement="top">
-            <IconButton
-              disabled={cur.length === 1}
-              onClick={() => handleRemoveFields(inputField.id2)}
-              color="secondary"
-            >
-              <DeleteIcon />
-            </IconButton>
-            </Tooltip>
-            <Tooltip title="Agregar" placement="top">
-            <IconButton onClick={handleAddFields} color="primary">
-              <AddIcon />
-            </IconButton>
-            </Tooltip>
-            </Grid>
-            </Grid>
-            </Container>
-          </Paper>
-        ))}
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          onClick={guardarDatosp}
-        >
-          Guardar cambios
-        </Button>
-      </form>
-
+            </Grid>          
       
-    </Papel>
-  );
-};
+            <Grid item xs={12}> 
+      <Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  1
+</Fab>
+
+      <Tooltip title="Agregar Curso" placement="top">
+        <Fab
+        style={style.button} 
+        color="primary" 
+        aria-label="add" 
+        size="small" 
+        onClick={this.guardarDatosA} >
+        <AddIcon />
+      </Fab>
+      </Tooltip>
+      </Grid>
+                
+      <Fab 
+      style={style.button} 
+      color="primary" 
+      aria-label="next" 
+      size="medium" 
+      variant="extended"
+      onClick={this.guardarDatosp}
+      >
+      <NavigateNextIcon />
+        Siguiente
+      </Fab>
+      </Grid>
+        </Papel>
+        
+    </React.Fragment>
+
+    
+    );
+  }
+}
 
 export default consumerFirebase(Cursos);

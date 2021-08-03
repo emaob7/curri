@@ -24,15 +24,15 @@ const style = {
   },
 };
 
-class NuevoExpG extends Component  {
+class NuGe2 extends Component  {
   state = {
     datosp: {
-      puestog: "", 
-      empreg: "", 
-      ubicaciong: "",
-      finiciog: "",
-      ffinalg: "", 
-      tareasg: "",
+      puestg2: "", 
+      emprg2: "", 
+      ubicaciog2: "",
+      finicig2: "",
+      ffinag2: "", 
+      tareag2: "",
 
     },
     loading: false,
@@ -58,7 +58,7 @@ class NuevoExpG extends Component  {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-      this.props.history.push("/");
+        this.props.history.push("/");
       }) 
 
 }
@@ -72,7 +72,7 @@ guardarDatosA = () => {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-          this.props.history.push("/nuevo/experienciag2/"+ id); 
+          this.props.history.push("/nuevo/experienciag3/"+ id); 
       }) 
 
 }
@@ -89,82 +89,85 @@ guardarDatosA = () => {
       
             <Grid item xs={12} md={6}>
             <TextField
-              name="empreg"
+              name="emprg2"
               variant="outlined"
               fullWidth
               size="small"
               label="Empresa / Institución"
-              value={this.state.datosp.empreg}
+              value={this.state.datosp.emprg2}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="puestog"
+              name="puestg2"
               variant="outlined"
               fullWidth
               size="small"
               label="Puesto"
-              value={this.state.datosp.puestog}
+              value={this.state.datosp.puestg2}
               onChange={this.cambiarDato}
             />
             </Grid>
             
             <Grid item xs={12} md={12}>
             <TextField
-              name="ubicaciong"
+              name="ubicaciog2"
               variant="outlined"
               fullWidth
               size="small"
               label="Ubicación"
-              value={this.state.datosp.ubicaciong}
+              value={this.state.datosp.ubicaciog2}
               onChange={this.cambiarDato}
             />
             </Grid>
              <Grid item xs={12} md={6}>
             <TextField
-              name="finiciog"
+              name="finicig2"
               variant="outlined"
               fullWidth
               size="small"
               label="Desde fecha"
-              value={this.state.datosp.finiciog}
+              value={this.state.datosp.finicig2}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="ffinalg"
+              name="ffinag2"
               variant="outlined"
               fullWidth
               size="small"
               label="Hasta fecha"
-              value={this.state.datosp.ffinalg}
+              value={this.state.datosp.ffinag2}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={12}>
             <TextField
               style={style.text}
-              name="tareasg"
+              name="tareag2"
               variant="outlined"
               fullWidth
               multiline
               rows={3}
               size="small"
               label="Tareas o logros relevantes"
-              value={this.state.datosp.tareasg}
+              value={this.state.datosp.tareag2}
               onChange={this.cambiarDato}
             />
             </Grid>
            
             </Grid>
           
-      
             <Grid item xs={12}> 
       <Fab disabled aria-label="like" 
       style={style.button} size="small">
   1
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  2
 </Fab>
 
       <Tooltip title="Agregar Experiencia" placement="top">
@@ -198,4 +201,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(NuevoExpG);
+export default consumerFirebase(NuGe2);
