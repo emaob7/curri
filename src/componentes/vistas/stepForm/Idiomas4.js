@@ -92,13 +92,13 @@ guardarDatosA = () => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <TextField
-                    name="idio4"
+                    name="idi4"
                     variant="outlined"
                     helperText="ej: Inglés"
                     fullWidth
                     size="small"
                     label="Idioma"
-                    value={this.state.datosp.idio4}
+                    value={this.state.datosp.idi4}
                     onChange={this.cambiarDato}
                   />
                 </Grid>

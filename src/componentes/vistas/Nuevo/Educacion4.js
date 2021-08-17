@@ -26,11 +26,11 @@ const style = {
 class Educacion3 extends Component  {
   state = {
     datosp: {
-      tit4: "", 
-      ins4: "",
-      dur4:"",
-      des4:"", 
-      cul4: ""
+      tite4: "", 
+      inse4: "",
+      dure4:"",
+      dese4:"", 
+      cule4: ""
 
     },
     loading: false,
@@ -76,62 +76,62 @@ class Educacion3 extends Component  {
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="tit3"
+              name="tite4"
               variant="outlined"
               helperText="ej: Ingenieria de Software"
               fullWidth
               size="small"
               label="Titulo obtenido"
-              value={this.state.datosp.tit3}
+              value={this.state.datosp.tite4}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="ins3"
+              name="inse4"
               variant="outlined"
               fullWidth
               size="small"
               helperText="ej: Universidad Nacional de Villarrica del Espiritu Santo"
               label="Institución/Universidad/Colegio"
-              value={this.state.datosp.ins3}
+              value={this.state.datosp.inse4}
               onChange={this.cambiarDato}
             />
             </Grid>
             
             <Grid item xs={12} md={4}>
             <TextField
-              name="dur3"
+              name="dure4"
               variant="outlined"
               helperText="ej: 6 años"
               fullWidth
               size="small"
               label="Duración"
-              value={this.state.datosp.dur3}
+              value={this.state.datosp.dure4}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={4}>
             <TextField
-              name="des3"
+              name="dese4"
               variant="outlined"
               helperText="ej: Ene 2021"
               fullWidth
               size="small"
               label="Fecha que empezaste"
-              value={this.state.datosp.des3}
+              value={this.state.datosp.dese4}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={4}>
             <TextField
-              name="cul3"
+              name="cule4"
               variant="outlined"
               helperText="ej: Dic 2021"
               fullWidth
               size="small"
               label="Fecha que culminaste"
-              value={this.state.datosp.cul3}
+              value={this.state.datosp.cule4}
               onChange={this.cambiarDato}
             />
             </Grid>
@@ -151,6 +151,10 @@ class Educacion3 extends Component  {
 <Fab disabled aria-label="like" 
       style={style.button} size="small">
   3
+</Fab>
+<Fab disabled aria-label="like" 
+      style={style.button} size="small">
+  4
 </Fab>
       
       </Grid>

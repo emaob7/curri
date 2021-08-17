@@ -4,11 +4,11 @@ import {
   TextField,
 } from "@material-ui/core";
 import { consumerFirebase } from "../../../server";
-import Papel from '../../Children/Papel';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import Tooltip from '@material-ui/core/Tooltip';
+import Papel from "../../Children/Papel";
 
 const style = {
   load: {

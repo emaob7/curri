@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import {
   Grid,
   TextField,
+  Button
 } from "@material-ui/core";
 import { consumerFirebase } from "../../../server";
 import Papel from '../../Children/Papel';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const style = {
   load: {
@@ -24,26 +22,38 @@ const style = {
   },
 };
 
-class Educacion extends Component  {
+class EditarEducacion2 extends Component  {
   state = {
     datosp: {
-      tite: "", 
-      inse: "",
-      dure:"",
-      dese:"", 
-      cule: ""
+      tite2: "", 
+      inse2: "",
+      dure2:"",
+      dese2:"", 
+      cule2: ""
 
     },
     loading: false,
    
   };
 
+
+  async componentDidMount() {
+    const { id } = this.props.match.params;
+
+    const datospCollection = this.props.firebase.db.collection("Datosps");
+    const datospDB = await datospCollection.doc(id).get();
+
+    this.setState({
+      datosp: datospDB.data(),
+    });
+  }
+
+
   cambiarDato = e => {
     let datosp = Object.assign({}, this.state.datosp);
     datosp[e.target.name] = e.target.value;
     this.setState({datosp});
 }
-
 
 
 
@@ -57,24 +67,16 @@ class Educacion extends Component  {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-          this.props.history.push("/"); 
+          this.props.history.push("/curriculum/edit/"+ id); 
       }) 
 
 }
 
-guardarDatosA = () => {
-  const {datosp} = this.state;
-  const {id} = this.props.match.params;
+handleCancelar = () => {
+    const {id} = this.props.match.params;
+    this.props.history.push("/curriculum/edit/" + id);
+  };
 
-  this.props.firebase.db
-      .collection("Datosps")
-      .doc(id)
-      .set(datosp, {merge: true})
-     .then( success => {
-          this.props.history.push("/nuevo/educacion2/"+ id); 
-      }) 
-
-}
 
   render() {
     const { loading } = this.state;
@@ -82,69 +84,69 @@ guardarDatosA = () => {
       <React.Fragment>
       
           <Papel>
-      <h1>Agrega detalles de tu Educación</h1>
+      <h1>2. Educación</h1>
       <h3>Puedes empezar a agregar primero tu nivel Universitario, relacionado al puesto.</h3>
       <Grid container spacing={1}>
             <Grid item xs={12} md={12}>
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="tite"
+              name="tite2"
               variant="outlined"
               helperText="ej: Ingenieria de Software"
               fullWidth
               size="small"
               label="Titulo obtenido"
-              value={this.state.datosp.tite}
+              value={this.state.datosp.tite2}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="inse"
+              name="inse2"
               variant="outlined"
               fullWidth
               size="small"
               helperText="ej: Universidad Nacional de Villarrica del Espiritu Santo"
               label="Institución/Universidad/Colegio"
-              value={this.state.datosp.inse}
+              value={this.state.datosp.inse2}
               onChange={this.cambiarDato}
             />
             </Grid>
             
             <Grid item xs={12} md={4}>
             <TextField
-              name="dure"
+              name="dure2"
               variant="outlined"
               helperText="ej: 6 años"
               fullWidth
               size="small"
               label="Duración"
-              value={this.state.datosp.dure}
+              value={this.state.datosp.dure2}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={4}>
             <TextField
-              name="dese"
+              name="dese2"
               variant="outlined"
               helperText="ej: Ene 2021"
               fullWidth
               size="small"
               label="Fecha que empezaste"
-              value={this.state.datosp.dese}
+              value={this.state.datosp.dese2}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={4}>
             <TextField
-              name="cule"
+              name="cule2"
               variant="outlined"
               helperText="ej: Dic 2021"
               fullWidth
               size="small"
               label="Fecha que culminaste"
-              value={this.state.datosp.cule}
+              value={this.state.datosp.cule2}
               onChange={this.cambiarDato}
             />
             </Grid>
@@ -154,32 +156,26 @@ guardarDatosA = () => {
              
      
       <Grid item xs={12}> 
-      <Fab disabled aria-label="like" 
-      style={style.button} size="small">
-  1
-</Fab>
-      <Tooltip title="Agregar Educación" placement="top">
-        <Fab 
-        style={style.button}
-        color="primary" 
-        aria-label="add" 
-        size="small" 
-        onClick={this.guardarDatosA} >
-        <AddIcon />
-      </Fab>
-      </Tooltip>
+      
       </Grid>  
       <Fab 
       style={style.button} 
       color="primary" 
-      aria-label="next" 
+      aria-label="save" 
       size="medium" 
       variant="extended"
       onClick={this.guardarDatosp}
       >
-      <NavigateNextIcon />
-        Siguiente
+        Guardar
       </Fab>
+      <Button
+  color="primary"
+              size="medium"
+              style={style.button}
+              onClick={this.handleCancelar}
+            >
+              Cancelar
+            </Button>
         </Papel>
     </React.Fragment>
 
@@ -188,4 +184,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(Educacion);
+export default consumerFirebase(EditarEducacion2);

@@ -27,11 +27,11 @@ const style = {
 class Educacion3 extends Component  {
   state = {
     datosp: {
-      tit3: "", 
-      ins3: "",
-      dur3:"",
-      des3:"", 
-      cul3: ""
+      tite3: "", 
+      inse3: "",
+      dure3:"",
+      dese3:"", 
+      cule3: ""
 
     },
     loading: false,
@@ -89,62 +89,62 @@ guardarDatosA = () => {
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="tit3"
+              name="tite3"
               variant="outlined"
               helperText="ej: Ingenieria de Software"
               fullWidth
               size="small"
               label="Titulo obtenido"
-              value={this.state.datosp.tit3}
+              value={this.state.datosp.tite3}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="ins3"
+              name="inse3"
               variant="outlined"
               fullWidth
               size="small"
               helperText="ej: Universidad Nacional de Villarrica del Espiritu Santo"
               label="Institución/Universidad/Colegio"
-              value={this.state.datosp.ins3}
+              value={this.state.datosp.inse3}
               onChange={this.cambiarDato}
             />
             </Grid>
             
             <Grid item xs={12} md={4}>
             <TextField
-              name="dur3"
+              name="dure3"
               variant="outlined"
               helperText="ej: 6 años"
               fullWidth
               size="small"
               label="Duración"
-              value={this.state.datosp.dur3}
+              value={this.state.datosp.dure3}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={4}>
             <TextField
-              name="des3"
+              name="dese3"
               variant="outlined"
               helperText="ej: Ene 2021"
               fullWidth
               size="small"
               label="Fecha que empezaste"
-              value={this.state.datosp.des3}
+              value={this.state.datosp.dese3}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={4}>
             <TextField
-              name="cul3"
+              name="cule3"
               variant="outlined"
               helperText="ej: Dic 2021"
               fullWidth
               size="small"
               label="Fecha que culminaste"
-              value={this.state.datosp.cul3}
+              value={this.state.datosp.cule3}
               onChange={this.cambiarDato}
             />
             </Grid>

@@ -8,7 +8,6 @@ import { consumerFirebase } from "../../../server";
 import Papel from '../../Children/Papel';
 import Fab from '@material-ui/core/Fab';
 
-
 const style = {
   load: {
     backgroundColor: "#4dabf5",
@@ -23,34 +22,34 @@ const style = {
   },
 };
 
-class Referencias extends Component  {
+class EditarCursos extends Component  {
   state = {
     datosp: {
-      ref1: "", 
-      tel1: "",
-      ref2:"", 
-      tel2: "",
+      tit: "", 
+      ins: "",
+      dur:"", 
+      cul: "",
 
     },
     loading: false,
    
   };
+  
+  async componentDidMount() {
+    const { id } = this.props.match.params;
+
+    const datospCollection = this.props.firebase.db.collection("Datosps");
+    const datospDB = await datospCollection.doc(id).get();
+
+    this.setState({
+      datosp: datospDB.data(),
+    });
+  }
 
   cambiarDato = e => {
     let datosp = Object.assign({}, this.state.datosp);
     datosp[e.target.name] = e.target.value;
     this.setState({datosp});
-}
-
-async componentDidMount() {
-  const {id} = this.props.match.params;
-  const datospCollection = this.props.firebase.db.collection("Datosps");
-  const datospDB = await datospCollection.doc(id).get();
-
-  this.setState({
-    datosp : datospDB.data()
-  })
-
 }
 
 
@@ -66,17 +65,14 @@ async componentDidMount() {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-      this.props.history.push("/");
+      this.props.history.push("/curriculum/edit/" + id);
       }) 
 
 }
-
 handleCancelar = () => {
-  const {id} = this.props.match.params;
-  this.props.history.push("/curriculum/edit/" + id);
-};
-
-
+    const {id} = this.props.match.params;
+    this.props.history.push("/curriculum/edit/" + id);
+  };
 
   render() {
     const { loading } = this.state;
@@ -84,61 +80,62 @@ handleCancelar = () => {
       <React.Fragment>
       
           <Papel>
-          <h1>Referencias</h1>
-      <h3>Agrega sólo si consideras necesario</h3>           
-      <Grid container spacing={1}>
+          <h1>1. Cursos de Capacitación</h1>
+      <h3>Agrega sólo los cursos o capacitaciones relacionados al puesto, evita agregar cursos que no tengan relación con el puesto que vas a solicitar</h3>           <Grid container spacing={1}>
       
       <Grid item xs={12} md={6}>
             <TextField
-              name="ref1"
+              name="tit"
               variant="outlined"
-              helperText="ej: Hugo César Ortigoza"
+              helperText="ej: Ofimática Básica"
               fullWidth
               size="small"
-              label="1- Referencia"
-              value={this.state.datosp.ref1}
+              label="Certificado o titulo"
+              value={this.state.datosp.tit}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="tel1"
+              name="ins"
               variant="outlined"
               fullWidth
               size="small"
-              helperText="ej: +595981745130"
-              label="Teléfono"
-              value={this.state.datosp.tel1}
+              helperText="ej: SNPP"
+              label="Institución/Página Web"
+              value={this.state.datosp.ins}
               onChange={this.cambiarDato} />
             </Grid>
             
             <Grid item xs={12} md={6}>
             <TextField
-              name="ref2"
+              name="dur"
               variant="outlined"
-              helperText="ej: Dra. Luisa Bordón"
+              helperText="ej: 100 Horas"
               fullWidth
               size="small"
-              label="2- Referencia"
-              value={this.state.datosp.ref2}
+              label="Duración"
+              value={this.state.datosp.dur}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="tel2"
+              name="cul"
               variant="outlined"
-              helperText="ej: 0983454586"
+              helperText="ej: Ene 2019"
               fullWidth
               size="small"
-              label="Teléfono"
-              value={this.state.datosp.tel2}
+              label="Fecha que culminaste"
+              value={this.state.datosp.cul}
               onChange={this.cambiarDato}
             />
             </Grid>          
       
             <Grid item xs={12}> 
-      
+  
+
+     
       </Grid>
                 
       <Fab 
@@ -152,7 +149,7 @@ handleCancelar = () => {
         Guardar
       </Fab>
       <Button
-              color="primary"
+  color="primary"
               size="medium"
               style={style.button}
               onClick={this.handleCancelar}
@@ -169,4 +166,4 @@ handleCancelar = () => {
   }
 }
 
-export default consumerFirebase(Referencias);
+export default consumerFirebase(EditarCursos);

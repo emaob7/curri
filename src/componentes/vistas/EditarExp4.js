@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import {
   Grid,
   TextField,
-  Button,
+  Fab, Button,
 } from "@material-ui/core";
-import { consumerFirebase } from "../../../server";
+import { consumerFirebase } from "../../server";
+import Papel from "../Children/Papel";
 
 const style = {
   load: {
@@ -14,20 +15,21 @@ const style = {
   text: {
     marginBottom: 20,
   },
-  button: {
-    margin: 22,
+  submit: {
+    marginLeft: 22,
+
   },
 };
 
-class ExperienciaE1 extends Component  {
+class EditarExp4 extends Component  {
   state = {
     datosp: {
-      puesto: "", 
-      empre: "", 
-      ubicacion: "",
-      finicio: "",
-      ffinal: "", 
-      tareas: "",
+      puesto4: "", 
+      empre4: "", 
+      ubicacion4: "",
+      finicio4: "",
+      ffinal4: "", 
+      tareas4: "",
 
     },
     loading: false,
@@ -40,118 +42,139 @@ class ExperienciaE1 extends Component  {
     this.setState({datosp});
 }
 
+async componentDidMount() {
+  const {id} = this.props.match.params;
+  const datospCollection = this.props.firebase.db.collection("Datosps");
+  const datospDB = await datospCollection.doc(id).get();
 
+  this.setState({
+    datosp : datospDB.data()
+  })
+
+}
 
 
 
  guardarDatosp = () => {
   const {datosp} = this.state;
- const idDoc = this.props.id;
- 
+  const {id} = this.props.match.params;
+
   this.props.firebase.db
       .collection("Datosps")
-      .doc(idDoc)
+      .doc(id)
       .set(datosp, {merge: true})
-
-
+     .then( success => {
+          this.props.history.push("/curriculum/edit/"+ id); 
+      }) 
 }
+handleCancelar = () => {
+  const {id} = this.props.match.params;
+  this.props.history.push("/curriculum/edit/" + id);
+};
 
   render() {
     const { loading } = this.state;
     return (
       <React.Fragment>
       
-          
-            
-              
+          <Papel>
+          <h1>4. Experiencia especifica</h1>
+          <h3>Sólo experiencias relacionadas al puesto, empieza con las más recientes</h3>
             <Grid container spacing={1}>
-            
 
             <Grid item xs={12} md={6}>
             <TextField
-              name="empre"
+              name="empre4"
               variant="outlined"
               fullWidth
               size="small"
               label="Empresa / Institución"
-              value={this.state.datosp.empre}
+              value={this.state.datosp.empre4}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="puesto"
+              name="puesto4"
               variant="outlined"
               fullWidth
               size="small"
               label="Puesto"
-              value={this.state.datosp.puesto}
+              value={this.state.datosp.puesto4}
               onChange={this.cambiarDato}
             />
             </Grid>
             
             <Grid item xs={12} md={12}>
             <TextField
-              name="ubicacion"
+              name="ubicacion4"
               variant="outlined"
               fullWidth
               size="small"
               label="Ubicación"
-              value={this.state.datosp.ubicacion}
+              value={this.state.datosp.ubicacion4}
               onChange={this.cambiarDato}
             />
             </Grid>
              <Grid item xs={12} md={6}>
             <TextField
-              name="finicio"
+              name="finicio4"
               variant="outlined"
               fullWidth
               size="small"
               label="Desde fecha"
-              value={this.state.datosp.finicio}
+              value={this.state.datosp.finicio4}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name="ffinal"
+              name="ffinal4"
               variant="outlined"
               fullWidth
               size="small"
               label="Hasta fecha"
-              value={this.state.datosp.ffinal}
+              value={this.state.datosp.ffinal4}
               onChange={this.cambiarDato}
             />
             </Grid>
             <Grid item xs={12} md={12}>
             <TextField
               style={style.text}
-              name="tareas"
+              name="tareas4"
               variant="outlined"
               fullWidth
               multiline
               rows={3}
               size="small"
               label="Tareas o logros relevantes"
-              value={this.state.datosp.tareas}
+              value={this.state.datosp.tareas4}
               onChange={this.cambiarDato}
             />
             </Grid>
            
             </Grid>
           
-          
-        
-        <Button
-          style={style.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-          onClick={this.guardarDatosp}
-        >
-          Guardar cambios
-        </Button>
-      
+            
+            <Grid item xs={12} md={6}>
+            <Fab
+              variant="contained"
+              size="medium"
+              color="primary"
+              onClick={this.guardarDatosp}
+            >
+              Guardar
+            </Fab>
+            <Button
+              color="primary"
+              size="medium"
+              style={style.submit}
+              onClick={this.handleCancelar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
+        </Papel>
     </React.Fragment>
 
     
@@ -159,4 +182,4 @@ class ExperienciaE1 extends Component  {
   }
 }
 
-export default consumerFirebase(ExperienciaE1);
+export default consumerFirebase(EditarExp4);

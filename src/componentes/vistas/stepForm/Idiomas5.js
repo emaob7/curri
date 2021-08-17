@@ -80,13 +80,13 @@ class Idiomas5 extends Component  {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <TextField
-                    name="idio5"
+                    name="idi5"
                     variant="outlined"
                     helperText="ej: Inglés"
                     fullWidth
                     size="small"
                     label="Idioma"
-                    value={this.state.datosp.idio5}
+                    value={this.state.datosp.idi5}
                     onChange={this.cambiarDato}
                   />
                 </Grid>

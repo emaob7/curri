@@ -6,13 +6,11 @@ import {
   FormHelperText,
   Select,
   MenuItem,
+  Button
 } from "@material-ui/core";
 import { consumerFirebase } from "../../../server";
 import Papel from '../../Children/Papel';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const style = {
   load: {
@@ -28,11 +26,11 @@ const style = {
   },
 };
 
-class Idiomas3 extends Component  {
+class EditarIdiomas3 extends Component  {
   state = {
     datosp: {
-      idi3: null, 
-      niv3: null,
+      idi3: "", 
+      niv3: "",
     
 
     },
@@ -46,7 +44,16 @@ class Idiomas3 extends Component  {
     this.setState({datosp});
 }
 
+async componentDidMount() {
+    const { id } = this.props.match.params;
 
+    const datospCollection = this.props.firebase.db.collection("Datosps");
+    const datospDB = await datospCollection.doc(id).get();
+
+    this.setState({
+      datosp: datospDB.data(),
+    });
+  }
 
 
 
@@ -59,7 +66,7 @@ class Idiomas3 extends Component  {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-      this.props.history.push("/");
+        this.props.history.push("/curriculum/edit/" + id);
       }) 
 
 }
@@ -73,10 +80,14 @@ guardarDatosA = () => {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-          this.props.history.push("/add/idiomas4/"+ id); 
+          this.props.history.push("/add/idiomas2/"+ id); 
       }) 
 
 }
+handleCancelar = () => {
+    const {id} = this.props.match.params;
+    this.props.history.push("/curriculum/edit/" + id);
+  };
 
   render() {
     const { loading } = this.state;
@@ -84,7 +95,7 @@ guardarDatosA = () => {
       <React.Fragment>
       
           <Papel>
-          <h1>Idiomas</h1>
+          <h1>3. Idiomas</h1>
       <h3>Agrega idiomas relevantes para el puesto y tu nivel de manejo del idioma</h3>           
       
       <Grid container spacing={1}>
@@ -122,31 +133,7 @@ guardarDatosA = () => {
                   </FormControl>
                 </Grid>       
       
-            <Grid item xs={12}> 
-      <Fab disabled aria-label="like" 
-      style={style.button} size="small">
-  1
-</Fab>
-<Fab disabled aria-label="like" 
-      style={style.button} size="small">
-  2
-</Fab>
-<Fab disabled aria-label="like" 
-      style={style.button} size="small">
-  3
-</Fab>
 
-      <Tooltip title="Agregar Idioma" placement="top">
-        <Fab
-        style={style.button} 
-        color="primary" 
-        aria-label="add" 
-        size="small" 
-        onClick={this.guardarDatosA} >
-        <AddIcon />
-      </Fab>
-      </Tooltip>
-      </Grid>
                 
       <Fab 
       style={style.button} 
@@ -156,9 +143,16 @@ guardarDatosA = () => {
       variant="extended"
       onClick={this.guardarDatosp}
       >
-      <NavigateNextIcon />
-        Siguiente
+        Guardar
       </Fab>
+      <Button
+  color="primary"
+              size="medium"
+              style={style.button}
+              onClick={this.handleCancelar}
+            >
+              Cancelar
+            </Button>
       </Grid>
         </Papel>
         
@@ -169,4 +163,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(Idiomas3);
+export default consumerFirebase(EditarIdiomas3);

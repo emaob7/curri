@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import { Grid, Typography, TextField, Fab } from "@material-ui/core";
-import SaveIcon from "@material-ui/icons/Save";
-//import CKEditor from 'ckeditor4-react';
-//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Grid, Typography, TextField, Fab, Button } from "@material-ui/core";
 import { consumerFirebase } from "../../server";
 import { openMensajePantalla } from "../../sesion/actions/snackbarAction";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import Papel from "../Children/Papel";
 
 const style = {
@@ -102,15 +98,14 @@ handleCancelar = () => {
             >
               Guardar
             </Fab>
-            <Fab
-              
-              variant="contained"
+            <Button
+              color="primary"
               size="medium"
               style={style.submit}
               onClick={this.handleCancelar}
             >
               Cancelar
-            </Fab>
+            </Button>
           </Grid>
         </Grid>
       </Papel>

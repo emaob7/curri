@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import {
   Grid,
   TextField,
+  Button
 } from "@material-ui/core";
 import { consumerFirebase } from "../../../server";
 import Papel from '../../Children/Papel';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const style = {
   load: {
@@ -24,7 +22,7 @@ const style = {
   },
 };
 
-class Educacion extends Component  {
+class EditarEducacion extends Component  {
   state = {
     datosp: {
       tite: "", 
@@ -38,12 +36,24 @@ class Educacion extends Component  {
    
   };
 
+
+  async componentDidMount() {
+    const { id } = this.props.match.params;
+
+    const datospCollection = this.props.firebase.db.collection("Datosps");
+    const datospDB = await datospCollection.doc(id).get();
+
+    this.setState({
+      datosp: datospDB.data(),
+    });
+  }
+
+
   cambiarDato = e => {
     let datosp = Object.assign({}, this.state.datosp);
     datosp[e.target.name] = e.target.value;
     this.setState({datosp});
 }
-
 
 
 
@@ -57,24 +67,16 @@ class Educacion extends Component  {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-          this.props.history.push("/"); 
+          this.props.history.push("/curriculum/edit/"+ id); 
       }) 
 
 }
 
-guardarDatosA = () => {
-  const {datosp} = this.state;
-  const {id} = this.props.match.params;
+handleCancelar = () => {
+    const {id} = this.props.match.params;
+    this.props.history.push("/curriculum/edit/" + id);
+  };
 
-  this.props.firebase.db
-      .collection("Datosps")
-      .doc(id)
-      .set(datosp, {merge: true})
-     .then( success => {
-          this.props.history.push("/nuevo/educacion2/"+ id); 
-      }) 
-
-}
 
   render() {
     const { loading } = this.state;
@@ -82,7 +84,7 @@ guardarDatosA = () => {
       <React.Fragment>
       
           <Papel>
-      <h1>Agrega detalles de tu Educación</h1>
+      <h1>1. Educación</h1>
       <h3>Puedes empezar a agregar primero tu nivel Universitario, relacionado al puesto.</h3>
       <Grid container spacing={1}>
             <Grid item xs={12} md={12}>
@@ -154,32 +156,26 @@ guardarDatosA = () => {
              
      
       <Grid item xs={12}> 
-      <Fab disabled aria-label="like" 
-      style={style.button} size="small">
-  1
-</Fab>
-      <Tooltip title="Agregar Educación" placement="top">
-        <Fab 
-        style={style.button}
-        color="primary" 
-        aria-label="add" 
-        size="small" 
-        onClick={this.guardarDatosA} >
-        <AddIcon />
-      </Fab>
-      </Tooltip>
+      
       </Grid>  
       <Fab 
       style={style.button} 
       color="primary" 
-      aria-label="next" 
+      aria-label="save" 
       size="medium" 
       variant="extended"
       onClick={this.guardarDatosp}
       >
-      <NavigateNextIcon />
-        Siguiente
+        Guardar
       </Fab>
+      <Button
+  color="primary"
+              size="medium"
+              style={style.button}
+              onClick={this.handleCancelar}
+            >
+              Cancelar
+            </Button>
         </Papel>
     </React.Fragment>
 
@@ -188,4 +184,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(Educacion);
+export default consumerFirebase(EditarEducacion);

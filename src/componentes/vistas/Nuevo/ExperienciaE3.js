@@ -53,9 +53,9 @@ class ExperienciaE3 extends Component  {
       .collection("Datosps")
       .doc(idDoc)
       .set(datosp, {merge: true})
-     /* .then( success => {
-          this.props.history.push("/nuevo/experienciag/"+ idDoc); 
-      }) */
+      .then( success => {
+          this.props.history.push("/curriculum/edit/"+ idDoc); 
+      }) 
 
 }
 

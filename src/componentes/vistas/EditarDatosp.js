@@ -4,6 +4,7 @@ import {
   Typography,
   TextField,
   Fab,
+  Button
 } from "@material-ui/core";
 import { consumerFirebase } from "../../server";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -293,15 +294,15 @@ handleCancelar = () => {
             >
               Guardar
             </Fab>
-            <Fab
+            <Button
+              color="primary"
               
-              variant="contained"
               size="medium"
               style={style.submit}
               onClick={this.handleCancelar}
             >
               Cancelar
-            </Fab>
+            </Button>
           </Grid>
 
         </Grid>

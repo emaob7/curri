@@ -44,7 +44,6 @@ class EditarExp extends Component  {
 
 async componentDidMount() {
   const {id} = this.props.match.params;
-  
   const datospCollection = this.props.firebase.db.collection("Datosps");
   const datospDB = await datospCollection.doc(id).get();
 

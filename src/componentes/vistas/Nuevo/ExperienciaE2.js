@@ -52,9 +52,7 @@ class ExperienciaE2 extends Component  {
       .collection("Datosps")
       .doc(idDoc)
       .set(datosp, {merge: true})
-     /* .then( success => {
-          this.props.history.push("/nuevo/experienciag/"+ idDoc); 
-      }) */
+
 
 }
 

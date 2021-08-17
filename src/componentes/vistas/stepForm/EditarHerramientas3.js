@@ -6,13 +6,11 @@ import {
   FormHelperText,
   Select,
   MenuItem,
+  Button
 } from "@material-ui/core";
 import { consumerFirebase } from "../../../server";
 import Papel from '../../Children/Papel';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const style = {
   load: {
@@ -28,11 +26,11 @@ const style = {
   },
 };
 
-class Idiomas3 extends Component  {
+class EditarHerramientas3 extends Component  {
   state = {
     datosp: {
-      idi3: null, 
-      niv3: null,
+      her3: "", 
+      nive3: "",
     
 
     },
@@ -46,7 +44,16 @@ class Idiomas3 extends Component  {
     this.setState({datosp});
 }
 
+async componentDidMount() {
+    const { id } = this.props.match.params;
 
+    const datospCollection = this.props.firebase.db.collection("Datosps");
+    const datospDB = await datospCollection.doc(id).get();
+
+    this.setState({
+      datosp: datospDB.data(),
+    });
+  }
 
 
 
@@ -59,7 +66,7 @@ class Idiomas3 extends Component  {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-      this.props.history.push("/");
+        this.props.history.push("/curriculum/edit/" + id);
       }) 
 
 }
@@ -73,10 +80,14 @@ guardarDatosA = () => {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-          this.props.history.push("/add/idiomas4/"+ id); 
+        this.props.history.push("/curriculum/edit/" + id);
       }) 
 
 }
+handleCancelar = () => {
+    const {id} = this.props.match.params;
+    this.props.history.push("/curriculum/edit/" + id);
+  };
 
   render() {
     const { loading } = this.state;
@@ -84,21 +95,21 @@ guardarDatosA = () => {
       <React.Fragment>
       
           <Papel>
-          <h1>Idiomas</h1>
-      <h3>Agrega idiomas relevantes para el puesto y tu nivel de manejo del idioma</h3>           
+          <h1>3. Herramientas</h1>
+      <h3>Agrega herramientas e indica con que nivel manejas el mismo, no olvides agregar herramientas que te hagan destacar de los demás postulantes.</h3>           
       
       <Grid container spacing={1}>
       <Grid item xs={12} md={12}>
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <TextField
-                    name="idi3"
+                    name="her3"
                     variant="outlined"
-                    helperText="ej: Inglés"
+                    helperText="ej: Photoshop, Microsoft Word, Excel"
                     fullWidth
                     size="small"
-                    label="Idioma"
-                    value={this.state.datosp.idi3}
+                    label="Herramienta"
+                    value={this.state.datosp.her3}
                     onChange={this.cambiarDato}
                   />
                 </Grid>
@@ -106,8 +117,8 @@ guardarDatosA = () => {
                 <Grid item xs={12} md={6}>
                   <FormControl style={{margin: 6, marginLeft: 16 }}>
                     <Select
-                      name="niv3"
-                      value={this.state.datosp.niv3}
+                      name="nive3"
+                      value={this.state.datosp.nive3}
                       onChange={this.cambiarDato}
                       displayEmpty
                     >
@@ -122,31 +133,7 @@ guardarDatosA = () => {
                   </FormControl>
                 </Grid>       
       
-            <Grid item xs={12}> 
-      <Fab disabled aria-label="like" 
-      style={style.button} size="small">
-  1
-</Fab>
-<Fab disabled aria-label="like" 
-      style={style.button} size="small">
-  2
-</Fab>
-<Fab disabled aria-label="like" 
-      style={style.button} size="small">
-  3
-</Fab>
-
-      <Tooltip title="Agregar Idioma" placement="top">
-        <Fab
-        style={style.button} 
-        color="primary" 
-        aria-label="add" 
-        size="small" 
-        onClick={this.guardarDatosA} >
-        <AddIcon />
-      </Fab>
-      </Tooltip>
-      </Grid>
+            
                 
       <Fab 
       style={style.button} 
@@ -156,9 +143,16 @@ guardarDatosA = () => {
       variant="extended"
       onClick={this.guardarDatosp}
       >
-      <NavigateNextIcon />
-        Siguiente
+        Guardar
       </Fab>
+      <Button
+  color="primary"
+              size="medium"
+              style={style.button}
+              onClick={this.handleCancelar}
+            >
+              Cancelar
+            </Button>
       </Grid>
         </Papel>
         
@@ -169,4 +163,4 @@ guardarDatosA = () => {
   }
 }
 
-export default consumerFirebase(Idiomas3);
+export default consumerFirebase(EditarHerramientas3);

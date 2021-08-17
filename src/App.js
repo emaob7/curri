@@ -57,6 +57,36 @@ import NuEx4 from "./componentes/vistas/Nuevo/NuEx4";
 import NuGe2 from "./componentes/vistas/Nuevo/NuGe2";
 import NuGe3 from "./componentes/vistas/Nuevo/NuGe3";
 import EditarExp from "./componentes/vistas/EditarExp";
+import EditarExp2 from "./componentes/vistas/EditarExp2";
+import EditarExp3 from "./componentes/vistas/EditarExp3";
+import EditarExp4 from "./componentes/vistas/EditarExp4";
+import EditarExpG from "./componentes/vistas/EditarExpG";
+import EditarExpG2 from "./componentes/vistas/EditarExpG2";
+import EditarExpG3 from "./componentes/vistas/EditarExpG3";
+import EditarEducacion from "./componentes/vistas/Nuevo/EditarEducacion";
+import EditarEducacion2 from "./componentes/vistas/Nuevo/EditarEducacion2";
+import EditarEducacion3 from "./componentes/vistas/Nuevo/EditarEducacion3";
+import EditarEducacion4 from "./componentes/vistas/Nuevo/EditarEducacion4";
+import EditarCursos from "./componentes/vistas/stepForm/EditarCursos";
+import EditarCursos2 from "./componentes/vistas/stepForm/EditarCursos2";
+import EditarCursos3 from "./componentes/vistas/stepForm/EditarCursos3";
+import EditarCursos4 from "./componentes/vistas/stepForm/EditarCursos4";
+import EditarCursos5 from "./componentes/vistas/stepForm/EditarCursos5";
+import EditarCursos6 from "./componentes/vistas/stepForm/EditarCursos6";
+import EditarCursos7 from "./componentes/vistas/stepForm/EditarCursos7";
+import EditarCursos8 from "./componentes/vistas/stepForm/EditarCursos8";
+import EditarCursos9 from "./componentes/vistas/stepForm/EditarCursos9";
+import EditarCursos10 from "./componentes/vistas/stepForm/EditarCursos10";
+import EditarIdiomas from "./componentes/vistas/stepForm/EditarIdiomas";
+import EditarIdiomas2 from "./componentes/vistas/stepForm/EditarIdiomas2";
+import EditarIdiomas3 from "./componentes/vistas/stepForm/EditarIdiomas3";
+import EditarIdiomas4 from "./componentes/vistas/stepForm/EditarIdiomas4";
+import EditarIdiomas5 from "./componentes/vistas/stepForm/EditarIdiomas5";
+import EditarHerramientas from "./componentes/vistas/stepForm/EditarHerramientas";
+import EditarHerramientas2 from "./componentes/vistas/stepForm/EditarHerramientas2";
+import EditarHerramientas3 from "./componentes/vistas/stepForm/EditarHerramientas3";
+import EditarHerramientas4 from "./componentes/vistas/stepForm/EditarHerramientas4";
+import EditarHerramientas5 from "./componentes/vistas/stepForm/EditarHerramientas5";
 
 
 function App(props) {
@@ -137,23 +167,199 @@ function App(props) {
 
               <RutaAutenticada
                 exact
-                path="/editar/experiencia/:id"
+                path="/editar/experienciae/:id"
                 autenticadoFirebase="{firebase.auth.currentUser}"
                 component={EditarExp}
 
               />
+              <RutaAutenticada
+                exact
+                path="/editar/experienciae2/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarExp2}
+              />
+                <RutaAutenticada
+                exact
+                path="/editar/experienciae3/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarExp3}
+              />
+               <RutaAutenticada
+                exact
+                path="/editar/experienciae4/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarExp4}
+              />
               
                <RutaAutenticada
                 exact
-                path="/editar/experienciag/:id"
+                path="/nueva/experienciag/:id"
                 autenticadoFirebase="{firebase.auth.currentUser}"
                 component={ExperienciaG}
               />
               <RutaAutenticada
                 exact
+                path="/editar/experienciag/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarExpG}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/experienciag2/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarExpG2}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/experienciag3/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarExpG3}
+              />
+              <RutaAutenticada
+                exact
                 path="/editar/educacion/:id"
                 autenticadoFirebase="{firebase.auth.currentUser}"
-                component={Educacion}
+                component={EditarEducacion}
+              />
+
+
+              <RutaAutenticada
+                exact
+                path="/editar/educacion2/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarEducacion2}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/educacion3/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarEducacion3}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/educacion4/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarEducacion4}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/cursos/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarCursos}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/cursos2/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarCursos2}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/cursos3/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarCursos3}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/cursos4/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarCursos4}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/cursos5/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarCursos5}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/cursos6/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarCursos6}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/cursos7/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarCursos7}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/cursos8/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarCursos8}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/cursos9/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarCursos9}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/cursos10/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarCursos10}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/idiomas/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarIdiomas}
+              />
+               <RutaAutenticada
+                exact
+                path="/editar/idiomas2/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarIdiomas2}
+              />
+               <RutaAutenticada
+                exact
+                path="/editar/idiomas3/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarIdiomas3}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/idiomas4/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarIdiomas4}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/idiomas5/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarIdiomas5}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/herramientas/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarHerramientas}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/herramientas2/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarHerramientas2}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/herramientas3/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarHerramientas3}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/herramientas4/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarHerramientas4}
+              />
+              <RutaAutenticada
+                exact
+                path="/editar/herramientas5/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={EditarHerramientas5}
               />
                <RutaAutenticada
                 exact
@@ -336,12 +542,7 @@ function App(props) {
                 autenticadoFirebase="{firebase.auth.currentUser}"
                 component={NuevoExpEs}
               />
- <RutaAutenticada
-                exact
-                path="/nuevo/experienciag/:id"
-                autenticadoFirebase="{firebase.auth.currentUser}"
-                component={NuevoExpG}
-              />
+ 
               <RutaAutenticada
                 exact
                 path="/nuevo/experienciae2/:id"
@@ -359,6 +560,12 @@ function App(props) {
                 path="/nuevo/experienciae4/:id"
                 autenticadoFirebase="{firebase.auth.currentUser}"
                 component={NuEx4}
+              />
+              <RutaAutenticada
+                exact
+                path="/nuevo/experienciag/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={NuevoExpG}
               />
               <RutaAutenticada
                 exact
