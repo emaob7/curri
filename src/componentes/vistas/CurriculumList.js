@@ -90,6 +90,10 @@ class CurriculumList extends Component {
   editarCurriculum = (id) => {
     this.props.history.push("/curriculum/edit/" + id);
   }
+  descargarCurriculum = (id) => {
+    this.props.history.push("/descargar/" + id);
+  }
+
 
 
 
@@ -117,7 +121,7 @@ class CurriculumList extends Component {
             Nuevo
           </Fab>
 
-          <Grid container spacing={1}>
+          <Grid container spacing={2}>
             {this.state.datosps.map((card) => (
               <Grid item key={card.id} xs={12} sm={12} md={4} >
                 <Card style={style.card}>
@@ -131,6 +135,7 @@ class CurriculumList extends Component {
                     <Button
                       startIcon={<GetAppIcon/>}
                       color="primary"
+                      onClick={() => this.descargarCurriculum(card.id)}
                     >
                       
                       Descargar

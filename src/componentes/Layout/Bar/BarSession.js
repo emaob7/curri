@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import {
   Toolbar,
   IconButton,
-  Button,
   Drawer,
-  Avatar
+  Avatar,
+  Typography,
 } from "@material-ui/core";
+
+import ButtonBase from '@material-ui/core/ButtonBase';
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from '@material-ui/core/Tooltip';
 import { consumerFirebase } from "../../../server";
@@ -22,10 +24,25 @@ import Grid from "@material-ui/core/Grid";
 
 
 const style={
-  foto: {
-    width: "7%",
-    height: "7%",
+  logo: {
+    width: "30px",
+    height: "30px",
   },
+  iconButton: {
+    marginRight: "15px",
+  },
+  avatar: {
+    marginLeft: "30px",
+  },
+  base: {
+    width: "30px",
+    height: "30px",
+    borderRadius:"15px",
+    marginRight: "25px",
+    marginTop: 10,
+    display: "flex",
+
+  }
 }
 
 const styles = (theme) => ({
@@ -44,10 +61,6 @@ const styles = (theme) => ({
   grow: {
     flexGrow: 1,
   },
-  avatarSize: {
-    width: 40,
-    height: 40,
-  },
   listItemText: {
     fontSize: "14px",
     fontWeight: 600,
@@ -57,6 +70,7 @@ const styles = (theme) => ({
   list: {
     width: 250,
   },
+  
 });
 
 class BarSession extends Component {
@@ -67,6 +81,9 @@ class BarSession extends Component {
     right: false,
     left: false
   };
+
+  
+
   salirSesionApp = () => {
     const { firebase } = this.state;
     const [{ sesion }, dispatch] = this.context;
@@ -88,6 +105,8 @@ class BarSession extends Component {
     return nuevosObjetos;
   }
 
+
+  
   render() {
     const { classes } = this.props;
     const [{ sesion }, dispatch] = this.context;
@@ -136,26 +155,37 @@ class BarSession extends Component {
         <Grid item xs={12} sm={5} md={5}>
           <Link  to="/">
           <Tooltip title="Ir a inicio">
-            <img  src ={boton} style={style.foto} />
+            <img  src ={boton} style={style.logo} />
             </Tooltip>
+            
            </Link>
             </Grid>
+
           <div className={classes.grow}></div>
           <div className={classes.sectionDesktop}>
             
-          <Button color="inherit">{textoUsuario}</Button>
-            <Avatar
-            src={usuario.foto || fotoUsuarioTemp}>
-            </Avatar>
-            
-            <Tooltip title="Administracion">
-          
-            <IconButton
-              color="inherit"
-              onClick={this.toggleDrawer("right", true)}
+          <Tooltip title="Sus Curriculums">
+          <IconButton
+          style={style.iconButton}
+          color="inherit"
+          component={Link} button to="/list"
+
             >
-              <i className="material-icons">more_vert</i>
+              <i className="material-icons"
+              >dashboard</i>
             </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Cuenta">
+            <ButtonBase
+            onClick={this.toggleDrawer("right", true)}
+            style={style.base}
+            >
+            <Avatar
+            style={style.avatar}
+            src={usuario.foto || fotoUsuarioTemp}/>
+            
+            </ButtonBase>
             </Tooltip>
           </div>
           <div className={classes.sectionMobile}>

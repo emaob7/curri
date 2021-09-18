@@ -117,12 +117,8 @@ guardarDatosp = () => {
     const {datosp} = this.state;
     const {id} = this.props.match.params;
 
-
-
     datosp.propietario = this.props.firebase.auth.currentUser.uid;
     
-    
-
     this.props.firebase.db
         .collection("Datosps")
         .doc(id)

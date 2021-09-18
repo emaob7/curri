@@ -1,7 +1,6 @@
 
 import React from 'react';
-import {Typography } from '@material-ui/core';
-import Found from '../Imagenes/svg/found.svg'
+import {Button, Typography } from '@material-ui/core';
 
 const style = {
     foto: {
@@ -16,8 +15,11 @@ export default function Agregar ({children}){
     
       return (
         <div style={{backgroundColor: '#fafafa'}}>
-        <img  src ={Found} style={style.foto} />
-        <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}} >{children}</div>
+        <Button 
+        onClick={{children}}>Agregar
+
+        </Button>
+        
        
         </div>
       )

@@ -1,1268 +1,439 @@
-import React, { Component } from "react";
-import {
-  Grid,
-  Button,
-  IconButton,
-  Typography,
-  CardActions,
-  Table,
-  TableHead,
-  TableBody,
-  TableCell,
-  TableRow,
-  AccordionActions,
+import React, { useRef, useEffect, useState } from 'react';
+import {Fab,
   AccordionSummary,
-  Accordion,
-} from "@material-ui/core";
+  Accordion, Typography, Grid} from "@material-ui/core";
 import AccordionDetail from "@material-ui/core/AccordionDetails";
 import { consumerFirebase } from "../../server";
-import { Link } from "react-router-dom";
-import Papel from "../Children/Papel";
+import { useParams } from 'react-router-dom';
+import Papel from '../Children/Papel';
+import InDatos from './Sections/InDatos';
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import EditIcon from "@material-ui/icons/Edit";
-import Agregar from "../Children/Agregar";
+import InPerfil from './Sections/InPerfil';
+import InEspecifica from './Sections/InEspecifica';
+import InEducacion from './Sections/InEducacion';
+import InIdioma from './Sections/InIdioma';
 
 const style = {
-  icon: {
-    marginRight: 0.5,
-    width: 20,
-    height: 20,
+  div:{
+    margin: "auto"
   },
-  link: {
-    display: "flex",
+  summary: {
+    backgroundColor: "#FFF"
   },
-
-  div: {
-    marginBottom: 22,
-    backgroundColor: "#0071bc",
-    width: 80,
-    height: 5,
+  details: {
+    backgroundColor: "#F3F6F9",
   },
-
-  gridTextfield: {
-    marginTop: "20px",
-    marginBottom: "-20px",
-  },
-  boton: {
-    marginTop: "-1%",
-    marginBottom: "10px",
-    marginLeft: "5%",
-  },
-  card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
-  acordeon: {
-    paddingTop: "0px",
-    paddingBottom: "1%",
-    marginTop: "-3%",
-    marginBottom: "1%",
-  },
-
-  cardContent: {
-    flexGrow: 1,
-    paddingTop: "4px",
-    paddingBottom: "1%",
-  },
-  barraBoton: {
-    marginTop: "20px",
-  },
-};
-
-class CurriculumEdit extends Component {
-  state = {
-    datosp: [],
-  };
-
-  async componentDidMount() {
-    const { id } = this.props.match.params;
-
-    const datospCollection = this.props.firebase.db.collection("Datosps");
-    const datospDB = await datospCollection.doc(id).get();
-
-    this.setState({
-      datosp: datospDB.data(),
-    });
-  }
-
-  eliminarDatosps = (id) => {
-    this.props.firebase.db
-      .collection("Datosps")
-      .doc(id)
-      .delete()
-      .then((success) => {
-        this.eliminarDatospsDeListaEstado(id);
-      });
-  };
-
-  eliminarDatospsDeListaEstado = (id) => {
-    const datospsListaNueva = this.state.datosps.filter(
-      (datosps) => datosps.id !== id
-    );
-    this.setState({
-      datosps: datospsListaNueva,
-    });
-  };
-
-  editarDatosp = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/datosp/" + id);
-  };
-
-  editarResumen = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/objetivo/" + id);
-  };
-
-  editarExperiencia1 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/experienciae/" + id);
-  };
-  editarExperiencia2 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/experienciae2/" + id);
-  };
-  editarExperiencia3 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/experienciae3/" + id);
-  };
-  editarExperiencia4 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/experienciae4/" + id);
-  };
-  editarExperienciag = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/experienciag/" + id);
-  };
-  editarExperienciag2 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/experienciag2/" + id);
-  };
-  editarExperienciag3 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/experienciag3/" + id);
-  };
-  editarEducacion = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/educacion/" + id);
-  };
-  editarEducacion2 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/educacion2/" + id);
-  };
-  editarEducacion3 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/educacion3/" + id);
-  };
-  editarEducacion4 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/educacion4/" + id);
-  };
-  editarCursos = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/cursos/" + id);
-  };
-  editarCursos2 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/cursos2/" + id);
-  };
-  editarCursos3 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/cursos3/" + id);
-  };
-  editarCursos4 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/cursos4/" + id);
-  };
-  editarCursos5 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/cursos5/" + id);
-  };
-  editarCursos6 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/cursos6/" + id);
-  };
-  editarCursos7 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/cursos7/" + id);
-  };
-  editarCursos8 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/cursos8/" + id);
-  };
-  editarCursos9 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/cursos9/" + id);
-  };
-  editarCursos10 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/cursos10/" + id);
-  };
-  editarIdiomas = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/idiomas/" + id);
-  };
-  editarIdiomas2 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/idiomas2/" + id);
-  };
-  editarIdiomas3 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/idiomas3/" + id);
-  };
-  editarIdiomas4 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/idiomas4/" + id);
-  };
-  editarIdiomas5 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/idiomas5/" + id);
-  };
-  editarHerramientas = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/herramientas/" + id);
-  };
-  editarHerramientas2 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/herramientas2/" + id);
-  };
-  editarHerramientas3 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/herramientas3/" + id);
-  };
-  editarHerramientas4 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/herramientas4/" + id);
-  };
-  editarHerramientas5 = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/herramientas5/" + id);
-  };
-
-  editarReferencias = () => {
-    const { id } = this.props.match.params;
-    this.props.history.push("/editar/referencias/" + id);
-  };
-
-  render() {
-    return (
-      <>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={12}>
-            <Papel>
-              <Typography variant="h6" color="textSecondary">
-                Secciones de su Curriculum
-              </Typography>
-              <Grid item xs={12} sm={12} md={12}>
-                <div style={style.card}>
-                  <Typography gutterBottom variant="h6" component="h2">
-                    {this.state.datosp.nom + " " + this.state.datosp.ape}
-                  </Typography>
-
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      Datos Personales
-                    </AccordionSummary>
-                    <AccordionDetail style={style.acordeon}>
-                      <ul>
-                        <li>
-                          {" "}
-                          Nombre Completo:{" "}
-                          {this.state.datosp.nom + " " + this.state.datosp.ape}
-                        </li>
-                        <li>CIN/ DNI: {this.state.datosp.cin}</li>
-                        <li>Profesión: {this.state.datosp.prof}</li>
-                        <li>Número Profesional: {this.state.datosp.nprof}</li>
-                        <li>Nacionalidad: {this.state.datosp.naci}</li>
-                        <li>Fecha de Nacimiento: {this.state.datosp.fena}</li>
-                        <li>Direccion: {this.state.datosp.dir}</li>
-                        <li>Telefono: {this.state.datosp.tel}</li>
-                        <li>Correo: {this.state.datosp.email}</li>
-                      </ul>
-                    </AccordionDetail>
-                    <AccordionActions>
-                      <Button
-                        size="small"
-                        color="primary"
-                        startIcon={<EditIcon />}
-                        onClick={() => this.editarDatosp()}
-                      >
-                        {" "}
-                        Editar
-                      </Button>
-                    </AccordionActions>
-                  </Accordion>
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      Resumen Profesional
-                    </AccordionSummary>
-                    {this.state.datosp.obje ? (
-                      <AccordionDetail style={style.acordeon}>
-                        <ul>
-                          <li>{this.state.datosp.obje}</li>
-                        </ul>
-                      </AccordionDetail>
-                    ) : (
-                      <Agregar />
-                    )}
-                    <AccordionActions>
-                      <Button
-                        size="small"
-                        color="primary"
-                        startIcon={<EditIcon />}
-                        onClick={() => this.editarResumen(this.state.datosp.id)}
-                      >
-                        {" "}
-                        Editar
-                      </Button>
-                    </AccordionActions>
-                  </Accordion>
-
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      Experiencia Específica
-                    </AccordionSummary>
-                    {this.state.datosp.empre? (
-                      <AccordionDetail style={style.acordeon}>
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Puesto</TableCell>
-                              <TableCell>Empresa Institución</TableCell>
-                              <TableCell>Ubicación</TableCell>
-                              <TableCell>Desde</TableCell>
-                              <TableCell>Hasta</TableCell>
-                              <TableCell>Tareas realizadas</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell>{this.state.datosp.puesto}</TableCell>
-                              <TableCell>{this.state.datosp.empre}</TableCell>
-                              <TableCell>
-                                {this.state.datosp.ubicacion}
-                              </TableCell>
-                              <TableCell>
-                                <Typography
-                                  variant="caption"
-                                  display="block"
-                                  gutterBottom
-                                >
-                                  {this.state.datosp.finicio}
-                                </Typography>
-                              </TableCell>
-                              <TableCell>
-                                <Typography
-                                  variant="caption"
-                                  display="block"
-                                  gutterBottom
-                                >
-                                  {this.state.datosp.ffinal}
-                                </Typography>
-                              </TableCell>
-                              <TableCell>{this.state.datosp.tareas}</TableCell>
-                              <TableCell>
-                                <IconButton
-                                  size="small"
-                                  color="primary"
-                                  onClick={() => this.editarExperiencia1()}
-                                >
-                                  <EditIcon />
-                                </IconButton>
-                              </TableCell>
-                            </TableRow>
-                            {this.state.datosp.empre2 ? (
-                              <TableRow>
-                                <TableCell>
-                                  {this.state.datosp.puesto2}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.empre2}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.ubicacion2}
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.finicio2}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.ffinal2}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.tareas2}
-                                </TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarExperiencia2()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.empre3 ? (
-                              <TableRow>
-                                <TableCell>
-                                  {this.state.datosp.puesto3}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.empre3}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.ubicacion3}
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.finicio3}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.ffinal3}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.tareas3}
-                                </TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarExperiencia3()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-
-                            {this.state.datosp.empre4 ? (
-                              <TableRow>
-                                <TableCell>
-                                  {this.state.datosp.puesto4}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.empre4}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.ubicacion4}
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.finicio4}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.ffinal4}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.tareas4}
-                                </TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarExperiencia4()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                          </TableBody>
-                        </Table>
-                      </AccordionDetail>
-                    ) : (
-                      <Agregar />
-                    )}
-                  </Accordion>
-
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      Experiencia General
-                    </AccordionSummary>
-                    {this.state.datosp.puestog ? (
-                      <AccordionDetail style={style.acordeon}>
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Puesto</TableCell>
-                              <TableCell>Empresa Institución</TableCell>
-                              <TableCell>Ubicación</TableCell>
-                              <TableCell>Desde</TableCell>
-                              <TableCell>Hasta</TableCell>
-                              <TableCell>Tareas realizadas</TableCell>
-                            </TableRow>
-                          </TableHead>
-
-                          <TableBody>
-                          {this.state.datosp.empreg ? (
-                              <TableRow>
-                                <TableCell>
-                                  {this.state.datosp.puestog}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.empreg}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.ubicaciong}
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.finiciog}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.ffinalg}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.tareasg}
-                                </TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarExperienciag()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.emprg2 ? (
-                              <TableRow>
-                                <TableCell>
-                                  {this.state.datosp.puestg2}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.emprg2}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.ubicaciog2}
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.finicig2}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.ffinag2}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.tareag2}
-                                </TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarExperienciag2()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.emprg3 ? (
-                              <TableRow>
-                                <TableCell>
-                                  {this.state.datosp.puestg3}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.emprg3}
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.ubicaciog3}
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.finicig3}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  <Typography
-                                    variant="caption"
-                                    display="block"
-                                    gutterBottom
-                                  >
-                                    {this.state.datosp.ffinag3}
-                                  </Typography>
-                                </TableCell>
-                                <TableCell>
-                                  {this.state.datosp.tareag3}
-                                </TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarExperienciag3()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                          </TableBody>
-                        </Table>
-                      </AccordionDetail>
-                    ) : (
-                      <Agregar />
-                    )}
-                  </Accordion>
-
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      Educación
-                    </AccordionSummary>
-                    {this.state.datosp.tite ? (
-                      <AccordionDetail style={style.acordeon}>
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Titulo de Grado</TableCell>
-                              <TableCell>Institución</TableCell>
-                              <TableCell>Duración</TableCell>
-                              <TableCell>Fecha de Culminación</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell>{this.state.datosp.tite}</TableCell>
-                              <TableCell>{this.state.datosp.inse}</TableCell>
-                              <TableCell>{this.state.datosp.dure}</TableCell>
-                              <TableCell>{this.state.datosp.cule}</TableCell>
-                              <TableCell>
-                                <IconButton
-                                  size="small"
-                                  color="primary"
-                                  onClick={() => this.editarEducacion()}
-                                >
-                                  <EditIcon />
-                                </IconButton>
-                              </TableCell>
-                            </TableRow>
-                            {this.state.datosp.tite2 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tite2}</TableCell>
-                                <TableCell>{this.state.datosp.inse2}</TableCell>
-                                <TableCell>{this.state.datosp.dure2}</TableCell>
-                                <TableCell>{this.state.datosp.cule2}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarEducacion2()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.tite3 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tite3}</TableCell>
-                                <TableCell>{this.state.datosp.inse3}</TableCell>
-                                <TableCell>{this.state.datosp.dure3}</TableCell>
-                                <TableCell>{this.state.datosp.cule3}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarEducacion3()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.tite4 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tite4}</TableCell>
-                                <TableCell>{this.state.datosp.inse4}</TableCell>
-                                <TableCell>{this.state.datosp.dure4}</TableCell>
-                                <TableCell>{this.state.datosp.cule4}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarEducacion4()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                          </TableBody>
-                        </Table>
-                      </AccordionDetail>
-                    ) : (
-                      <Agregar />
-                    )}
-                  </Accordion>
-
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      Capacitaciones y otros Cursos
-                    </AccordionSummary>
-                    {this.state.datosp.tit ? (
-                      <AccordionDetail style={style.acordeon}>
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Titulo/ Certificado</TableCell>
-                              <TableCell>Institución</TableCell>
-                              <TableCell>Duración</TableCell>
-                              <TableCell>Fecha de Culminación</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell>{this.state.datosp.tit}</TableCell>
-                              <TableCell>{this.state.datosp.ins}</TableCell>
-                              <TableCell>{this.state.datosp.dur}</TableCell>
-                              <TableCell>{this.state.datosp.cul}</TableCell>
-                              <TableCell>
-                                <IconButton
-                                  size="small"
-                                  color="primary"
-                                  onClick={() => this.editarCursos()}
-                                >
-                                  <EditIcon />
-                                </IconButton>
-                              </TableCell>
-                            </TableRow>
-                            {this.state.datosp.tit2 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tit2}</TableCell>
-                                <TableCell>{this.state.datosp.ins2}</TableCell>
-                                <TableCell>{this.state.datosp.dur2}</TableCell>
-                                <TableCell>{this.state.datosp.cul2}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarCursos2()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.tit3 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tit3}</TableCell>
-                                <TableCell>{this.state.datosp.ins3}</TableCell>
-                                <TableCell>{this.state.datosp.dur3}</TableCell>
-                                <TableCell>{this.state.datosp.cul3}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarCursos3()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.tit4 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tit4}</TableCell>
-                                <TableCell>{this.state.datosp.ins4}</TableCell>
-                                <TableCell>{this.state.datosp.dur4}</TableCell>
-                                <TableCell>{this.state.datosp.cul4}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.EditarCursos4()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            <TableRow>
-                              <TableCell>{this.state.datosp.tit5}</TableCell>
-                              <TableCell>{this.state.datosp.ins5}</TableCell>
-                              <TableCell>{this.state.datosp.dur5}</TableCell>
-                              <TableCell>{this.state.datosp.cul5}</TableCell>
-                              <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarCursos5()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                            </TableRow>
-                            {this.state.datosp.tit6 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tit6}</TableCell>
-                                <TableCell>{this.state.datosp.ins6}</TableCell>
-                                <TableCell>{this.state.datosp.dur6}</TableCell>
-                                <TableCell>{this.state.datosp.cul6}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarCursos6()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-
-                            {this.state.datosp.tit7 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tit7}</TableCell>
-                                <TableCell>{this.state.datosp.ins7}</TableCell>
-                                <TableCell>{this.state.datosp.dur7}</TableCell>
-                                <TableCell>{this.state.datosp.cul7}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarCursos7()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.tit8 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tit8}</TableCell>
-                                <TableCell>{this.state.datosp.ins8}</TableCell>
-                                <TableCell>{this.state.datosp.dur8}</TableCell>
-                                <TableCell>{this.state.datosp.cul8}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarCursos8()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.tit9 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tit9}</TableCell>
-                                <TableCell>{this.state.datosp.ins9}</TableCell>
-                                <TableCell>{this.state.datosp.dur9}</TableCell>
-                                <TableCell>{this.state.datosp.cul9}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarCursos9()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.tit10 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.tit10}</TableCell>
-                                <TableCell>{this.state.datosp.ins10}</TableCell>
-                                <TableCell>{this.state.datosp.dur10}</TableCell>
-                                <TableCell>{this.state.datosp.cul10}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarCursos10()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                          </TableBody>
-                        </Table>
-                      </AccordionDetail>
-                    ) : (
-                      <Agregar />
-                    )}
-                    
-                  </Accordion>
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      Idiomas
-                    </AccordionSummary>
-                    {this.state.datosp.idi ? (
-                      <AccordionDetail style={style.acordeon}>
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Idioma</TableCell>
-                              <TableCell>Nivel</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell>{this.state.datosp.idi}</TableCell>
-                              <TableCell>{this.state.datosp.niv}</TableCell>
-                              <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarIdiomas()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                            </TableRow>
-                            {this.state.datosp.idi2 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.idi2}</TableCell>
-                                <TableCell>{this.state.datosp.niv2}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarIdiomas2()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.idi3 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.idi3}</TableCell>
-                                <TableCell>{this.state.datosp.niv3}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarIdiomas3()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.idi4 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.idi4}</TableCell>
-                                <TableCell>{this.state.datosp.niv4}</TableCell>
-
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarIdiomas4()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.idi5 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.idi5}</TableCell>
-                                <TableCell>{this.state.datosp.niv5}</TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarIdiomas5()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                          </TableBody>
-                        </Table>
-                      </AccordionDetail>
-                    ) : (
-                      <Agregar />
-                    )}
-                   
-                  </Accordion>
-
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      Herramientas y Habilidades
-                    </AccordionSummary>
-                    {this.state.datosp.her ? (
-                      <AccordionDetail style={style.acordeon}>
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Habilidades</TableCell>
-                              <TableCell>Nivel</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell>{this.state.datosp.her}</TableCell>
-                              <TableCell>{this.state.datosp.nive}</TableCell>
-                              <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarHerramientas()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                            </TableRow>
-                            {this.state.datosp.her2 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.her2}</TableCell>
-                                <TableCell>{this.state.datosp.nive2}</TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarHerramientas2()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.her3 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.her3}</TableCell>
-                                <TableCell>{this.state.datosp.nive3}</TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarHerramientas3()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.her4 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.her4}</TableCell>
-                                <TableCell>{this.state.datosp.nive4}</TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarHerramientas4()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                            {this.state.datosp.her5 ? (
-                              <TableRow>
-                                <TableCell>{this.state.datosp.her5}</TableCell>
-                                <TableCell>{this.state.datosp.nive5}</TableCell>
-                                <TableCell>
-                                  <IconButton
-                                    size="small"
-                                    color="primary"
-                                    onClick={() => this.editarHerramientas5()}
-                                  >
-                                    <EditIcon />
-                                  </IconButton>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <Agregar />
-                            )}
-                          </TableBody>
-                        </Table>
-                      </AccordionDetail>
-                    ) : (
-                      <Agregar />
-                    )}
-            
-                  </Accordion>
-
-                  <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      Referencias
-                    </AccordionSummary>
-                    {this.state.datosp.ref1 ? (
-                      <AccordionDetail style={style.acordeon}>
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Nombre Completo</TableCell>
-                              <TableCell>Teléfono</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              <TableCell>{this.state.datosp.ref1}</TableCell>
-                              <TableCell>{this.state.datosp.tel1}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                              <TableCell>{this.state.datosp.ref2}</TableCell>
-                              <TableCell>{this.state.datosp.tel2}</TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </AccordionDetail>
-                    ) : (
-                      <Agregar />
-                    )}
-                    <AccordionActions>
-                      <Button
-                        size="small"
-                        color="primary"
-                        startIcon={<EditIcon />}
-                        onClick={() => this.editarReferencias()}
-                      >
-                        {" "}
-                        Editar
-                      </Button>
-                    </AccordionActions>
-                  </Accordion>
-
-                  <CardActions>
-                    <Button
-                      size="small"
-                      color="primary"
-                      startIcon={<EditIcon />}
-                      onClick={() => this.editarReferencias()}
-                    >
-                      {" "}
-                      Editar
-                    </Button>
-                  </CardActions>
-                </div>
-              </Grid>
-            </Papel>
-          </Grid>
-        </Grid>
-      </>
-    );
-  }
 }
+
+const CurriculumEdit = (props) => {
+
+  const firebase = props.firebase;
+   // const [loading, setLoading] = useState(true);
+    const [datos, setDatos] = useState({});
+    let { id } = useParams();
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const response = await firebase.db
+                .collection("Datosps")
+                .doc(id)
+                .get();
+
+                let data = { nom: 'not found' };
+                if (response.exists) {
+                    data = response.data();
+                }
+                setDatos(data);
+           //     setLoading(false);
+            } catch(err) {
+                console.error(err);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const change = (e) => {
+      const {name, value} = e.target;
+      setDatos({...datos, [name]:value})
+  }
+
+
+    const guardarDatos = async () => {
+        await firebase.db.collection("Datosps")
+        .doc(id)
+        .set(datos, {merge: true})
+        
+    }
+
+
+
+  return (
+    <div style ={style.div}>
+      <Papel>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} style={style.summary}>
+          <Typography variant="h6" gutterBottom>
+          Información Personal
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.acordeon}>
+          <InDatos 
+          datos={datos}
+          change ={change} />
+          </AccordionDetail>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Perfil
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.acordeon}>
+          <InPerfil 
+          datos={datos}
+          change ={change} />
+          </AccordionDetail>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Experiencias Especificas
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
+            
+          <InEspecifica
+          puestop='puesto'
+          emprep='empre'
+          ubicacionp='ubicacion'
+          finiciop='finicio'
+          ffinalp='ffinal'
+          tareasp='tareas' 
+          puesto={datos.puesto}
+          empre={datos.empre}
+          ubicacion={datos.ubicacion}
+          finicio={datos.finicio}
+          ffinal={datos.ffinal}
+          tareas={datos.tareas}
+          change ={change} />
+          
+          <InEspecifica
+          puestop='puesto2'
+          emprep='empre2'
+          ubicacionp='ubicacion2'
+          finiciop='finicio2'
+          ffinalp='ffinal2'
+          tareasp='tareas2' 
+          puesto={datos.puesto2}
+          empre={datos.empre2}
+          ubicacion={datos.ubicacion2}
+          finicio={datos.finicio2}
+          ffinal={datos.ffinal2}
+          tareas={datos.tareas2}
+          change ={change} />
+          <InEspecifica
+          puestop='puesto3'
+          emprep='empre3'
+          ubicacionp='ubicacion3'
+          finiciop='finicio3'
+          ffinalp='ffinal3'
+          tareasp='tareas3' 
+          puesto={datos.puesto3}
+          empre={datos.empre3}
+          ubicacion={datos.ubicacion3}
+          finicio={datos.finicio3}
+          ffinal={datos.ffinal3}
+          tareas={datos.tareas3}
+          change ={change} />
+          <InEspecifica 
+          puestop='puesto4'
+          emprep='empre4'
+          ubicacionp='ubicacion4'
+          finiciop='finicio4'
+          ffinalp='ffinal4'
+          tareasp='tareas4'
+          puesto={datos.puesto4}
+          empre={datos.empre4}
+          ubicacion={datos.ubicacion4}
+          finicio={datos.finicio4}
+          ffinal={datos.ffinal4}
+          tareas={datos.tareas4}
+          change ={change} />
+          </Grid>
+          </AccordionDetail>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Experiencias Generales
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
+            
+          <InEspecifica
+          puestop='puestog'
+          emprep='empreg'
+          ubicacionp='ubicaciong'
+          finiciop='finiciog'
+          ffinalp='ffinalg'
+          tareasp='tareasg'  
+          puesto={datos.puestog}
+          empre={datos.empreg}
+          ubicacion={datos.ubicaciong}
+          finicio={datos.finiciog}
+          ffinal={datos.ffinalg}
+          tareas={datos.tareasg}
+          change ={change} />
+          
+          <InEspecifica
+          puestop='puestg2'
+          emprep='emprg2'
+          ubicacionp='ubicaciog2'
+          finiciop='finicig2'
+          ffinalp='ffinag2'
+          tareasp='tareag2'   
+          puesto={datos.puestg2}
+          empre={datos.emprg2}
+          ubicacion={datos.ubicaciog2}
+          finicio={datos.finicig2}
+          ffinal={datos.ffinag2}
+          tareas={datos.tareag2}
+          change ={change} />
+          <InEspecifica
+           puestop='puestg3'
+           emprep='emprg3'
+           ubicacionp='ubicaciog3'
+           finiciop='finicig3'
+           ffinalp='ffinag3'
+           tareasp='tareag3'  
+          puesto={datos.puestg3}
+          empre={datos.emprg3}
+          ubicacion={datos.ubicaciog3}
+          finicio={datos.finicig3}
+          ffinal={datos.ffinag3}
+          tareas={datos.tareag3}
+          change ={change} />
+         
+          </Grid>
+          </AccordionDetail>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Educación
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
+          <InEducacion
+          tite='tite'
+          inse='inse'
+          dure='dure'
+          cule='cule'
+          titulo={datos.tite}
+          institucion={datos.inse}
+          duracion={datos.dure}
+          culminacion={datos.cule}
+          change ={change}
+          />
+          <InEducacion
+         
+         tite='tite2'
+         inse='inse2'
+         dure='dure2'
+         cule='cule2'
+         titulo={datos.tite2}
+         institucion={datos.inse2}
+         duracion={datos.dure2}
+         culminacion={datos.cule2}
+         change ={change}
+         />
+         <InEducacion
+         
+         tite='tite3'
+         inse='inse3'
+         dure='dure3'
+         cule='cule3'
+         titulo={datos.tite3}
+         institucion={datos.inse3}
+         duracion={datos.dure3}
+         culminacion={datos.cule3}
+         change ={change}
+         />
+         <InEducacion
+         
+         tite='tite4'
+         inse='inse4'
+         dure='dure4'
+         cule='cule4'
+         titulo={datos.tite4}
+         institucion={datos.inse4}
+         duracion={datos.dure4}
+         culminacion={datos.cule4}
+         change ={change}
+         />
+         </Grid>
+          </AccordionDetail>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Cursos y Capacitaciones
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
+          <InEducacion
+          tite='tit'
+          inse='ins'
+          dure='dur'
+          cule='cul'
+          titulo={datos.tit}
+          institucion={datos.ins}
+          duracion={datos.dur}
+          culminacion={datos.cul}
+          change ={change}
+          />
+          <InEducacion
+         
+         tite='tit2'
+         inse='ins2'
+         dure='dur2'
+         cule='cul2'
+         titulo={datos.tit2}
+         institucion={datos.ins2}
+         duracion={datos.dur2}
+         culminacion={datos.cul2}
+         change ={change}
+         />
+         <InEducacion
+         
+         tite='tit3'
+         inse='ins3'
+         dure='dur3'
+         cule='cul3'
+         titulo={datos.tit3}
+         institucion={datos.ins3}
+         duracion={datos.dur3}
+         culminacion={datos.cul3}
+         change ={change}
+         />
+         <InEducacion
+         tite='tit4'
+         inse='ins4'
+         dure='dur4'
+         cule='cul4'
+         titulo={datos.tit4}
+         institucion={datos.ins4}
+         duracion={datos.dur4}
+         culminacion={datos.cul4}
+         change ={change}
+         />
+         <InEducacion
+         tite='tit5'
+         inse='ins5'
+         dure='dur5'
+         cule='cul5'
+         titulo={datos.tit5}
+         institucion={datos.ins5}
+         duracion={datos.dur5}
+         culminacion={datos.cul5}
+         change ={change}
+         />
+         <InEducacion
+         tite='tit6'
+         inse='ins6'
+         dure='dur6'
+         cule='cul6'
+         titulo={datos.tit6}
+         institucion={datos.ins6}
+         duracion={datos.dur6}
+         culminacion={datos.cul6}
+         change ={change}
+         />
+         <InEducacion
+         tite='tit7'
+         inse='ins7'
+         dure='dur7'
+         cule='cul7'
+         titulo={datos.tit7}
+         institucion={datos.ins7}
+         duracion={datos.dur7}
+         culminacion={datos.cul7}
+         change ={change}
+         />
+         </Grid>
+          </AccordionDetail>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Idiomas
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
+          <InIdioma
+          idi='idi'
+          niv='niv'
+          idioma={datos.idi}
+          nivel={datos.niv}
+          />
+          <InIdioma
+          idi='idi2'
+          niv='niv2'
+          idioma={datos.idi2}
+          nivel={datos.niv2}
+          />
+          <InIdioma
+          idi='idi3'
+          niv='niv3'
+          idioma={datos.idi3}
+          nivel={datos.niv3}
+          />
+          <InIdioma
+          idi='idi4'
+          niv='niv4'
+          idioma={datos.idi4}
+          nivel={datos.niv4}
+          />
+          <InIdioma
+          idi='idi5'
+          niv='niv5'
+          idioma={datos.idi5}
+          nivel={datos.niv5}
+          />
+        
+         </Grid>
+          </AccordionDetail>
+        </Accordion>
+
+
+      </Papel>
+
+
+
+
+
+      <Fab
+              variant="contained"
+              size="medium"
+              color="primary"
+              onClick={guardarDatos}
+            >
+              Guardar
+            </Fab>
+    </div>
+  );
+};
 
 export default consumerFirebase(CurriculumEdit);

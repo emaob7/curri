@@ -66,7 +66,7 @@ async componentDidMount() {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-      this.props.history.push("/");
+      this.props.history.push("/curriculum/edit/" + id);
       }) 
 
 }

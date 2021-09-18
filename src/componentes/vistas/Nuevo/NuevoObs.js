@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Typography, TextField, Button } from "@material-ui/core";
-import SaveIcon from "@material-ui/icons/Save";
-//import CKEditor from 'ckeditor4-react';
-//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Grid, Typography, TextField, Fab, Button } from "@material-ui/core";
 import { consumerFirebase } from "../../../server";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Papel from "../../Children/Papel";
@@ -11,24 +8,9 @@ const style = {
   load: {
     backgroundColor: "#4dabf5",
   },
-
-  icon: {
-    marginRight: 0.5,
-    width: 20,
-    height: 20,
-  },
-
-  div: {
-    marginBottom: 22,
-    backgroundColor: "#0071bc",
-    width: 80,
-    height: 5,
-  },
-
-  avatar: {
-    margin: 10,
-    width: 100,
-    height: 100,
+  button: {
+    marginTop: 22,
+    marginRight: 17,
   },
 };
 
@@ -70,7 +52,10 @@ guardarDatosp = () => {
       })
 
 }
-  
+handleOmitir = () => {
+  const {id} = this.props.match.params;
+  this.props.history.push("/nuevo/experienciae/" + id);
+};
   
 
   render() {
@@ -80,7 +65,7 @@ guardarDatosp = () => {
         <Typography variant="h6" gutterBottom>
           Agregue su objetivo Profesional,o su interes en trabajar en la Empresa
         </Typography>
-        <div style={style.div}></div>
+        
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <TextField
@@ -98,17 +83,23 @@ guardarDatosp = () => {
           </Grid>
 
           <Grid item xs={6} md={6}>
-            <Button
-              type="button"
-              fullWidth
-              variant="contained"
-              size="large"
-              color="primary"
-              startIcon={<SaveIcon />}
-              style={style.submit}
-              onClick={this.guardarDatosp}
+          <Fab 
+      style={style.button} 
+      color="primary" 
+      aria-label="save" 
+      size="medium" 
+      variant="extended"
+      onClick={this.guardarDatosp}
+      >
+        Continuar
+      </Fab>
+      <Button
+  color="primary"
+              size="medium"
+              style={style.button}
+              onClick={this.handleOmitir}
             >
-              Guardar y continuar
+              Omitir
             </Button>
           </Grid>
         </Grid>

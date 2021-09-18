@@ -4,8 +4,8 @@ import {
   Typography,
   TextField,
   Button,
+  Fab,
 } from "@material-ui/core";
-import SaveIcon from "@material-ui/icons/Save";
 import { consumerFirebase } from "../../../server";
 import { v4 as uuidv4 } from "uuid";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -28,12 +28,12 @@ const style = {
     width: 80,
     height: 5,
   },
-
-  avatar: {
-    margin: 10,
-    width: 100,
-    height: 100,
+  button: {
+    marginTop: 22,
+    marginRight: 17,
   },
+
+  
 };
 
 class NuevoDatos extends Component {
@@ -86,7 +86,9 @@ guardarDatosp = () => {
         })
 
 }
-
+handleCancelar = () => {
+  this.props.history.push("/list/");
+};
   render() {
     const { loading } = this.state;
     return (
@@ -234,17 +236,23 @@ guardarDatosp = () => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Button
-              type="button"
-              fullWidth
-              variant="contained"
-              size="large"
-              color="primary"
-              startIcon={<SaveIcon />}
-              style={style.submit}
-              onClick={this.guardarDatosp}
+          <Fab 
+      style={style.button} 
+      color="primary" 
+      aria-label="save" 
+      size="medium" 
+      variant="extended"
+      onClick={this.guardarDatosp}
+      >
+        Continuar
+      </Fab>
+      <Button
+  color="primary"
+              size="medium"
+              style={style.button}
+              onClick={this.handleCancelar}
             >
-              Guardar y continuar
+              Cancelar
             </Button>
           </Grid>
 

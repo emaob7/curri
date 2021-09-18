@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
   Grid,
   TextField,
+  Button,
 } from "@material-ui/core";
 import { consumerFirebase } from "../../../server";
 import Papel from '../../Children/Papel';
@@ -76,6 +77,12 @@ guardarDatosA = () => {
       }) 
 
 }
+
+
+handleOmitir = () => {
+  const {id} = this.props.match.params;
+  this.props.history.push("/nuevo/experienciag/" + id);
+};
 
   render() {
     const { loading } = this.state;
@@ -189,6 +196,14 @@ guardarDatosA = () => {
       <NavigateNextIcon />
         Siguiente
       </Fab>
+      <Button
+  color="primary"
+              size="medium"
+              style={style.button}
+              onClick={this.handleOmitir}
+            >
+              Omitir
+            </Button>
         </Papel>
     </React.Fragment>
 

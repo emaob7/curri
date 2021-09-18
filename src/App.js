@@ -87,6 +87,7 @@ import EditarHerramientas2 from "./componentes/vistas/stepForm/EditarHerramienta
 import EditarHerramientas3 from "./componentes/vistas/stepForm/EditarHerramientas3";
 import EditarHerramientas4 from "./componentes/vistas/stepForm/EditarHerramientas4";
 import EditarHerramientas5 from "./componentes/vistas/stepForm/EditarHerramientas5";
+import Descargar from "./componentes/vistas/Plantillas/Descargar";
 
 
 function App(props) {
@@ -506,10 +507,7 @@ function App(props) {
                 autenticadoFirebase="{firebase.auth.currentUser}"
                 component={Cursos10}
               />
-            
-              
-                
-             
+               
                 <RutaAutenticada
                 exact
                 path="/list"
@@ -601,6 +599,13 @@ function App(props) {
                 autenticadoFirebase="{firebase.auth.currentUser}"
                 component={NuevaPersona}
               />
+              <RutaAutenticada
+                exact
+                path="/descargar/:id"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={Descargar}
+              />
+              
               
               
               <Route

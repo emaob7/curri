@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
   Grid,
   TextField,
+  Button
 } from "@material-ui/core";
 import { consumerFirebase } from "../../../server";
 import Fab from '@material-ui/core/Fab';
@@ -58,7 +59,7 @@ class NuevoExpG extends Component  {
       .doc(id)
       .set(datosp, {merge: true})
      .then( success => {
-      this.props.history.push("/");
+      this.props.history.push("/curriculum/edit/" + id);
       }) 
 
 }
@@ -76,6 +77,11 @@ guardarDatosA = () => {
       }) 
 
 }
+
+handleOmitir = () => {
+  const {id} = this.props.match.params;
+  this.props.history.push("/curriculum/edit/" + id);
+};
 
   render() {
     const { loading } = this.state;
@@ -190,6 +196,14 @@ guardarDatosA = () => {
       <NavigateNextIcon />
         Siguiente
       </Fab>
+      <Button
+  color="primary"
+              size="medium"
+              style={style.button}
+              onClick={this.handleOmitir}
+            >
+              Omitir
+            </Button>
         </Papel>
     </React.Fragment>
 
