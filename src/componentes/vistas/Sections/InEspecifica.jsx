@@ -1,11 +1,8 @@
 import React from 'react';
 import {
     Grid,
-    TextField,AccordionSummary,
-    Accordion, Typography
+    TextField,FormControl, Button
   } from "@material-ui/core";
-  import AccordionDetail from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 
   const style = {
@@ -21,119 +18,122 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
   };
 
 
-const InEspecifica = (props) => {
+  export default function InEspecifica(props){
+   const { emprep, empresa, change,puesto,puestop,ubicacionp,ubicacion,ffinalp,ffinal,finiciop,finicio,limpiar,tareasp,tareas, ...other } = props; 
+
+    
 
     return (
         <div >
-
-        
-          <Accordion style={style.accordeon}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="button" gutterBottom>
-          {props.empre}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetail >
+          
+          
+          <form >
           <Grid container spacing={3}>
+          
           <Grid item xs={12} md={6}>
             <TextField
-              name={props.emprep}
+              name={emprep}
               variant="outlined"
               fullWidth
               size="small"
               label="Empresa / Institución"
-              value={props.empre}
-              onChange={props.change}
+              value={empresa}
+              onChange={change}
+              placeholder="Ej: Banco Nacional de Fomento"
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder="Ej: Banco Nacional de Fomento"
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name={props.puestop}
+              name={puestop}
               variant="outlined"
               fullWidth
               size="small"
               label="Puesto"
-              value={props.puesto}
-              onChange={props.change}
+              value={puesto}
+              onChange={change}
+              placeholder="Ej: Ingeniero de Sistemas"
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder="Ej: Ingeniero de Sistemas"
             />
             </Grid>
             
             <Grid item xs={12} md={12}>
             <TextField
-              name={props.ubicacionp}
+              name={ubicacionp}
               variant="outlined"
               fullWidth
               size="small"
               label="Ubicación"
-              value={props.ubicacion}
-              onChange={props.change}
+              value={ubicacion}
+              onChange={change}
+              placeholder="Ej: Asunción"
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder="Ej: Asunción"
             />
             </Grid>
              <Grid item xs={12} md={6}>
             <TextField
-              name={props.finiciop}
+              name={finiciop}
               variant="outlined"
               fullWidth
               size="small"
               label="Desde fecha"
-              value={props.finicio}
-              onChange={props.change}
+              value={finicio}
+              onChange={change}
+              placeholder="Ej: Ene 2019"
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder="Ej: Ene 2019"
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name={props.ffinalp}
+              name={ffinalp}
               variant="outlined"
               fullWidth
               size="small"
               label="Hasta fecha"
-              value={props.ffinal}
-              onChange={props.change}
+              value={ffinal}
+              onChange={change}
+              placeholder="Ej: Dic 2020"
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder="Ej: Dic 2020"
             />
             </Grid>
             <Grid item xs={12} md={12}>
             <TextField
               style={style.text}
-              name={props.tareasp}
+              name={tareasp}
               variant="outlined"
               fullWidth
               multiline
               rows={3}
               size="small"
               label="Tareas o logros relevantes"
-              value={props.tareas}
-              onChange={props.change}
+              value={tareas}
+              onChange={change}
+              placeholder="Ej: Trabajos de control de software"
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder="Ej: Trabajos de control de software"
             />
-            </Grid>
-            </Grid>
+         
+<Button
+onClick={limpiar}
+>
+  limpiar
+</Button>
 
-
-          </AccordionDetail>
-            </Accordion>
+            </Grid>
+           
+            </Grid>
+            </form>
 
           
          
@@ -141,4 +141,3 @@ const InEspecifica = (props) => {
         </div>
       );
 }
-export default InEspecifica;

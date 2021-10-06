@@ -3,12 +3,16 @@ import {
     Grid,
     TextField,
     FormControl,
-    FormHelperText,
-    Select,
+    Select ,
     MenuItem,
+    InputLabel,
+   
   } from "@material-ui/core";
 
-const InIdioma = (props) => {
+  
+
+export default function InIdioma(props){
+
 
     return (
         <>
@@ -23,35 +27,36 @@ const InIdioma = (props) => {
                     fullWidth
                     size="small"
                     label="Idioma"
-                    value={props.idioma}
+                    value={props.idioma ? props.idioma : ""}
                     onChange={props.change}
-                    InputLabelProps={{
-                        shrink: true,
-                      }}
+                    
                       placeholder="Ej: Inglés"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                  <FormControl style={{margin: 6, marginLeft: 16 }}>
-                    <Select
-                      name={props.niv}
-                      value={props.nivel}
-                      onChange={props.change}
-                      displayEmpty
-                    >
-                      <MenuItem value="">
-                        <em>Elija Nivel</em>
-                      </MenuItem>
-                      <MenuItem value="Nivel Basico">Nivel Básico</MenuItem>
-                      <MenuItem value="Nivel Intermedio">Nivel Intermedio</MenuItem>
-                      <MenuItem value="Nivel Avanzado">Nivel Avanzado</MenuItem>
-                    </Select>
-                    <FormHelperText>ej: Nivel Avanzado</FormHelperText>
-                  </FormControl>
+                <FormControl fullWidth>
+  <InputLabel >Nivel</InputLabel>
+  <Select
+    name={props.niv}
+    value={props.nivel ? props.nivel : ""}
+    onChange={props.change}
+  >
+    <MenuItem value="">
+     <em>Seleccione</em>
+   </MenuItem>
+    <MenuItem value="Nivel Avanzado">Nivel Avanzado</MenuItem>
+    <MenuItem value="Nivel Intermedio">Nivel Intermedio</MenuItem>
+    <MenuItem value="Nivel Básico">Nivel Básico</MenuItem>
+  </Select>
+</FormControl>   
                 </Grid>
+
+
+
+
+                
             </Grid>         
         </>
       );
 }
-export default InIdioma;
