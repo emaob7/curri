@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import {Fab,
   AccordionSummary,
-  Accordion, Typography, Grid,Chip} from "@material-ui/core";
+  Accordion, Typography, Grid} from "@material-ui/core";
 import AccordionDetail from "@material-ui/core/AccordionDetails";
 import { consumerFirebase } from "../../server";
 import { useParams } from 'react-router-dom';
@@ -33,6 +33,10 @@ const style = {
     marginBottom: 7,
     marginTop: 7,
   },
+  button: {
+    margin: "auto",
+    marginTop: 10,
+  },
 
 }
 
@@ -40,10 +44,13 @@ const CurriculumEdit = (props) => {
 
   const firebase = props.firebase;
    // const [loading, setLoading] = useState(true);
+ 
     const [datos, setDatos] = useState({});
     const [value, setValue] = useState('');
-    const [expe, setExpe] = useState([{ firstName: "odieooo", lastName: "holiii" }]);
-    
+    const [expe, setExpe] = useState([{ empre: "", ffinal: "",finicio: "", tareas: "",puesto: "", ubicacion: "" }]);
+    const [gene, setGene] = useState([{empre: "", ffinal: "",finicio: "", tareas: "",puesto: "", ubicacion: ""}]);
+
+
     let { id } = useParams();
 
     useEffect(() => {
@@ -59,6 +66,8 @@ const CurriculumEdit = (props) => {
                     data = response.data();
                 }
                 setDatos(data);
+                setGene(data.gene);
+                
            //     setLoading(false);
             } catch(err) {
                 console.error(err);
@@ -76,20 +85,22 @@ const CurriculumEdit = (props) => {
     setValue(newValue);
   };
 
-    const guardarDatos = async () => {
+  const guardarDatos1 = async () => {
+      
         await firebase.db.collection("Datosps")
         .doc(id)
         .set(datos, {merge: true})
         
     }
 
+    const guardarGene = async () => {
+      await firebase.db.collection("Datosps")
+      .doc(id)
+      .set((Object.assign({}, {gene})),{merge: true})
+  }
 
-    const limpiar = () => {
-      setDatos({puesto: null});
-     // setValue(false);
-    }
 
-    const handleInputChange = (e, index) => {
+  const handleInputChange = (e, index) => {
       const { name, value } = e.target;
       const list = [...expe];
       list[index][name] = value;
@@ -105,7 +116,28 @@ const CurriculumEdit = (props) => {
   
     // handle click event of the Add button
     const handleAddClick = () => {
-      setExpe([...expe, { firstName: "", lastName: "" }]);
+      setExpe([...expe, { empre: "", ffinal: "",finicio: "", tareas: "",puesto: "", ubicacion: "" }]);
+    };
+
+    //Generales
+
+    const handleInputChangeg = (e, index) => {
+      const { name, value } = e.target;
+      const list = [...gene];
+      list[index][name] = value;
+      setGene(list);
+    };
+  
+    // handle click event of the Remove button
+    const handleRemoveClickg = index => {
+      const list = [...gene];
+      list.splice(index, 1);
+      setGene(list);
+    };
+  
+    // handle click event of the Add button
+    const handleAddClickg = () => {
+      setGene([...gene, { empre: "", ffinal: "",finicio: "", tareas: "",puesto: "", ubicacion: ""  }]);
     };
 
   return (
@@ -148,57 +180,18 @@ const CurriculumEdit = (props) => {
           </AccordionSummary>
           <AccordionDetail style={style.details}>
           
-
-
-
-
-
           <Grid container spacing={2}>
 
-
-
-
-           
-          <Chip style={style.chips} color="primary"  label="Experiencia 1" onDelete={limpiar} onClick={() => setValue(1)}/>
-          <Chip style={style.chips} color="primary"  label="Experiencia 2"   onClick={() => setValue(2)}/>
-          <Chip style={style.chips} color="primary"   label="Experiencia 3"  onClick={() => setValue(3)}/>
-          <Chip style={style.chips} color="primary"   label="Experiencia 4"  onClick={() => setValue(4)}/>
-        
-
           <InEspecificaDos
-
           expe={expe}
           handleInputChange={handleInputChange}
           handleRemoveClick={handleRemoveClick}
           handleAddClick={handleAddClick}
-
-
           />
-          
-          {value ==  1 ?  
-          <InEspecifica
-          puestop='puesto'
-          emprep='empre'
-          ubicacionp='ubicacion'
-          finiciop='finicio'
-          ffinalp='ffinal'
-          tareasp='tareas' 
-          puesto={datos.puesto}
-          empresa={datos.empre}
-          ubicacion={datos.ubicacion}
-          finicio={datos.finicio}
-          ffinal={datos.ffinal}
-          tareas={datos.tareas}
-          change ={change}
-          limpiar={limpiar}
-          />
-          : null}
-          
+         
           </Grid>
-
           </AccordionDetail>
         </Accordion>
-
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography variant="h6" gutterBottom>
@@ -207,25 +200,14 @@ const CurriculumEdit = (props) => {
           </AccordionSummary>
           <AccordionDetail style={style.details}>
           <Grid container spacing={2}>
-            
+           
           <InEspecifica
-
-          puestop='puestog'
-          emprep='empreg'
-          ubicacionp='ubicaciong'
-          finiciop='finiciog'
-          ffinalp='ffinalg'
-          tareasp='tareasg'  
-          puesto={datos.puestog}
-          empresa={datos.empreg}
-          ubicacion={datos.ubicaciong}
-          finicio={datos.finiciog}
-          ffinal={datos.ffinalg}
-          tareas={datos.tareasg}
-          change ={change} />
+          gene={gene}
+          handleInputChangeg={handleInputChangeg}
+          handleRemoveClickg={handleRemoveClickg}
+          handleAddClickg={handleAddClickg}
+          /> 
           
-         
-         
           </Grid>
           </AccordionDetail>
         </Accordion>
@@ -340,28 +322,7 @@ const CurriculumEdit = (props) => {
           nivel={datos.nive2}
           change ={change}
           />
-           <InHerramienta
-          her='her3'
-          nive='nive3'
-          herramienta={datos.her3}
-          nivel={datos.nive3}
-          change ={change}
-          />
-           <InHerramienta
-          her='her4'
-          nive='nive4'
-          herramienta={datos.her4}
-          nivel={datos.nive4}
-          change ={change}
-          />
-           <InHerramienta
-          her='her5'
-          nive='nive5'
-          herramienta={datos.her5}
-          nivel={datos.nive5}
-          change ={change}
-          />
-        
+           
          </Grid>
           </AccordionDetail>
         </Accordion>
@@ -399,7 +360,7 @@ const CurriculumEdit = (props) => {
               variant="extended"
               size="medium"
               color="primary"
-              onClick={guardarDatos}
+              onClick={guardarGene}
             >
               Guardar
             </Fab>

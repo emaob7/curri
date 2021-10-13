@@ -1,143 +1,132 @@
-import React from 'react';
+import React, { useState } from "react";
 import {
     Grid,
-    TextField,FormControl, Button
+    TextField, Chip,AccordionSummary,
+    Accordion, Button
   } from "@material-ui/core";
+  import AddIcon from "@material-ui/icons/Add";
+  import AccordionDetail from "@material-ui/core/AccordionDetails";
+import CreateIcon from "@material-ui/icons/Create";
 
 
   const style = {
+    papel: {
+      padding: 10,
+      marginTop: 7,
+    },
     accordeon: {
-      
       marginTop: 5,
     },
-  
-    text: {
-      marginBottom: 20,
+    button: {
+      margin: "auto",
+      marginTop: 10,
     },
+
 
   };
 
 
-  export default function InEspecifica(props){
-   const { emprep, empresa, change,puesto,puestop,ubicacionp,ubicacion,ffinalp,ffinal,finiciop,finicio,limpiar,tareasp,tareas, ...other } = props; 
-
+function InEspecifica(props) {
+    const { gene,handleInputChangeg,handleRemoveClickg,handleAddClickg, ...other } = props; 
     
 
-    return (
-        <div >
+  return (
+    <>
+      
+      {gene.map((x, i) => {
+        return (
+          <Accordion style={style.accordeon}>
+          <AccordionSummary expandIcon={<CreateIcon/>}>
+          <Chip style={style.chips} color="primary"  label={x.empre || ""} onDelete={() => handleRemoveClickg(i)} />
+          </AccordionSummary>
+          <AccordionDetail>
           
-          
-          <form >
-          <Grid container spacing={3}>
-          
-          <Grid item xs={12} md={6}>
-            <TextField
-              name={emprep}
-              variant="outlined"
-              fullWidth
-              size="small"
-              label="Empresa / Institución"
-              value={empresa}
-              onChange={change}
-              placeholder="Ej: Banco Nacional de Fomento"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            </Grid>
-            <Grid item xs={12} md={6}>
-            <TextField
-              name={puestop}
-              variant="outlined"
-              fullWidth
-              size="small"
-              label="Puesto"
-              value={puesto}
-              onChange={change}
-              placeholder="Ej: Ingeniero de Sistemas"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            </Grid>
+            <Grid container spacing={2} key={i}>
+            <Grid item xs={12} md={12}>
             
-            <Grid item xs={12} md={12}>
-            <TextField
-              name={ubicacionp}
-              variant="outlined"
-              fullWidth
-              size="small"
-              label="Ubicación"
-              value={ubicacion}
-              onChange={change}
-              placeholder="Ej: Asunción"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
             </Grid>
-             <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
             <TextField
-              name={finiciop}
+              name="empre"
+              label="Empresa/ Institución"
+              value={x.empre || ""}
+              onChange={e => handleInputChangeg(e, i)}
               variant="outlined"
-              fullWidth
               size="small"
-              label="Desde fecha"
-              value={finicio}
-              onChange={change}
-              placeholder="Ej: Ene 2019"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              fullWidth
             />
             </Grid>
             <Grid item xs={12} md={6}>
             <TextField
-              name={ffinalp}
+              name="puesto"
+              label="Puesto"
+              value={x.puesto || ""}
+              onChange={e => handleInputChangeg(e, i)}
               variant="outlined"
-              fullWidth
               size="small"
-              label="Hasta fecha"
-              value={ffinal}
-              onChange={change}
-              placeholder="Ej: Dic 2020"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              fullWidth
             />
             </Grid>
             <Grid item xs={12} md={12}>
             <TextField
-              style={style.text}
-              name={tareasp}
+              name="ubicacion"
+              label="Ubicación/ ciudad"
+              value={x.ubicacion || ""}
+              onChange={e => handleInputChangeg(e, i)}
               variant="outlined"
+              size="small"
               fullWidth
+            />
+            </Grid>
+            <Grid item xs={12} md={6}>
+            <TextField
+              name="finicio"
+              label="Fecha en que ingresaste"
+              value={x.finicio || ""}
+              onChange={e => handleInputChangeg(e, i)}
+              variant="outlined"
+              size="small"
+              fullWidth
+            />
+            </Grid>
+            <Grid item xs={12} md={6}>
+            <TextField
+              name="ffinal"
+              label="Hasta fecha"
+              value={x.ffinal || ""}
+              onChange={e => handleInputChangeg(e, i)}
+              variant="outlined"
+              size="small"
+              fullWidth
+            />
+            </Grid>
+            <Grid item xs={12} md={12}>
+            <TextField
+              name="tareas"
+              label="Tareas o logros relevantes"
+              value={x.tareas || ""}
+              onChange={e => handleInputChangeg(e, i)}
+              variant="outlined"
+              size="small"
               multiline
               rows={3}
-              size="small"
-              label="Tareas o logros relevantes"
-              value={tareas}
-              onChange={change}
-              placeholder="Ej: Trabajos de control de software"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              fullWidth
             />
-         
-<Button
-onClick={limpiar}
->
-  limpiar
-</Button>
-
             </Grid>
-           
+            <Grid item xs={12} md={12}>
+              </Grid>
             </Grid>
-            </form>
-
-          
-         
-           
-        </div>
-      );
+            </AccordionDetail>
+            </Accordion>
+        );
+      })}
+    
+    <Button style={style.button} onClick={handleAddClickg} color="primary"  startIcon={<AddIcon/>}>
+            Agregar
+          </Button>
+     
+    </>
+  );
 }
+
+export default InEspecifica;

@@ -1,46 +1,136 @@
 import React, { useState } from "react";
+import {
+    Grid,
+    TextField, Chip,AccordionSummary,
+    Accordion, Button
+  } from "@material-ui/core";
+  import AddIcon from "@material-ui/icons/Add";
+  import AccordionDetail from "@material-ui/core/AccordionDetails";
+import CreateIcon from "@material-ui/icons/Create";
+
+
+  const style = {
+    papel: {
+      
+      padding: 10,
+      marginTop: 7,
+    },
+    accordeon: {
+      marginTop: 5,
+    },
+    button: {
+      margin: "auto",
+      marginTop: 10,
+    },
+
+
+  };
+
 
 function InEspecificaDos(props) {
     const { expe,handleInputChange,handleRemoveClick,handleAddClick, ...other } = props; 
     
 
- 
-
-
-
-  // handle input change
- 
-
   return (
-    <div className="App">
-      <h3><a href="https://cluemediator.com">Clue Mediator</a></h3>
+    <>
+     
       {expe.map((x, i) => {
         return (
-          <div className="box">
-            <input
-              name="firstName"
-              placeholder="Enter First Name"
-              value={x.firstName}
+          <Accordion style={style.accordeon}>
+          <AccordionSummary expandIcon={<CreateIcon/>}>
+          <Chip style={style.chips} color="primary"  label={x.empre} onDelete={() => handleRemoveClick(i)} />
+          </AccordionSummary>
+          <AccordionDetail>
+          
+            <Grid container spacing={2} key={i}>
+            <Grid item xs={12} md={12}>
+            
+            </Grid>
+            <Grid item xs={12} md={6}>
+            <TextField
+              name="empre"
+              label="Empresa/ Institución"
+              value={x.empre || ""}
               onChange={e => handleInputChange(e, i)}
+              variant="outlined"
+              size="small"
+              fullWidth
             />
-            <input
-              className="ml10"
-              name="lastName"
-              placeholder="Enter Last Name"
-              value={x.lastName}
+            </Grid>
+            <Grid item xs={12} md={6}>
+            <TextField
+              name="puesto"
+              label="Puesto"
+              value={x.puesto || ""}
               onChange={e => handleInputChange(e, i)}
+              variant="outlined"
+              size="small"
+              fullWidth
             />
-            <div className="btn-box">
-              {expe.length !== 1 && <button
-                className="mr10"
-                onClick={() => handleRemoveClick(i)}>Remove</button>}
-              {expe.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
-            </div>
-          </div>
+            </Grid>
+            <Grid item xs={12} md={12}>
+            <TextField
+              name="ubicacion"
+              label="Ubicación/ ciudad"
+              value={x.ubicacion || ""}
+              onChange={e => handleInputChange(e, i)}
+              variant="outlined"
+              size="small"
+              fullWidth
+            />
+            </Grid>
+            <Grid item xs={12} md={6}>
+            <TextField
+              name="finicio"
+              label="Fecha en que ingresaste"
+              value={x.finicio || ""}
+              onChange={e => handleInputChange(e, i)}
+              variant="outlined"
+              size="small"
+              fullWidth
+            />
+            </Grid>
+            <Grid item xs={12} md={6}>
+            <TextField
+              name="ffinal"
+              label="Hasta fecha"
+              value={x.ffinal || ""}
+              onChange={e => handleInputChange(e, i)}
+              variant="outlined"
+              size="small"
+              fullWidth
+            />
+            </Grid>
+            <Grid item xs={12} md={12}>
+            <TextField
+              name="tareas"
+              label="Tareas o logros relevantes"
+              value={x.tareas || ""}
+              onChange={e => handleInputChange(e, i)}
+              variant="outlined"
+              size="small"
+              multiline
+              rows={3}
+              fullWidth
+            />
+            </Grid>
+            <Grid item xs={12} md={12}>
+            
+              
+              
+              </Grid>
+              
+            </Grid>
+          
+            
+            </AccordionDetail>
+            </Accordion>
         );
       })}
-      <div style={{ marginTop: 20 }}>{JSON.stringify(expe)}</div>
-    </div>
+     <Button style={style.button} onClick={handleAddClick} color="primary"  startIcon={<AddIcon/>}>
+        Agregar
+      </Button>
+    </>
   );
 }
 
