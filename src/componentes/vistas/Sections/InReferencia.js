@@ -1,58 +1,90 @@
 import React from 'react';
 import {
     Grid,
-    TextField,
-   
+    TextField,AccordionSummary,
+    Accordion,Chip,Button,
   } from "@material-ui/core";
+  import AccordionDetail from "@material-ui/core/AccordionDetails";
+import AddIcon from "@material-ui/icons/Add";
+import CreateIcon from "@material-ui/icons/Create";
 
-  
 
-export default function InReferencia(props){
+  const style = {
+    accordeon: {
+      marginTop: 5,
+      width: "100%"
+    },
+    button: {
+      margin: "auto",
+      marginTop: 10,
+    },
+    select: {
+      marginTop: 8,
+    },
 
+  };
+
+
+  function InReferencia(props) {
+      const {refe, handleInputChangeR, handleRemoveClickR, handleAddClickR, ...other } = props;
 
     return (
         <>
-        <Grid container spacing={1}>
-            <Grid item xs={12} md={12}>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    name={props.refe}
-                    variant="outlined"
-                    fullWidth
-                    size="small"
-                    label="Referencia"
-                    value={props.referencia}
-                    onChange={props.change}
-                    InputLabelProps={{
-                        shrink: true,
-                      }}
-                      placeholder="Ej:  Hugo César Ortigoza"
-                  />
-                </Grid>
+ 
+      {refe.map((x, i) => {
+        return (
+          <Accordion style={style.accordeon} key={i}>
+          <AccordionSummary expandIcon={<CreateIcon/>}>
+            <Chip 
+            style={style.chips} 
+            color="primary"  
+            label={x.referencia || ""} 
+            onDelete={() => handleRemoveClickR(i)} 
+            />
+          </AccordionSummary>
+          <AccordionDetail>
+            <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+            <TextField
+              name="referencia"
+              label="Referencia"
+              value={x.referencia || ""}
+              onChange={e => handleInputChangeR(e, i)}
+              variant="outlined"
+              size="small"
+              fullWidth
+            />
+            </Grid>
 
-                <Grid item xs={12} md={6}>
-                <TextField
-                    name={props.tel}
-                    variant="outlined"
-                    fullWidth
-                    size="small"
-                    label="Referencia"
-                    value={props.telefono}
-                    onChange={props.change}
-                    InputLabelProps={{
-                        shrink: true,
-                      }}
-                      placeholder="Ej:  09817451**"
-                  />
-                
-                </Grid>
-
-
-
-
-                
-            </Grid>         
+            <Grid item xs={12} md={6}>
+            <TextField
+              name="telef"
+              label="Telefono"
+              value={x.telef || ""}
+              onChange={e => handleInputChangeR(e, i)}
+              variant="outlined"
+              size="small"
+              fullWidth
+            />
+            </Grid>
+            </Grid>
+            </AccordionDetail>
+            </Accordion>
+        );
+      })}
+    
+    <Button 
+    style={style.button} 
+    onClick={handleAddClickR} 
+    color="primary"  
+    startIcon={<AddIcon/>}>
+    Agregar
+    </Button>
+    
         </>
       );
 }
+export default InReferencia;
+
+
+{/*      */} 

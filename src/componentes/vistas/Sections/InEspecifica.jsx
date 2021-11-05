@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     Grid,
     TextField, Chip,AccordionSummary,
@@ -10,10 +10,7 @@ import CreateIcon from "@material-ui/icons/Create";
 
 
   const style = {
-    papel: {
-      padding: 10,
-      marginTop: 7,
-    },
+   
     accordeon: {
       marginTop: 5,
     },
@@ -35,16 +32,17 @@ function InEspecifica(props) {
       
       {gene.map((x, i) => {
         return (
-          <Accordion style={style.accordeon}>
+          <Accordion style={style.accordeon} key={i}>
           <AccordionSummary expandIcon={<CreateIcon/>}>
-          <Chip style={style.chips} color="primary"  label={x.empre || ""} onDelete={() => handleRemoveClickg(i)} />
+          <Chip 
+          style={style.chips} 
+          color="primary"  
+          label={x.empre || ""} 
+          onDelete={() => handleRemoveClickg(i)} 
+          />
           </AccordionSummary>
           <AccordionDetail>
-          
-            <Grid container spacing={2} key={i}>
-            <Grid item xs={12} md={12}>
-            
-            </Grid>
+            <Grid container spacing={2} >
             <Grid item xs={12} md={6}>
             <TextField
               name="empre"
@@ -113,17 +111,19 @@ function InEspecifica(props) {
               fullWidth
             />
             </Grid>
-            <Grid item xs={12} md={12}>
-              </Grid>
             </Grid>
             </AccordionDetail>
             </Accordion>
         );
       })}
     
-    <Button style={style.button} onClick={handleAddClickg} color="primary"  startIcon={<AddIcon/>}>
-            Agregar
-          </Button>
+    <Button 
+    style={style.button} 
+    onClick={handleAddClickg} 
+    color="primary"  
+    startIcon={<AddIcon/>}>
+      Agregar
+    </Button>
      
     </>
   );

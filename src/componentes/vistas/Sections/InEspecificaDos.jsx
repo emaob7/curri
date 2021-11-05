@@ -36,13 +36,13 @@ function InEspecificaDos(props) {
      
       {expe.map((x, i) => {
         return (
-          <Accordion style={style.accordeon}>
+          <Accordion style={style.accordeon} key={i}>
           <AccordionSummary expandIcon={<CreateIcon/>}>
           <Chip style={style.chips} color="primary"  label={x.empre} onDelete={() => handleRemoveClick(i)} />
           </AccordionSummary>
           <AccordionDetail>
           
-            <Grid container spacing={2} key={i}>
+            <Grid container spacing={2}>
             <Grid item xs={12} md={12}>
             
             </Grid>

@@ -127,7 +127,7 @@ class CurriculumList extends Component {
                 <Card style={style.card}>
                   <CardContent style={style.cardContent}>
                     <Typography gutterBottom variant="h6" >
-                      {card.nom + " " + card.ape}
+                      {card.datos[0].nombre + " " + card.datos[0].ape} 
                     </Typography>
  </CardContent>
 

@@ -21,17 +21,17 @@ import CreateIcon from "@material-ui/icons/Create";
   };
 
 
-  function InEducacion(props) {
-      const {educa, handleInputChangeE, handleRemoveClickE, handleAddClickE, ...other } = props;
+  function InCursos(props) {
+      const {cursos, handleInputChangeC, handleRemoveClickC, handleAddClickC, ...other } = props;
 
     return (
         <>
  
-      {educa.map((x, i) => {
+      {cursos.map((x, i) => {
         return (
           <Accordion style={style.accordeon} key={i}>
           <AccordionSummary expandIcon={<CreateIcon/>}>
-          <Chip style={style.chips} color="primary"  label={x.titu || ""} onDelete={() => handleRemoveClickE(i)} />
+          <Chip style={style.chips} color="primary"  label={x.titu || ""} onDelete={() => handleRemoveClickC(i)} />
           </AccordionSummary>
           <AccordionDetail>
           
@@ -42,9 +42,9 @@ import CreateIcon from "@material-ui/icons/Create";
             <Grid item xs={12} md={6}>
             <TextField
               name="titu"
-              label="Titulo de grado"
+              label="Titulo de grado/ Certificado"
               value={x.titu || ""}
-              onChange={e => handleInputChangeE(e, i)}
+              onChange={e => handleInputChangeC(e, i)}
               variant="outlined"
               size="small"
               fullWidth
@@ -55,7 +55,7 @@ import CreateIcon from "@material-ui/icons/Create";
               name="insti"
               label="Institucion"
               value={x.insti || ""}
-              onChange={e => handleInputChangeE(e, i)}
+              onChange={e => handleInputChangeC(e, i)}
               variant="outlined"
               size="small"
               fullWidth
@@ -66,7 +66,7 @@ import CreateIcon from "@material-ui/icons/Create";
               name="duracion"
               label="Duración"
               value={x.duracion || ""}
-              onChange={e => handleInputChangeE(e, i)}
+              onChange={e => handleInputChangeC(e, i)}
               variant="outlined"
               size="small"
               fullWidth
@@ -77,7 +77,7 @@ import CreateIcon from "@material-ui/icons/Create";
               name="culminacion"
               label="Fecha de culminacion"
               value={x.culminacion || ""}
-              onChange={e => handleInputChangeE(e, i)}
+              onChange={e => handleInputChangeC(e, i)}
               variant="outlined"
               size="small"
               fullWidth
@@ -92,7 +92,7 @@ import CreateIcon from "@material-ui/icons/Create";
     
     <Button 
     style={style.button} 
-    onClick={handleAddClickE} 
+    onClick={handleAddClickC} 
     color="primary"  
     startIcon={<AddIcon/>}>
     Agregar
@@ -102,4 +102,4 @@ import CreateIcon from "@material-ui/icons/Create";
         </>
       );
 }
-export default InEducacion;
+export default InCursos;

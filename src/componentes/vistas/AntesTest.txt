@@ -1,9 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
-import {Grid, Tabs, Tab, Box, Hidden} from "@material-ui/core";
+import {Fab, Grid, Tooltip, Tabs, Tab} from "@material-ui/core";
 import { useReactToPrint } from 'react-to-print';
 import { consumerFirebase } from "../../server";
 import { useParams } from 'react-router-dom';
 import InDatos from './Sections/InDatos';
+import SaveAltOutlinedIcon from '@material-ui/icons/SaveAltOutlined';
+import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
+import ZoomInIcon from '@material-ui/icons/ZoomIn';
+import ZoomOutIcon from '@material-ui/icons/ZoomOut';
 import InPerfil from './Sections/InPerfil';
 import InEspecifica from './Sections/InEspecifica';
 import InEspecificaDos from './Sections/InEspecificaDos';
@@ -14,7 +18,6 @@ import InReferencia from './Sections/InReferencia';
 import InCursos from './Sections/InCursos';
 import SnackGreen from '../Children/SnackGreen';
 import Hecho from '../Children/Hecho';
-import Corner from '../Children/Corner';
 import Plantilla1 from '../vistas/Plantillas/Plantilla1'
 import {Zoom, Scale} from 'react-scaling'
 import PapelDos from '../Children/PapelDos';
@@ -28,24 +31,30 @@ const style = {
     margin: "auto",
     overflowY:"scroll",
   },
- 
+  corner: {
+    marginRight: 10,
+    position: 'absolute',
+  bottom: 16,
+  right: 16,
+  },
   cornerLeft: {
     marginRight: 10,
     position: 'absolute',
   bottom: 16,
   right: 516,
   },
-  
+  fab: {
+    marginRight: 10,
+    marginTop: 10,
+    marginBottom: 30,
+    display: "flex",
+    
+  },
   summary: {
     backgroundColor: "#FFF"
   },
   details: {
     backgroundColor: "#F3F6F9",
-  },
-  bar: {
-    backgroundColor: "#e8eaed",
-    width: "100%",
-    flexDirection: "wrap"
   },
   chips: {
     margin: "auto",
@@ -57,28 +66,24 @@ const style = {
     marginTop: 10,
   },
   left: {
-  //  width: "98%",
+    width: "35%",
     height: "545px",
-    marginTop: 58,
+    marginTop: 80,
     paddingTop: "5px",
     overflowY:"scroll",
     overflowX: "hidden",
-    backgroundColor: "white"
+    
   },
+
   right:{
-   // width: "65%",
+    width: "65%",
     height: "545px",
-    marginTop: 58,
+    marginTop: 80,
     padding: "10px",
     paddingTop: "32px",
     overflowY:"scroll",
     overflowX: "hidden",
   },
-  box:{
-     marginTop: 20,
-     padding: "15px",
-     minHeight: "530px",
-   },
 
 }
 
@@ -574,32 +579,27 @@ const change = (e, index) => {
     }
   return (
     <>
-    <Grid container spacing={1}>
-      <Grid item xs={12} md={5}>
     <div style={style.left}>
-    <Box style={style.bar}>
     <Tabs
         value={valor}
         onChange={handleTabChange}
         variant="scrollable"
         scrollButtons="auto"
-        textColor="primary"
-        indicatorColor="primary"
       >
-        <Tab label="Información Personal" wrapped/>
-        <Tab label="Perfil" wrapped/>
-        <Tab label="Experiencias Específicas" wrapped/>
-        <Tab label="Experiencias Generales" wrapped/>
-        <Tab label="Educación" wrapped/>
-        <Tab label="Cursos Realizados" wrapped/>
-        <Tab label="Idiomas" wrapped/>
-        <Tab label="Herramientas y Habilidades" wrapped/>
-        <Tab label="Referencias" wrapped/>
+        <Tab label="Información Personal"/>
+        <Tab label="Perfil"/>
+        <Tab label="Experiencias Específicas"/>
+        <Tab label="Experiencias Generales"/>
+        <Tab label="Educación"/>
+        <Tab label="Cursos Realizados"/>
+        <Tab label="Idiomas"/>
+        <Tab label="Herramientas y Habilidades"/>
+        <Tab label="Referencias"/>
+        
       </Tabs>
-      </Box>
-<Box style={style.box}>
+
       {getStepContent(valor)}
-      </Box>
+
             <SnackGreen
             open={open}
             handleClose={handleClose}
@@ -608,9 +608,6 @@ const change = (e, index) => {
 
     
 </div>
-      </Grid>
-      <Hidden smDown>
-      <Grid item xs={12} md={7}>
 <div style={style.right}>
 
 <Zoom zoom={value}>
@@ -632,17 +629,50 @@ const change = (e, index) => {
     datos={datos}/>*/}
       </PapelDos>
       </Zoom>
-      <Corner
-      value={value}
-      setValue={setValue}
-      handlePrint={handlePrint}
-      />
+      <div style={style.corner}>
+      <Tooltip title={value} placement="left">
+     <Fab  
+              style={style.fab}
+              size="medium"
+              onClick={()=>{setValue(value + 10)}}
+            >
+              <ZoomInIcon/>
+     </Fab>
+     </Tooltip>
+     <Tooltip title={value} placement="left">
+     <Fab  
+              style={style.fab}
+              size="medium"
+              onClick={()=>{setValue(value - 10)}}
+            >
+              <ZoomOutIcon/>
+     </Fab>
+     </Tooltip>
+      <Tooltip title="Diseño" placement="left">
+     <Fab 
+              
+              style={style.fab}
+              size="medium"
+              color="primary"
+              onClick={""}
+            >
+              <PaletteOutlinedIcon/>
+     </Fab>
+     </Tooltip>
+     <Tooltip title="Descargar" placement="left">
+     <Fab  
+              style={style.fab}
+              size="medium"
+              color="primary"
+              onClick={handlePrint}
+            >
+              <SaveAltOutlinedIcon/>
+     </Fab>
+     </Tooltip>
+     
+     </div>
      
   </div>
-      </Grid>
-</Hidden>
-    </Grid>
-    
     </>
   );
 };

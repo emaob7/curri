@@ -6,28 +6,26 @@ import {
 
  
 
-const InDatos = (props) => {
-
-
-
-
+  function InDatos(props) {
+  const {datos, change, guardarDatos, ...other } = props;
 
 
     return (
-        <div >
+        <>
           
-
+          {datos.map((x, i) => {
+        return (
         <Grid container spacing={3}>
      
           <Grid item xs={12} md={6}>
             <TextField
-              name="nom"
+              name="nombre"
               label="Nombre"
               variant="outlined"
               size="small"
               fullWidth
-              onChange={props.change}
-              value={props.datos.nom}
+              onChange={e => change(e, i)}
+              value={x.nombre || ""}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -43,8 +41,8 @@ const InDatos = (props) => {
               variant="outlined"
               size="small"
               fullWidth
-              onChange={props.change}
-              value={props.datos.ape}
+              onChange={e => change(e, i)}
+              value={x.ape || ""}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -60,8 +58,8 @@ const InDatos = (props) => {
               helperText="Utiliza tu numero de cedula o DNI"
               size="small"
               fullWidth
-              onChange={props.change}
-              value={props.datos.cin}
+              onChange={e => change(e, i)}
+              value={x.cin || ""}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -81,8 +79,8 @@ const InDatos = (props) => {
               InputLabelProps={{
                 shrink: true,
               }}
-              onChange={props.change}
-              value={props.datos.fena}
+              onChange={e => change(e, i)}
+              value={x.fena || ""}
             />
           </Grid>
 
@@ -93,8 +91,8 @@ const InDatos = (props) => {
               variant="outlined"
               size="small"
               fullWidth
-              onChange={props.change}
-              value={props.datos.prof}
+              onChange={e => change(e, i)}
+              value={x.prof || ""}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -110,8 +108,8 @@ const InDatos = (props) => {
               size="small"
               fullWidth
               helperText="Sólo en caso que tengas"
-              onChange={props.change}
-              value={props.datos.nprof}
+              onChange={e => change(e, i)}
+              value={x.nprof || ""}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -127,8 +125,8 @@ const InDatos = (props) => {
               variant="outlined"
               fullWidth
               size="small"
-              onChange={props.change}
-              value={props.datos.naci}
+              onChange={e => change(e, i)}
+              value={x.naci || ""}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -144,8 +142,8 @@ const InDatos = (props) => {
               size="small"
               helperText="Ej: Calle Santa Rosa de Lima/ Humaita"
               fullWidth
-              onChange={props.change}
-              value={props.datos.dir}
+              onChange={e => change(e, i)}
+              value={x.dir || ""}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -160,8 +158,8 @@ const InDatos = (props) => {
               variant="outlined"
               size="small"
               fullWidth
-              onChange={props.change}
-              value={props.datos.tel}
+              onChange={e => change(e, i)}
+              value={x.tel || ""}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -176,8 +174,8 @@ const InDatos = (props) => {
               label="Correo electrónico"
               size="small"
               fullWidth
-              onChange={props.change}
-              value={props.datos.email}
+              onChange={e => change(e, i)}
+              value={x.email || ""}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -185,11 +183,12 @@ const InDatos = (props) => {
             />
             
           </Grid>
-
-          
-
         </Grid>
-        </div>
+          );
+        })}
+
+
+        </>
       );
 }
 export default InDatos;

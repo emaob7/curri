@@ -1,9 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
-import {Grid, Tabs, Tab, Box, Hidden} from "@material-ui/core";
+import {Fab,
+  AccordionSummary,
+  Accordion, Typography, Grid, Tooltip} from "@material-ui/core";
 import { useReactToPrint } from 'react-to-print';
+import AccordionDetail from "@material-ui/core/AccordionDetails";
 import { consumerFirebase } from "../../server";
 import { useParams } from 'react-router-dom';
 import InDatos from './Sections/InDatos';
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import SaveAltOutlinedIcon from '@material-ui/icons/SaveAltOutlined';
+import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
+import ZoomInIcon from '@material-ui/icons/ZoomIn';
+import ZoomOutIcon from '@material-ui/icons/ZoomOut';
 import InPerfil from './Sections/InPerfil';
 import InEspecifica from './Sections/InEspecifica';
 import InEspecificaDos from './Sections/InEspecificaDos';
@@ -13,8 +21,8 @@ import InHerramienta from './Sections/InHerramienta';
 import InReferencia from './Sections/InReferencia';
 import InCursos from './Sections/InCursos';
 import SnackGreen from '../Children/SnackGreen';
+import AccordionActions from "@material-ui/core/AccordionActions";
 import Hecho from '../Children/Hecho';
-import Corner from '../Children/Corner';
 import Plantilla1 from '../vistas/Plantillas/Plantilla1'
 import {Zoom, Scale} from 'react-scaling'
 import PapelDos from '../Children/PapelDos';
@@ -28,24 +36,30 @@ const style = {
     margin: "auto",
     overflowY:"scroll",
   },
- 
+  corner: {
+    marginRight: 10,
+    position: 'absolute',
+  bottom: 16,
+  right: 16,
+  },
   cornerLeft: {
     marginRight: 10,
     position: 'absolute',
   bottom: 16,
   right: 516,
   },
-  
+  fab: {
+    marginRight: 10,
+    marginTop: 10,
+    marginBottom: 30,
+    display: "flex",
+    
+  },
   summary: {
     backgroundColor: "#FFF"
   },
   details: {
     backgroundColor: "#F3F6F9",
-  },
-  bar: {
-    backgroundColor: "#e8eaed",
-    width: "100%",
-    flexDirection: "wrap"
   },
   chips: {
     margin: "auto",
@@ -57,28 +71,24 @@ const style = {
     marginTop: 10,
   },
   left: {
-  //  width: "98%",
+    width: "30%",
     height: "545px",
-    marginTop: 58,
+    marginTop: 80,
     paddingTop: "5px",
     overflowY:"scroll",
     overflowX: "hidden",
-    backgroundColor: "white"
+    
   },
+
   right:{
-   // width: "65%",
+    width: "70%",
     height: "545px",
-    marginTop: 58,
+    marginTop: 80,
     padding: "10px",
     paddingTop: "32px",
     overflowY:"scroll",
     overflowX: "hidden",
   },
-  box:{
-     marginTop: 20,
-     padding: "15px",
-     minHeight: "530px",
-   },
 
 }
 
@@ -95,7 +105,7 @@ const CurriculumEdit = (props) => {
     const [idi, setIdi] = useState([{idioma: "", nivel: ""}]);
     const [herra, setHerra] = useState([{herrami: "", nivel: ""}]);
     const [refe, setRefe] = useState([{referencia: "", telef: ""}]);
-    const [valor, setValor] = useState(0);
+    const [expanded, setExpanded] = useState('');
     const [open, setOpen] = useState(false);
     const [disable, setDisable] = useState(initialState);
     const [value, setValue] = useState(70);
@@ -105,8 +115,9 @@ const CurriculumEdit = (props) => {
     const handlePrint = useReactToPrint({
       content: () => componentRef.current,
     });
-    const handleTabChange = (event, newValor) => {
-      setValor(newValor);
+
+    const handleChange = (panel) => (event, newExpanded) => {
+      setExpanded(newExpanded ? panel : false);
     };
 
     useEffect(() => {
@@ -154,6 +165,9 @@ const CurriculumEdit = (props) => {
     }, []);
  
 
+    const handleSliderChange = (event, newValue) => {
+      setValue(newValue);
+    };
   
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
@@ -435,182 +449,240 @@ const change = (e, index) => {
     };
 
 
-    function getStepContent(valor) {
-      switch (valor) {
-        case 0:
-          return (
-          <>
+  return (
+    <>
+    <div style={style.left}>
+     
+        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} style={style.summary}>
+          <Typography variant="h6" gutterBottom>
+          Información Personal
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.acordeon}>
           <InDatos 
           datos={datos}
           change ={change}
+          guardarDatos ={guardarDatos}
+           
           />
-          <Hecho
-            disable ={disable.datos}
-            guardar={guardarDatos}
-            />
-          </>);
           
-        case 1:
-          
-          return (
-            <>
-           <InPerfil 
-          datos={datos}
-          change ={change}/>
+          </AccordionDetail>
+          <AccordionActions>
             <Hecho
             disable ={disable.datos}
             guardar={guardarDatos}
             />
-          </>
-          );
-        case 2:
-          return(
-            <> 
-         <InEspecificaDos
+          </AccordionActions>
+        </Accordion>
+
+        <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Perfil
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.acordeon}>
+          <InPerfil 
+          datos={datos}
+          change ={change}/>
+          </AccordionDetail>
+          <AccordionActions>
+            <Hecho
+            disable ={disable.datos}
+            guardar={guardarDatos}
+            />
+          </AccordionActions>
+        </Accordion>
+
+        <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Experiencias Especificas
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
+          <InEspecificaDos
           expe={expe}
           handleInputChange={handleInputChange}
           handleRemoveClick={handleRemoveClick}
           handleAddClick={handleAddClick}
           />
+         
+          </Grid>
+          </AccordionDetail>
+          <AccordionActions>
             <Hecho
             disable ={disable.expe}
             guardar={guardarExpe}
             />
-          </>
-          );
-        case 3:
-          return ( 
-          <>
+          </AccordionActions>
+        </Accordion>
+        <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Experiencias Generales
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
+           
           <InEspecifica
           gene={gene}
           handleInputChangeg={handleInputChangeg}
           handleRemoveClickg={handleRemoveClickg}
           handleAddClickg={handleAddClickg}
           /> 
+          
+          </Grid>
+          </AccordionDetail>
+          <AccordionActions>
             <Hecho
             disable ={disable.gene}
             guardar={guardarGene}
             />
-          </>
-          );
-        case 4:
-          return( 
-            <>
+          </AccordionActions>
+        </Accordion>
+
+        <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Educación
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
           <InEducacion
            educa={educa}
            handleInputChangeE={handleInputChangeE}
            handleRemoveClickE={handleRemoveClickE}
            handleAddClickE={handleAddClickE}
           />
+         
+         </Grid>
+          </AccordionDetail>
+          <AccordionActions>
             <Hecho
             disable ={disable.educa}
             guardar={guardarEduca}
             />
-         </>
-          );
-        case 5:
-          return( 
-          <>
+          </AccordionActions>
+        </Accordion>
+
+        <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Cursos y Capacitaciones
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
           <InCursos
            cursos={cursos}
            handleInputChangeC={handleInputChangeC}
            handleRemoveClickC={handleRemoveClickC}
            handleAddClickC={handleAddClickC}
           />
+         
+         </Grid>
+          </AccordionDetail>
+          <AccordionActions>
             <Hecho
             disable ={disable.cursos}
             guardar={guardarCursos}
             />
-         </>
-          );
-          case 6:
-          return( 
-          <>
-           <InIdioma
+          </AccordionActions>
+        </Accordion>
+
+        <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Idiomas
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
+
+          <InIdioma
            idi={idi}
            handleInputChangei={handleInputChangei}
            handleRemoveClicki={handleRemoveClicki}
            handleAddClicki={handleAddClicki}
           />
+          
+          </Grid>
+          </AccordionDetail>
+          <AccordionActions>
             <Hecho
             disable ={disable.idi}
             guardar={guardarIdiomas}
             />
-         </>
-          );
-          case 7:
-          return( 
-          <>
-           <InHerramienta
+          </AccordionActions>
+        </Accordion>
+
+
+        <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Herramientas y Habilidades
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
+          <InHerramienta
           herra={herra}
           handleInputChangeH={handleInputChangeH}
           handleRemoveClickH={handleRemoveClickH}
           handleAddClickH={handleAddClickH}
           />
+          
+           
+         </Grid>
+          </AccordionDetail>
+          <AccordionActions>
             <Hecho
             disable ={disable.herra}
             guardar={guardarHerra}
             />
-         </>
-          );
-          case 8:
-          return( 
-          <>
-           <InReferencia
+          </AccordionActions>
+        </Accordion>
+
+        <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6" gutterBottom>
+          Referencia
+        </Typography>
+          </AccordionSummary>
+          <AccordionDetail style={style.details}>
+          <Grid container spacing={2}>
+          
+          <InReferencia
           refe={refe}
           handleInputChangeR={handleInputChangeR}
           handleRemoveClickR={handleRemoveClickR}
           handleAddClickR={handleAddClickR}
           />
+
+         </Grid>
+          </AccordionDetail>
+          <AccordionActions>
             <Hecho
             disable ={disable.refe}
             guardar={guardarRefe}
             />
-         </>
-          );
-        default:
-          throw new Error('Unknown step');
-      }
-    }
-  return (
-    <>
-    <Grid container spacing={1}>
-      <Grid item xs={12} md={5}>
-    <div style={style.left}>
-    <Box style={style.bar}>
-    <Tabs
-        value={valor}
-        onChange={handleTabChange}
-        variant="scrollable"
-        scrollButtons="auto"
-        textColor="primary"
-        indicatorColor="primary"
-      >
-        <Tab label="Información Personal" wrapped/>
-        <Tab label="Perfil" wrapped/>
-        <Tab label="Experiencias Específicas" wrapped/>
-        <Tab label="Experiencias Generales" wrapped/>
-        <Tab label="Educación" wrapped/>
-        <Tab label="Cursos Realizados" wrapped/>
-        <Tab label="Idiomas" wrapped/>
-        <Tab label="Herramientas y Habilidades" wrapped/>
-        <Tab label="Referencias" wrapped/>
-      </Tabs>
-      </Box>
-<Box style={style.box}>
-      {getStepContent(valor)}
-      </Box>
+          </AccordionActions>
+        </Accordion>
+
             <SnackGreen
             open={open}
             handleClose={handleClose}
             mensaje="Guardado con éxito"
+
             />
 
     
 </div>
-      </Grid>
-      <Hidden smDown>
-      <Grid item xs={12} md={7}>
 <div style={style.right}>
 
 <Zoom zoom={value}>
@@ -632,17 +704,50 @@ const change = (e, index) => {
     datos={datos}/>*/}
       </PapelDos>
       </Zoom>
-      <Corner
-      value={value}
-      setValue={setValue}
-      handlePrint={handlePrint}
-      />
+      <div style={style.corner}>
+      <Tooltip title={value} placement="left">
+     <Fab  
+              style={style.fab}
+              size="medium"
+              onClick={()=>{setValue(value + 10)}}
+            >
+              <ZoomInIcon/>
+     </Fab>
+     </Tooltip>
+     <Tooltip title={value} placement="left">
+     <Fab  
+              style={style.fab}
+              size="medium"
+              onClick={()=>{setValue(value - 10)}}
+            >
+              <ZoomOutIcon/>
+     </Fab>
+     </Tooltip>
+      <Tooltip title="Diseño" placement="left">
+     <Fab 
+              
+              style={style.fab}
+              size="medium"
+              color="primary"
+              onClick={""}
+            >
+              <PaletteOutlinedIcon/>
+     </Fab>
+     </Tooltip>
+     <Tooltip title="Descargar" placement="left">
+     <Fab  
+              style={style.fab}
+              size="medium"
+              color="primary"
+              onClick={handlePrint}
+            >
+              <SaveAltOutlinedIcon/>
+     </Fab>
+     </Tooltip>
+     
+     </div>
      
   </div>
-      </Grid>
-</Hidden>
-    </Grid>
-    
     </>
   );
 };
