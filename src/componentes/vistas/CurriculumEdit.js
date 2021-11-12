@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import {Grid, Tabs, Tab, Box, Hidden} from "@material-ui/core";
+import {Grid, Tabs, Tab, Box, Hidden, Modal,Fade} from "@material-ui/core";
 import { useReactToPrint } from 'react-to-print';
 import { consumerFirebase } from "../../server";
 import { useParams } from 'react-router-dom';
@@ -15,11 +15,15 @@ import InCursos from './Sections/InCursos';
 import SnackGreen from '../Children/SnackGreen';
 import Hecho from '../Children/Hecho';
 import Corner from '../Children/Corner';
-import Plantilla1 from '../vistas/Plantillas/Plantilla1'
 import {Zoom, Scale} from 'react-scaling'
 import PapelDos from '../Children/PapelDos';
 import PapelClass from '../Children/PapelClass';
-import Plantilla3 from './Plantillas/Plantilla3';
+import Colors from './Plantillas/Colors';
+import SimpleBackdrop from '../Children/SimpleBackdrop';
+import Cargando from '../Children/Cargando';
+import Design from './Plantillas/Design';
+
+
 
 
 const style = {
@@ -79,14 +83,20 @@ const style = {
      padding: "15px",
      minHeight: "530px",
    },
+   backdrop: {
+     zIndex: 1,
+     color: '#fff',
+   },
+
 
 }
 
 const CurriculumEdit = (props) => {
 
-  const firebase = props.firebase;
-   // const [loading, setLoading] = useState(true);
-   const initialState = {datos: true, expe: true, gene: true,educa: true,cursos: true,idi: true,herra: true,refe: true};
+    const firebase = props.firebase;
+    const [load, setLoad] = useState(false);
+    const [leftOn, setLefton] = useState(false);
+    const initialState = {datos: true, expe: true, gene: true,educa: true,cursos: true,idi: true,herra: true,refe: true};
     const [datos, setDatos] = useState([{perfil: "",nombre: "",ape: "",cin: "",fena: "",prof: "",nprof: "",naci: "",dir: "",tel: "",email: ""}]);
     const [expe, setExpe] = useState([{empre: "", ffinal: "",finicio: "", tareas: "",puesto: "", ubicacion: ""}]);
     const [gene, setGene] = useState([{empre: "", ffinal: "",finicio: "", tareas: "",puesto: "", ubicacion: ""}]);
@@ -98,7 +108,8 @@ const CurriculumEdit = (props) => {
     const [valor, setValor] = useState(0);
     const [open, setOpen] = useState(false);
     const [disable, setDisable] = useState(initialState);
-    const [value, setValue] = useState(70);
+    const [value, setValue] = useState(40);
+    const [color, setColor] = useState('#000');
     let { id } = useParams();
 
     const componentRef = useRef();
@@ -168,11 +179,13 @@ const CurriculumEdit = (props) => {
 
 
 const guardarDatos = async () => {
+        setLoad(true);
         await firebase.db.collection("Datosps")
         .doc(id)
         .set((Object.assign({}, {datos})),{merge: true})
         .then(success =>{
           setDisable(initialState);
+          setLoad(false);
           setOpen(true);
       })
       //  .set(datos, {merge: true})
@@ -181,65 +194,79 @@ const guardarDatos = async () => {
     }
 
 const guardarExpe = async () => {
+  setLoad(true);
       await firebase.db.collection("Datosps")
       .doc(id)
       .set((Object.assign({}, {expe})),{merge: true})
       .then(success =>{
         setDisable(initialState);
+        setLoad(false);
         setOpen(true);
     })
   }
 const guardarGene = async () => {
+      setLoad(true);
       await firebase.db.collection("Datosps")
       .doc(id)
       .set((Object.assign({}, {gene})),{merge: true})
       .then(success =>{
         setDisable(initialState);
+        setLoad(false);
         setOpen(true);
     })
   }
 const guardarEduca = async () => {
+      setLoad(true);
       await firebase.db.collection("Datosps")
       .doc(id)
       .set((Object.assign({}, {educa})),{merge: true})
       .then(success =>{
         setDisable(initialState);
+        setLoad(false);
         setOpen(true);
     })
 }
 const guardarCursos = async () => {
+      setLoad(true);
       await firebase.db.collection("Datosps")
       .doc(id)
       .set((Object.assign({}, {cursos})),{merge: true})
       .then(success =>{
         setDisable(initialState);
+        setLoad(false);
         setOpen(true);
     })
 }
 const guardarIdiomas = async () => {
+  setLoad(true);
   await firebase.db.collection("Datosps")
   .doc(id)
   .set((Object.assign({}, {idi})),{merge: true})
   .then(success =>{
     setDisable(initialState);
+    setLoad(false);
     setOpen(true);
 })
 }
 const guardarHerra = async () => {
+  setLoad(true);
   await firebase.db.collection("Datosps")
   .doc(id)
   .set((Object.assign({}, {herra})),{merge: true})
   .then(success =>{
     setDisable(initialState);
+    setLoad(false);
     setOpen(true);
 })
 }
 const guardarRefe = async () => {
+  setLoad(true);
   await firebase.db.collection("Datosps")
   .doc(id)
   .set((Object.assign({}, {refe})),{merge: true})
   .then(success =>{
     setDisable(initialState);
+    setLoad(false);
     setOpen(true);
 })
 }
@@ -447,6 +474,8 @@ const change = (e, index) => {
           <Hecho
             disable ={disable.datos}
             guardar={guardarDatos}
+            leftOn={leftOn}
+            setLefton={setLefton}
             />
           </>);
           
@@ -460,6 +489,8 @@ const change = (e, index) => {
             <Hecho
             disable ={disable.datos}
             guardar={guardarDatos}
+            leftOn={leftOn}
+            setLefton={setLefton}
             />
           </>
           );
@@ -475,6 +506,8 @@ const change = (e, index) => {
             <Hecho
             disable ={disable.expe}
             guardar={guardarExpe}
+            leftOn={leftOn}
+            setLefton={setLefton}
             />
           </>
           );
@@ -490,6 +523,8 @@ const change = (e, index) => {
             <Hecho
             disable ={disable.gene}
             guardar={guardarGene}
+            leftOn={leftOn}
+            setLefton={setLefton}
             />
           </>
           );
@@ -505,6 +540,8 @@ const change = (e, index) => {
             <Hecho
             disable ={disable.educa}
             guardar={guardarEduca}
+            leftOn={leftOn}
+            setLefton={setLefton}
             />
          </>
           );
@@ -520,6 +557,8 @@ const change = (e, index) => {
             <Hecho
             disable ={disable.cursos}
             guardar={guardarCursos}
+            leftOn={leftOn}
+            setLefton={setLefton}
             />
          </>
           );
@@ -535,6 +574,8 @@ const change = (e, index) => {
             <Hecho
             disable ={disable.idi}
             guardar={guardarIdiomas}
+            leftOn={leftOn}
+            setLefton={setLefton}
             />
          </>
           );
@@ -550,6 +591,8 @@ const change = (e, index) => {
             <Hecho
             disable ={disable.herra}
             guardar={guardarHerra}
+            leftOn={leftOn}
+            setLefton={setLefton}
             />
          </>
           );
@@ -565,83 +608,146 @@ const change = (e, index) => {
             <Hecho
             disable ={disable.refe}
             guardar={guardarRefe}
+            leftOn={leftOn}
+            setLefton={setLefton}
             />
          </>
           );
+          case 9:
+            return( 
+            <>
+            <Colors
+            color={color}
+            setColor={setColor}
+            />
+           </>
+            );
         default:
           throw new Error('Unknown step');
       }
     }
   return (
     <>
-    <Grid container spacing={1}>
-      <Grid item xs={12} md={5}>
-    <div style={style.left}>
-    <Box style={style.bar}>
-    <Tabs
-        value={valor}
-        onChange={handleTabChange}
-        variant="scrollable"
-        scrollButtons="auto"
-        textColor="primary"
-        indicatorColor="primary"
-      >
-        <Tab label="Información Personal" wrapped/>
-        <Tab label="Perfil" wrapped/>
-        <Tab label="Experiencias Específicas" wrapped/>
-        <Tab label="Experiencias Generales" wrapped/>
-        <Tab label="Educación" wrapped/>
-        <Tab label="Cursos Realizados" wrapped/>
-        <Tab label="Idiomas" wrapped/>
-        <Tab label="Herramientas y Habilidades" wrapped/>
-        <Tab label="Referencias" wrapped/>
-      </Tabs>
-      </Box>
+<SimpleBackdrop
+load={load}
+setLoad={setLoad}
+/>
+{datos[0].nombre || datos[0].ape || datos[0].cin ? (
+  <Grid container spacing={1}>
+ <Grid item xs={12} md={5}>
+<div style={style.left}>
+<Box style={style.bar}>
+<Tabs
+    value={valor}
+    onChange={handleTabChange}
+    variant="scrollable"
+    scrollButtons="auto"
+    textColor="primary"
+    indicatorColor="primary"
+  >
+    <Tab label="Información Personal" wrapped/>
+    <Tab label="Perfil" wrapped/>
+    <Tab label="Experiencias Específicas" wrapped/>
+    <Tab label="Experiencias Generales" wrapped/>
+    <Tab label="Educación" wrapped/>
+    <Tab label="Cursos Realizados" wrapped/>
+    <Tab label="Idiomas" wrapped/>
+    <Tab label="Herramientas y Habilidades" wrapped/>
+    <Tab label="Referencias" wrapped/>
+    <Tab label="Color" wrapped/>
+  </Tabs>
+  </Box>
+  
+  
 <Box style={style.box}>
-      {getStepContent(valor)}
-      </Box>
-            <SnackGreen
-            open={open}
-            handleClose={handleClose}
-            mensaje="Guardado con éxito"
-            />
+  {getStepContent(valor)}
+  </Box>
+        <SnackGreen
+        open={open}
+        handleClose={handleClose}
+        mensaje="Guardado con éxito"
+        />
 
-    
+
 </div>
-      </Grid>
-      <Hidden smDown>
-      <Grid item xs={12} md={7}>
+  </Grid>
+  <Hidden smDown>
+  <Grid item xs={12} md={7}>
 <div style={style.right}>
 
 <Zoom zoom={value}>
-  <PapelDos>
-    <PapelClass ref={componentRef}>
+<PapelDos>
+<PapelClass ref={componentRef}>
+<Design
+datos={datos}
+herra={herra}
+expe={expe}
+gene={gene}
+educa={educa}
+cursos={cursos}
+idi={idi}
+refe={refe}
+color={color}
+/>
 
-    <Plantilla1
-    datos={datos}
-    herra={herra}
-    expe={expe}
-    gene={gene}
-    educa={educa}
-    cursos={cursos}
-    idi={idi}
-    refe={refe}
-    />
-    </PapelClass>
-   {/* <Plantilla3
-    datos={datos}/>*/}
-      </PapelDos>
-      </Zoom>
-      <Corner
-      value={value}
-      setValue={setValue}
-      handlePrint={handlePrint}
-      />
-     
-  </div>
-      </Grid>
+</PapelClass>
+{/* <Plantilla3
+datos={datos}/>*/}
+  </PapelDos>
+  </Zoom>
+  <Corner
+  value={value}
+  setValue={setValue}
+  handlePrint={handlePrint}
+  />
+ 
+</div>
+  </Grid>
 </Hidden>
-    </Grid>
+
+{/*Modal */}
+
+<Modal open={leftOn} closeAfterTransition>
+  <Fade in={leftOn}>
+  <Grid item xs={12} md={12}>
+<div style={style.right}>
+
+<Zoom zoom={value}>
+<PapelDos>
+<PapelClass ref={componentRef}>
+
+<Design
+datos={datos}
+herra={herra}
+expe={expe}
+gene={gene}
+educa={educa}
+cursos={cursos}
+idi={idi}
+refe={refe}
+color={color}
+/>
+</PapelClass>
+  </PapelDos>
+  </Zoom>
+  <Corner
+  value={value}
+  setValue={setValue}
+  handlePrint={handlePrint}
+  leftOn={leftOn}
+  setLefton={setLefton}
+  />
+ 
+</div>
+  </Grid>
+  </Fade>
+</Modal>
+
+
+
+</Grid>
+):<Cargando/>}
+    
     
     </>
   );

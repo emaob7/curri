@@ -1,15 +1,23 @@
 import React from "react";
-import { Divider } from "@material-ui/core";
 import "../../../App.css";
 import { Typography } from "@material-ui/core";
 
 
 const style = {
   div: {
+    minWidth: "816px",
+    minHeight: "1344px",
     marginBottom: 22,
     marginRight: 17,
     paddingLeft: "7%",
     paddingTop: "7%",
+  },
+  body:{
+    display: "flex",
+    flexDirection: "row"
+  },
+  borderer:{
+    borderBottom: "2px solid rgb(212, 212, 212)"
   },
 
   inter:{
@@ -19,17 +27,16 @@ const style = {
   left: {
     width: "200px",
     paddingTop: "5px",
+    borderRight: "2px solid rgb(212, 212, 212)",
+    borderTop: "2px solid rgb(212, 212, 212)"
     
   },
 
   right:{
-    width: "450px",
+    width: "500px",
     padding: "10px",
     paddingTop: "32px",
-  },
-  divider:{
-    paddingLeft: "2%",
-    paddingRight: "2%",
+    borderTop: "2px solid rgb(212, 212, 212)"
   },
   parrafo:{
     marginLeft:"5%",
@@ -60,14 +67,9 @@ titulo:{
 
 
 
-class Plantilla1 extends React.Component {
- constructor(props){
-    super(props);
-  }
+const Plantilla1 = (props) => {
+   const {datos,herra,idi,expe,gene,refe,cursos,educa} = props;
 
-  render() {
-   const {datos,herra,idi,expe,gene,refe,cursos,educa} = this.props;
-   //console.log(datos[0].perfil)
     return(
       <div style ={style.div}>
       {datos.map((card) => (
@@ -86,8 +88,8 @@ class Plantilla1 extends React.Component {
         
       
       
-      <Divider style ={style.divider}/>
-  <div className="cuerpo">
+      
+  <div style={style.body}>
   <div style ={style.left}>
   {datos.map((card) => (
     <>
@@ -157,23 +159,21 @@ class Plantilla1 extends React.Component {
       ) : null}     
   
   </div>
-  <Divider orientation="vertical" flexItem />
   
   <div style ={style.right}>
   {datos[0].perfil   ? (
-    <>
+    <div style={style.borderer}>
   <Typography style={style.titulo} variant="h6" gutterBottom>
         Perfil
       </Typography> 
       <Typography  variant="body2" gutterBottom>
       {datos[0].perfil}
       </Typography>
-      <Divider style ={style.divider}/>
-      </>
+      </div>
       ) : null} 
       
       {expe[0].puesto  ? (
-        <>
+        <div style={style.borderer}>
       <Typography  variant="h6" gutterBottom>
         Experiencia Especifica
       </Typography>
@@ -190,13 +190,11 @@ class Plantilla1 extends React.Component {
       </Typography>
       </>
       ))}
-           
-      <Divider style ={style.divider}/>
-      </>
+      </div>
       ) : null}
 
       {gene[0].puesto  ? (
-        <>
+        <div style={style.borderer}>
       <Typography variant="h6" gutterBottom>
         Experiencia General
       </Typography>
@@ -213,13 +211,12 @@ class Plantilla1 extends React.Component {
         </Typography>
         </>
       ))}
-      <Divider style ={style.divider}/>
-      </>
+      </div>
       ) : null}
 
 
       {educa[0].titu  ? (
-        <>
+        <div style={style.borderer}>
       <Typography variant="h6" gutterBottom>
         Educación
       </Typography>
@@ -237,8 +234,7 @@ class Plantilla1 extends React.Component {
       </Typography>
       </>
       ))}
-      <Divider style ={style.divider}/>
-      </>
+      </div>
       ) : null}
 
        {cursos[0].titu  ? (
@@ -266,10 +262,10 @@ class Plantilla1 extends React.Component {
 
       </div>
   </div>
-  </div>
+      </div>
       ); 
     
     
   }  
-  } 
+  
   export default Plantilla1;

@@ -25,6 +25,7 @@
     "jspdf": "^1.5.3",
     "jspdf-react": "^1.0.11",
     "react": "^16.13.1",
+    "react-color": "^2.19.3",
     "react-dom": "^16.13.1",
     "react-frame-component": "^5.1.0",
     "react-hooks-helper": "^1.6.0",

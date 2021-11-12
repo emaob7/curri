@@ -31,7 +31,7 @@ const style = {
 };
 
 export default function Hecho (props){
-    const {guardar, disable} = props;
+    const {guardar, disable, leftOn, setLefton} = props;
       return (
         <>
           <Hidden smDown>
@@ -49,8 +49,8 @@ export default function Hecho (props){
         </Hidden>
         <Hidden smUp>
           <Fab
-        style={style.buttonPreview} 
-        onClick={""}
+        style={style.buttonPreview}  
+        onClick={()=>{setLefton(!leftOn)}}
         color="primary"
         size="medium"
         >

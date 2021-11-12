@@ -1,7 +1,8 @@
 import React from 'react';
-import {Fab,Tooltip} from "@material-ui/core";
+import {Fab,Tooltip,Hidden} from "@material-ui/core";
 import SaveAltOutlinedIcon from '@material-ui/icons/SaveAltOutlined';
 import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
+import EditIcon from '@material-ui/icons/Edit';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import ZoomOutIcon from '@material-ui/icons/ZoomOut';
 
@@ -32,11 +33,21 @@ const style = {
 
 
 export default function Hecho (props){
-    const {handlePrint, value, setValue} = props;
+    const {handlePrint, value, setValue, setLefton, leftOn} = props;
       return (
         <>
 <div style={style.corner}>
-      <Tooltip title={value} placement="left">
+        <Hidden smUp>
+          <Fab
+        style={style.fab}  
+        onClick={()=>{setLefton(!leftOn)}}
+        color="primary"
+        size="medium"
+        >
+        <EditIcon/>
+        </Fab>
+        </Hidden>
+          <Tooltip title={value} placement="left">
      <Fab  
               style={style.fab}
               size="medium"
