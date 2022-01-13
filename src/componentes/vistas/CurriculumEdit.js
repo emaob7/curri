@@ -18,7 +18,7 @@ import Corner from '../Children/Corner';
 import {Zoom, Scale} from 'react-scaling'
 import PapelDos from '../Children/PapelDos';
 import PapelClass from '../Children/PapelClass';
-import Colors from './Plantillas/Colors';
+//import Colors from './Plantillas/Colors';
 import SimpleBackdrop from '../Children/SimpleBackdrop';
 import Cargando from '../Children/Cargando';
 import Design from './Plantillas/Design';
@@ -47,7 +47,8 @@ const style = {
     backgroundColor: "#F3F6F9",
   },
   bar: {
-    backgroundColor: "#e8eaed",
+    backgroundColor: "white",
+    //borderRadius:"10px",
     width: "100%",
     flexDirection: "wrap"
   },
@@ -62,7 +63,7 @@ const style = {
   },
   left: {
   //  width: "98%",
-    height: "545px",
+    height: "535px",
     marginTop: 58,
     paddingTop: "5px",
     overflowY:"scroll",
@@ -71,7 +72,7 @@ const style = {
   },
   right:{
    // width: "65%",
-    height: "545px",
+    height: "495px",
     marginTop: 58,
     padding: "10px",
     paddingTop: "32px",
@@ -88,7 +89,7 @@ const style = {
      color: '#fff',
    },
 
-
+ //  style={{ backgroundImage: 'linear-gradient(to right bottom, rgb(0, 127, 255), rgb(0, 89, 178) 120%' }}
 }
 
 const CurriculumEdit = (props) => {
@@ -108,9 +109,10 @@ const CurriculumEdit = (props) => {
     const [valor, setValor] = useState(0);
     const [open, setOpen] = useState(false);
     const [disable, setDisable] = useState(initialState);
-    const [value, setValue] = useState(40);
-    const [color, setColor] = useState('#000');
+    const [value, setValue] = useState(80);
+   // const [color, setColor] = useState('#000');
     let { id } = useParams();
+    
 
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
@@ -156,6 +158,10 @@ const CurriculumEdit = (props) => {
                 if (data.refe) {
                   setRefe(data.refe);
                 };
+                
+               /* if (data.color) {
+                  setColor(data.color);
+                };*/
            //     setLoading(false);
             } catch(err) {
                 console.error(err);
@@ -270,6 +276,18 @@ const guardarRefe = async () => {
     setOpen(true);
 })
 }
+/*
+const guardarColor = async () => {
+  setLoad(true);
+      await firebase.db.collection("Datosps")
+      .doc(id)
+      .set({color},{merge: true})
+      .then(success =>{
+        setDisable(initialState);
+        setLoad(false);
+        setOpen(true);
+    })
+  }*/
 
 const change = (e, index) => {
   if(disable.datos === true){
@@ -297,9 +315,15 @@ const change = (e, index) => {
       if(disable.expe === true){
         setDisable({datos: true, expe: false, gene: true,educa: true,cursos: true,idi: true,herra: true,refe: true});
       }
-      const list = [...expe];
+      
+
+      if(expe.length > 1){
+        const list = [...expe];
       list.splice(index, 1);
       setExpe(list);
+          }else{
+            setExpe([{puesto: ""}]);
+          }
     };
   
     // handle click event of the Add button
@@ -324,9 +348,15 @@ const change = (e, index) => {
       if(disable.gene === true){
         setDisable({datos: true, expe: true, gene: false,educa: true,cursos: true,idi: true,herra: true,refe: true});
       }
+     
+
+      if(gene.length > 1){
       const list = [...gene];
       list.splice(index, 1);
       setGene(list);
+        }else{
+          setGene([{puesto: ""}]);
+        }
     };
   
     // handle click event of the Add button
@@ -349,9 +379,15 @@ const change = (e, index) => {
       if(disable.educa === true){
         setDisable({datos: true, expe: true, gene: true,educa: false,cursos: true,idi: true,herra: true,refe: true});
       }
+      
+     if(educa.length > 1){
       const list = [...educa];
       list.splice(index, 1);
       setEduca(list);
+      }else{
+        setEduca([{titu: ""}]);
+      }
+
     };
     // handle click event of the Add button
     const handleAddClickE = () => {
@@ -373,9 +409,15 @@ const change = (e, index) => {
       if(disable.cursos === true){
         setDisable({datos: true, expe: true, gene: true,educa: true,cursos: false,idi: true,herra: true,refe: true});
       }
-      const list = [...cursos];
+      
+      
+      if(cursos.length > 1){
+        const list = [...cursos];
       list.splice(index, 1);
       setCursos(list);
+          }else{
+            setCursos([{titu: ""}]);
+          }
     };
     // handle click event of the Add button
     const handleAddClickC = () => {
@@ -399,9 +441,14 @@ const change = (e, index) => {
       if(disable.idi === true){
         setDisable({datos: true, expe: true, gene: true,educa: true,cursos: true,idi: false,herra: true,refe: true});
       }
-      const list = [...idi];
+     
+      if(idi.length > 1){
+        const list = [...idi];
       list.splice(index, 1);
       setIdi(list);
+          }else{
+            setIdi([{idioma: ""}]);
+          }
     };
   
     // handle click event of the Add button
@@ -425,9 +472,14 @@ const change = (e, index) => {
       if(disable.herra === true){
         setDisable({datos: true, expe: true, gene: true,educa: true,cursos: true,idi: true,herra: false,refe: true});
       }
-      const list = [...herra];
-      list.splice(index, 1);
-      setHerra(list);
+           
+      if(herra.length > 1){
+        const list = [...herra];
+        list.splice(index, 1);
+        setHerra(list);
+          }else{
+            setHerra([{herrami: ""}]);
+          }
     };
   
     // handle click event of the Add button
@@ -451,9 +503,15 @@ const change = (e, index) => {
       if(disable.refe === true){
         setDisable({datos: true, expe: true, gene: true,educa: true,cursos: true,idi: true,herra: true,refe: false});
       }
-      const list = [...refe];
+      
+
+      if(refe.length > 1){
+        const list = [...refe];
       list.splice(index, 1);
       setRefe(list);
+          }else{
+            setRefe([{referencia: ""}]);
+          }
     };
   
     // handle click event of the Add button
@@ -613,15 +671,23 @@ const change = (e, index) => {
             />
          </>
           );
-          case 9:
+      /*    case 9:
             return( 
             <>
             <Colors
             color={color}
             setColor={setColor}
+            setDisable={setDisable}
+            disable={disable}
+            />
+            <Hecho
+            disable={disable.color}
+            guardar={guardarColor}
+            leftOn={leftOn}
+            setLefton={setLefton}
             />
            </>
-            );
+            );*/
         default:
           throw new Error('Unknown step');
       }
@@ -645,7 +711,7 @@ setLoad={setLoad}
     textColor="primary"
     indicatorColor="primary"
   >
-    <Tab label="Información Personal" wrapped/>
+    <Tab label="Datos Personales" wrapped/>
     <Tab label="Perfil" wrapped/>
     <Tab label="Experiencias Específicas" wrapped/>
     <Tab label="Experiencias Generales" wrapped/>
@@ -654,7 +720,7 @@ setLoad={setLoad}
     <Tab label="Idiomas" wrapped/>
     <Tab label="Herramientas y Habilidades" wrapped/>
     <Tab label="Referencias" wrapped/>
-    <Tab label="Color" wrapped/>
+{/*<Tab label="Color" wrapped/>*/}
   </Tabs>
   </Box>
   
@@ -676,7 +742,6 @@ setLoad={setLoad}
 <div style={style.right}>
 
 <Zoom zoom={value}>
-<PapelDos>
 <PapelClass ref={componentRef}>
 <Design
 datos={datos}
@@ -687,13 +752,13 @@ educa={educa}
 cursos={cursos}
 idi={idi}
 refe={refe}
-color={color}
+//color={color}
 />
 
 </PapelClass>
 {/* <Plantilla3
 datos={datos}/>*/}
-  </PapelDos>
+ 
   </Zoom>
   <Corner
   value={value}
@@ -725,7 +790,7 @@ educa={educa}
 cursos={cursos}
 idi={idi}
 refe={refe}
-color={color}
+//color={color}
 />
 </PapelClass>
   </PapelDos>

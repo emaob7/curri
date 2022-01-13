@@ -2,7 +2,7 @@ import React from 'react';
 import {Fab,Tooltip,Hidden} from "@material-ui/core";
 import SaveAltOutlinedIcon from '@material-ui/icons/SaveAltOutlined';
 import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
-import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import ZoomOutIcon from '@material-ui/icons/ZoomOut';
 
@@ -41,10 +41,10 @@ export default function Hecho (props){
           <Fab
         style={style.fab}  
         onClick={()=>{setLefton(!leftOn)}}
-        color="primary"
+        color="secondary"
         size="medium"
         >
-        <EditIcon/>
+        <CloseIcon/>
         </Fab>
         </Hidden>
           <Tooltip title={value} placement="left">

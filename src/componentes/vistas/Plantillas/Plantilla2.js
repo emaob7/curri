@@ -1,276 +1,376 @@
 import React from "react";
-import { Divider } from "@material-ui/core";
 import "../../../App.css";
-import { Typography } from "@material-ui/core";
+import RoomIcon from '@material-ui/icons/Room';
 
 
 const style = {
   div: {
+    minWidth: "816px",
+    minHeight: "1300px",
     marginBottom: 22,
     marginRight: 17,
-    paddingLeft: "7%",
-    paddingTop: "7%",
+    paddingLeft: 37,
+    paddingTop: 37,
   },
+  body:{
+    display: "flex",
+    flexDirection: "row"
+  },
+  borderer:{
+  //  borderBottom: "2px solid rgb(212, 212, 212)",
+    
+    marginBottom:7,
+    //paddingLeft:7,
+  },
+  borderer2:{
+    //  borderBottom: "2px solid rgb(212, 212, 212)",
+      marginBottom:7,
+      paddingBottom:7,
+     // paddingLeft:5,
+    },
 
-  inter:{
-    marginBottom: "0%",
+  super:{
+    marginBottom: 10,
+    paddingLeft: 15,
+    paddingBottom:10,
+    letterSpacing: "1pt",
+    //textTransform: "uppercase",
   },
   
   left: {
     width: "200px",
     paddingTop: "5px",
+    paddingLeft: 15,
+    paddingRight: 15,
+   // borderTop: "2px solid rgb(212, 212, 212)",
+   // backgroundColor: "#fafafa",
+    minHeight: "1200px",
     
+  },
+ 
+  interer:{
+    marginTop: 2,
+    marginBottom: "0%",
+  },
+  intertitle:{
+    marginTop: 8,
+    marginBottom: 0,
+   // textTransform: "uppercase",
+   fontSize: "14px",
+    letterSpacing: "1pt",
+    color: "#616161"
+
+  },
+  intertitle2:{
+    marginTop: 4,
+    marginBottom: 0,
+   // textTransform: "uppercase",
+   fontSize: "12px",
+    letterSpacing: "1pt",
+  },
+  lign:{
+float:"right",
+marginTop: -5,
+  },
+  overlay:{
+    marginTop: -20,
+    marginBottom: "0%",
+    fontSize: "16px",
+    //textTransform: "uppercase",
+    letterSpacing: "1pt",
+  },
+  subtitle:{
+    marginTop: 19,
+    marginBottom: 5,
+    textTransform: "uppercase",
+    letterSpacing: "1pt",
+    color: "#263238"
   },
 
   right:{
-    width: "450px",
-    padding: "10px",
-    paddingTop: "32px",
+    width: "500px",
+    paddingLeft: "20px",
+    paddingTop: 6,
+   // borderTop: "2px solid rgb(212, 212, 212)"
   },
-  divider:{
-    paddingLeft: "2%",
-    paddingRight: "2%",
-  },
-  parrafo:{
-    marginLeft:"5%",
-    marginBottom: "2%",
-    color: "#757575"
-  },
-  parrafo2:{
-    color: "#757575",
-    marginRight:"20%",
-  },
-  ciudad:{
-    color: "#616161",
-    marginRight:"0",
-  },
-fecha:{
-  color:"#616161",
-  marginTop:"0%",
-  display: "flex",
-},
-titulo: ({color})=>({
-  color: color,
-  display: "flex",
-  marginTop: "-6%"
-}),
-
-
+  icon:{
+    width:14,
+    marginBottom:-8,
+    marginRight:2,
+    color: "gray",
+  }
 }
 
 
 
 
-class Plantilla2 extends React.Component {
- constructor(props){
-    super(props);
-  }
-
-  render() {
-   const {datos,herra,idi,expe,gene,refe,cursos,educa, color} = this.props;
-   //console.log(datos[0].perfil)
+const Plantilla2 = (props) => {
+   const {datos,herra,idi,expe,gene,refe,cursos,educa,color} = props;
+   
     return(
-      <div style ={style.div}>
-      {datos.map((card) => (
-        <>
-        <Typography style ={style.inter} variant="h4" gutterBottom>
-        {card.nombre} 
-      </Typography>
-      <Typography style ={style.inter} variant="h4" gutterBottom>
-      {card.ape}
-      </Typography>
-      <Typography variant="overline" gutterBottom>
+      <div style ={style.div} className="plantilla2">
+        
+      {datos.map((card, i) => (
+        <div style ={style.super} key={i}>
+        <h1>
+        {card.nombre}{card.ape}
+      </h1>
+      <p style={style.overlay}>
       {card.prof}
-      </Typography>
-      </>
+      </p>
+      </div>
       ))}
         
       
       
-      <Divider style ={style.divider}/>
-  <div className="cuerpo">
+      
+  <div style={style.body}>
   <div style ={style.left}>
-  {datos.map((card) => (
-    <>
-  <Typography variant="h6" gutterBottom>
+  {datos.map((card,i) => (
+    <div style ={style.borderer2} key={i}>
+  <h4  style ={style.subtitle}>
         Datos Personales 
-      </Typography>
-      <Typography style ={style.parrafo2} variant="body2" gutterBottom>
-      CIN: {card.cin}
-      </Typography>
-      <Typography style ={style.parrafo2} variant="body2" gutterBottom>
-      Telefono: {card.tel}
-      </Typography>
-      <Typography style ={style.parrafo2} variant="body2" gutterBottom>
-      Correo: {card.email}
-      </Typography>
-      <Typography style ={style.parrafo2} variant="body2" gutterBottom>
-      Nacionalidad: {card.naci}
-      </Typography>
-      <Typography style ={style.parrafo2} variant="body2" gutterBottom>
-      Fecha de Nacimiento: {card.fena}
-      </Typography>
+      </h4>
+      {card.cin ? (
+        <>
+      <h5 style={style.intertitle}>
+      CIN:
+      </h5>
+      <p style={style.interer}>
+        {card.cin}
+        </p>
+        </>
+        ):null}
+ {card.nprof ? (
+   <>
+      <h5 style={style.intertitle}>
+      Registro Profesional N°:
+      </h5>
+      <p style={style.interer}> {card.nprof}</p>
       </>
+ ):null}
+ {card.tel ? (
+   <>
+      <h5 style={style.intertitle}>
+      Telefono:
+      </h5>
+      <p style={style.interer}> {card.tel}</p>
+      </>
+ ):null}
+ {card.email ? (
+   <>
+      <h5 style={style.intertitle}>
+      Correo:
+      </h5>
+      <p style={style.interer}> {card.email}</p>
+      </>
+ ):null}
+ {card.naci ? (
+   <>
+      <h5 style={style.intertitle}>
+      Nacionalidad:
+      </h5>
+      <p style={style.interer}> {card.naci}</p>
+      </>
+ ):null}
+ {card.fena ? (
+   <>
+      <h5 style={style.intertitle}>
+      Fecha de Nacimiento:
+      </h5>
+      <p style={style.interer}> {card.fena}</p>
+      </>
+      ):null}
+       {card.dir ? (
+   <>
+      <h5 style={style.intertitle}>
+      Dirección:
+      </h5>
+      <p style={style.interer}> {card.dir}</p>
+      </>
+      ):null}
+      </div>
+      
       ))}  
 
       {herra[0].herrami? (
-        <>
-      <Typography variant="h6" gutterBottom>
+        <div style ={style.borderer2}>
+      <h4  style ={style.subtitle}>
         Herramientas y Habilidades
-      </Typography>
-      {herra.map((card) => (  
-      <Typography style ={style.parrafo2} variant="body2" gutterBottom>
-      {card.herrami} : {card.nivel}
-      </Typography>
+      </h4>
+      {herra.map((card,i) => (
+        <div key={i}>  
+       <h5 style={style.intertitle}>
+      {card.herrami} :
+      </h5>
+      <p style={style.interer}>
+      {card.nivel}
+      </p>
+      </div>
        ))} 
-      </>
+      </div>
       ) : null}
 
       {idi[0].idioma ? (
-        <>
-      <Typography variant="h6" gutterBottom>
+        <div style ={style.borderer2}>
+      <h4  style ={style.subtitle}>
         Idiomas
-      </Typography>
-      {idi.map((card) => (
-      <Typography style ={style.parrafo2} variant="body2" gutterBottom>
-      {card.idioma} : {card.nivel}
-      </Typography>
+      </h4>
+      {idi.map((card,i) => (
+        <div key={i}>
+      <h5 style={style.intertitle}>
+      {card.idioma} :
+      </h5>
+      <p style={style.interer}>{card.nivel}</p> 
+      
+      </div>
        ))} 
-      </>
+      </div>
       ) : null}
 
       {refe[0].referencia ? (
-        <>
-      <Typography variant="h6" gutterBottom>
+        <div style ={style.borderer2}>
+      <h4  style ={style.subtitle}>
         Referencias
-      </Typography>
-      {refe.map((card) => (
-      <>
-      <Typography style ={style.ciudad} variant="body2" gutterBottom>
+      </h4>
+      {refe.map((card,i) => (
+      <div key={i}>
+      <h5 style={style.intertitle}>
       {card.referencia} 
-      </Typography>
-      <Typography style ={style.parrafo} variant="body2" gutterBottom>
+      </h5>
+      <p style={style.interer}>
       Telef.: {card.telef}
-      </Typography>
-      </>
+      </p>
+      </div>
         ))} 
-      </>
+      </div>
       ) : null}     
   
   </div>
-  <Divider orientation="vertical" flexItem />
   
   <div style ={style.right}>
   {datos[0].perfil   ? (
     <>
-  <Typography style={style.titulo({color:color})} variant="h6" gutterBottom>
+  <h4  style ={style.subtitle}>
         Perfil
-      </Typography> 
-      <Typography  variant="body2" gutterBottom>
+      </h4>
+      <div style={style.borderer}>
+      <p style={style.interer}>
       {datos[0].perfil}
-      </Typography>
-      <Divider style ={style.divider}/>
+      </p>
+      </div>
       </>
       ) : null} 
       
       {expe[0].puesto  ? (
         <>
-      <Typography  variant="h6" gutterBottom>
+     <h4  style ={style.subtitle}>
         Experiencia Especifica
-      </Typography>
-      {expe.map((card) => (
-        <>
-      <Typography variant="button" gutterBottom>
-      {card.puesto}
-      </Typography>
-      <Typography style ={style.fecha} variant="body2" gutterBottom>
-      Desde {card.finicio},  hasta {card.ffinal},   {card.ubicacion}
-      </Typography>
-      <Typography style ={style.parrafo} variant="body2" gutterBottom>
+      </h4>
+      <div style={style.borderer}>
+      {expe.map((card,i) => (
+        <div key={i}>
+      <h5 style={style.intertitle}>
+      {card.puesto}, {card.empre}
+      </h5>
+      <h6 style={style.intertitle2}>
+      Desde {card.finicio} --  hasta {card.ffinal} <span style={style.lign}> <RoomIcon style={style.icon}/>{card.ubicacion}</span>
+      </h6>
+      <p style={style.interer}>
       {card.tareas}
-      </Typography>
-      </>
+      </p>
+      </div>
       ))}
-           
-      <Divider style ={style.divider}/>
+      </div>
       </>
       ) : null}
 
       {gene[0].puesto  ? (
         <>
-      <Typography variant="h6" gutterBottom>
+      <h4  style ={style.subtitle}>
         Experiencia General
-      </Typography>
-      {gene.map((card) => (
-        <>
-        <Typography variant="button" gutterBottom>
-        {card.puesto}
-        </Typography>
-        <Typography style ={style.fecha} variant="body2" gutterBottom>
-        Desde {card.finicio},  hasta {card.ffinal},   {card.ubicacion}
-        </Typography>
-        <Typography style ={style.parrafo} variant="body2" gutterBottom>
+      </h4>
+      <div style={style.borderer}>
+      {gene.map((card,i) => (
+        <div key={i}>
+        <h5 style={style.intertitle}>
+        {card.puesto}, {card.empre}
+        </h5>
+        <h6 style={style.intertitle2}>
+        Desde {card.finicio} --  hasta {card.ffinal}  <span style={style.lign}><RoomIcon style={style.icon}/>{card.ubicacion}</span> 
+        </h6>
+        <p style={style.interer}>
         {card.tareas}
-        </Typography>
-        </>
+        </p>
+        </div>
       ))}
-      <Divider style ={style.divider}/>
+      </div>
       </>
       ) : null}
 
 
       {educa[0].titu  ? (
         <>
-      <Typography variant="h6" gutterBottom>
+        <h4  style ={style.subtitle}>
         Educación
-      </Typography>
-
-      {educa.map((card) => (
-        <>
-      <Typography variant="button" gutterBottom>
+      </h4>
+      <div style={style.borderer}>
+      {educa.map((card,i) => (
+        <div key={i}>
+      <h5 style={style.intertitle}>
       {card.titu}
-      </Typography>
-      <Typography style ={style.fecha} variant="body2" gutterBottom>
+      </h5>
+      <p style={style.interer}>
       {card.insti}
-      </Typography>
-      <Typography style ={style.ciudad} variant="body2" gutterBottom>
+      </p>
+      <p style={style.interer}>
       Duración {card.duracion}, concluido en {card.culminacion}
-      </Typography>
-      </>
+      </p>
+      </div>
       ))}
-      <Divider style ={style.divider}/>
+      </div>
       </>
       ) : null}
 
        {cursos[0].titu  ? (
          <>
-      <Typography variant="h6" gutterBottom>
+      <h4  style ={style.subtitle}>
         Cursos y Capacitaciones
-      </Typography>
-
-      {cursos.map((card) => (
-        <>
-      <Typography variant="button" gutterBottom>
+      </h4>
+      <div style={style.borderer}>
+      {cursos.map((card,i) => (
+        <div key={i}>
+      <h5 style={style.intertitle}>
       {card.titu}
-      </Typography>
-      <Typography style ={style.fecha} variant="body2" gutterBottom>
+      </h5>
+      
+      <p style={style.interer}>
       {card.insti}
-      </Typography>
-      <Typography style ={style.ciudad} variant="body2" gutterBottom>
+      </p>
+      <p style={style.interer}>
       Duración {card.duracion}, concluido en {card.culminacion}
-      </Typography>
-      </>
+      </p>
+      </div>
+      
       ))}
+      </div>
       
       </>
 ) : null}
 
       </div>
   </div>
-  </div>
+      </div>
       ); 
     
     
   }  
-  } 
+  
   export default Plantilla2;
+
+
+
+  /*inter:{
+    marginTop: -25,
+    marginBottom: "0%",
+  },*/

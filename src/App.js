@@ -20,6 +20,7 @@ import NuevoObs from "./componentes/vistas/Nuevo/NuevoObs";
 import NuevoExpEs from "./componentes/vistas/Nuevo/NuevoExpEs";
 import Descargar from "./componentes/vistas/Plantillas/Descargar";
 import Nuevo from "./componentes/vistas/checkout/Nuevo";
+import Home from "./componentes/vistas/Home";
 
 
 
@@ -132,6 +133,12 @@ function App(props) {
                 path="/persona/nuevo"
                 autenticadoFirebase="{firebase.auth.currentUser}"
                 component={NuevaPersona}
+              />
+              <RutaAutenticada
+                exact
+                path="/"
+                autenticadoFirebase="{firebase.auth.currentUser}"
+                component={Home}
               />
               <RutaAutenticada
                 exact

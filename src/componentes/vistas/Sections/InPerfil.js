@@ -11,7 +11,7 @@ import {
         <>
       {datos.map((x, i) => {
         return (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} key={i}>
           <Grid item xs={12} md={12} sm={12}>
             <TextField
             fullWidth
@@ -23,10 +23,7 @@ import {
               rows={5}
               onChange={e => change(e, i)}
               value={x.perfil || ""}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              placeholder="Ej: Ingeniero de Sistemas"
+              placeholder="Ej: Quiero trabajar en la Empresa para ayudar al excelente equipo y aprender de ellos"
             />
           </Grid>
         </Grid>

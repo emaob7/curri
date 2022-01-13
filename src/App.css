@@ -1,6 +1,7 @@
 
 .App-header {
   background-color: rgb(238, 237, 237);
+  /*rgb(30, 73, 118)*/
   /*background-image: url("../src/componentes/Imagenes/fondos/wave.svg");*/
   background-size:cover;
   background-position:top;
@@ -19,4 +20,20 @@
 .hoja{
   margin: auto;
  
+}
+
+.plantilla1{
+  font-family: 'Quicksand', sans-serif;
+}
+.plantilla2{
+  font-family: 'Poppins', sans-serif;
+}
+.plantilla3{
+  font-family: 'Jost', sans-serif;
+}
+.plantilla4{
+  font-family: 'Raleway', sans-serif;
+}
+.plantilla5{
+  font-family: 'Martel', serif;
 }

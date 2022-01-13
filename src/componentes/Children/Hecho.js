@@ -1,7 +1,6 @@
 
 import React from 'react';
 import {Fab, Tooltip, Hidden} from '@material-ui/core';
-
 import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import FindInPageOutlinedIcon from '@material-ui/icons/FindInPageOutlined';
 

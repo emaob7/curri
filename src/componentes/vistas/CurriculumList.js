@@ -133,41 +133,22 @@ class CurriculumList extends Component {
 
                   <CardActions>
                     <Button
-                      startIcon={<GetAppIcon/>}
+                      startIcon={<EditIcon/>}
                       color="primary"
-                      onClick={() => this.descargarCurriculum(card.id)}
+                      onClick={() => this.editarCurriculum(card.id)}
                     >
                       
-                      Descargar
+                      Editar
                     </Button>
-                    <Tooltip title="Vista Previa" placement="top">
-                    <IconButton
-                    aria-label="preview"
-                      size="small"
-                     
-                    >
-                      <VisibilityIcon/>
-                    </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Editar" placement="top">
-                  <IconButton
-                  aria-label="edit"
-                      size="small"
-                      onClick={() => this.editarCurriculum(card.id)}
-                    > 
-                    <EditIcon />
-                    
-                    </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Eliminar" placement="top">
-                    <IconButton
-                    aria-label="delete"
-                      size="small"
+                    <Button
+                      startIcon={<DeleteIcon/>}
+                      color="secondary"
                       onClick={() => this.eliminarDatosps(card.id)}
                     >
-                      <DeleteIcon />
-                    </IconButton>
-                    </Tooltip>
+                      
+                     Eliminar
+                    </Button>
+                  
 
                   </CardActions>
                 </Card>

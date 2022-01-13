@@ -3,6 +3,8 @@ import  Plantilla1  from './Plantilla1';
 import  Plantilla2  from './Plantilla2';
 import  Plantilla3  from './Plantilla3';
 import  Plantilla4  from './Plantilla4';
+import Plantilla5 from './Plantilla5';
+import Plantilla6 from './plantilla6';
 
 const style = {
   div:{
@@ -13,13 +15,20 @@ const style = {
 const Design = (props) => {
     const {datos,herra,idi,expe,gene,refe,cursos,educa,color} = props;
 
-    const [valor, setValor] = useState(3);
+    const [valor, setValor] = useState(6);
 
     function DesignContent(valor) {
         switch (valor) {
           case 0:
             return (
             <>
+             
+            </>);
+            
+          case 1:
+            
+            return (
+              <>
              <Plantilla1 
       datos={datos}
       herra={herra}
@@ -30,13 +39,6 @@ const Design = (props) => {
       idi={idi}
       refe={refe}
       />
-            </>);
-            
-          case 1:
-            
-            return (
-              <>
-             
             </>
             );
           case 2:
@@ -91,13 +93,33 @@ const Design = (props) => {
           case 5:
             return( 
             <>
-            
+            <Plantilla5 
+      datos={datos}
+      herra={herra}
+      expe={expe}
+      gene={gene}
+      educa={educa}
+      cursos={cursos}
+      idi={idi}
+      refe={refe}
+      color={color}
+      />
            </>
             );
             case 6:
             return( 
             <>
-             
+              <Plantilla6
+      datos={datos}
+      herra={herra}
+      expe={expe}
+      gene={gene}
+      educa={educa}
+      cursos={cursos}
+      idi={idi}
+      refe={refe}
+      color={color}
+      />
            </>
             );
             case 7:

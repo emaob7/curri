@@ -15,7 +15,7 @@ import {
           
           {datos.map((x, i) => {
         return (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} key={i}>
      
           <Grid item xs={12} md={6}>
             <TextField
@@ -26,9 +26,6 @@ import {
               fullWidth
               onChange={e => change(e, i)}
               value={x.nombre || ""}
-              InputLabelProps={{
-                shrink: true,
-              }}
               placeholder="Ej: Emmanuel"
               
             />
@@ -43,10 +40,20 @@ import {
               fullWidth
               onChange={e => change(e, i)}
               value={x.ape || ""}
-              InputLabelProps={{
-                shrink: true,
-              }}
               placeholder="Ej: Ortigoza Bordón"
+            />
+          </Grid>
+
+          <Grid item xs={12} md={12}>
+            <TextField
+              name="prof"
+              label="Profesión"
+              variant="outlined"
+              size="small"
+              fullWidth
+              onChange={e => change(e, i)}
+              value={x.prof || ""}
+              placeholder="Ej: Ingeniero de Sistemas"
             />
           </Grid>
 
@@ -60,9 +67,6 @@ import {
               fullWidth
               onChange={e => change(e, i)}
               value={x.cin || ""}
-              InputLabelProps={{
-                shrink: true,
-              }}
               placeholder="Ej: 5310779"
             />
           </Grid>
@@ -76,29 +80,11 @@ import {
               size="small"
               helperText="ej: 24/01/1992"
               fullWidth
-              InputLabelProps={{
-                shrink: true,
-              }}
               onChange={e => change(e, i)}
               value={x.fena || ""}
             />
           </Grid>
 
-          <Grid item xs={12} md={12}>
-            <TextField
-              name="prof"
-              label="Profesión"
-              variant="outlined"
-              size="small"
-              fullWidth
-              onChange={e => change(e, i)}
-              value={x.prof || ""}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              placeholder="Ej: Ingeniero de Sistemas"
-            />
-          </Grid>
 
           <Grid item xs={12} md={6}>
             <TextField
@@ -110,9 +96,6 @@ import {
               helperText="Sólo en caso que tengas"
               onChange={e => change(e, i)}
               value={x.nprof || ""}
-              InputLabelProps={{
-                shrink: true,
-              }}
               placeholder="Ej: 235.279"
 
             />
@@ -127,9 +110,6 @@ import {
               size="small"
               onChange={e => change(e, i)}
               value={x.naci || ""}
-              InputLabelProps={{
-                shrink: true,
-              }}
               placeholder="Ej: Paraguaya"
             />
           </Grid>
@@ -144,9 +124,6 @@ import {
               fullWidth
               onChange={e => change(e, i)}
               value={x.dir || ""}
-              InputLabelProps={{
-                shrink: true,
-              }}
               placeholder="Ej: Calle Santa Rosa de Lima/ Humaita"
             />
           </Grid>
@@ -160,9 +137,6 @@ import {
               fullWidth
               onChange={e => change(e, i)}
               value={x.tel || ""}
-              InputLabelProps={{
-                shrink: true,
-              }}
               placeholder="Ej: +595981745130"
             />
           </Grid>
@@ -176,9 +150,6 @@ import {
               fullWidth
               onChange={e => change(e, i)}
               value={x.email || ""}
-              InputLabelProps={{
-                shrink: true,
-              }}
               placeholder="Ej: emanuel@gmail.com"
             />
             

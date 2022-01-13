@@ -6,11 +6,11 @@ import { Typography } from "@material-ui/core";
 const style = {
   div: {
     minWidth: "816px",
-    minHeight: "1344px",
+    minHeight: "1300px",
     marginBottom: 22,
     marginRight: 17,
-    paddingLeft: "7%",
-    paddingTop: "7%",
+    paddingLeft: 37,
+    paddingTop: 37,
   },
   body:{
     display: "flex",
@@ -20,21 +20,22 @@ const style = {
     borderBottom: "2px solid rgb(212, 212, 212)"
   },
 
-  inter:{
+  hero: ({color})=>({
+    color: color,
     marginBottom: "0%",
-  },
+  }),
   
   left: {
     width: "200px",
     paddingTop: "5px",
-    borderRight: "2px solid rgb(212, 212, 212)",
-    borderTop: "2px solid rgb(212, 212, 212)"
+    borderTop: "2px solid rgb(212, 212, 212)",
+    minWidth: "800px",
     
   },
 
   right:{
     width: "500px",
-    padding: "10px",
+    paddingLeft: "30px",
     paddingTop: "32px",
     borderTop: "2px solid rgb(212, 212, 212)"
   },
@@ -70,17 +71,15 @@ titulo: ({color})=>({
 
 const Plantilla3 = (props) => {
    const {datos,herra,idi,expe,gene,refe,cursos,educa,color} = props;
-   console.log(color)
    
-
     return(
       <div style ={style.div}>
       {datos.map((card) => (
         <>
-        <Typography style ={style.inter} variant="h4" gutterBottom>
+        <Typography style ={style.hero({color:color})} variant="h4" gutterBottom>
         {card.nombre} 
       </Typography>
-      <Typography style ={style.inter} variant="h4" gutterBottom>
+      <Typography style ={style.hero({color:color})} variant="h4" gutterBottom>
       {card.ape}
       </Typography>
       <Typography variant="overline" gutterBottom>
@@ -95,7 +94,7 @@ const Plantilla3 = (props) => {
   <div style={style.body}>
   <div style ={style.left}>
   {datos.map((card) => (
-    <>
+    <div style ={style.borderer}>
   <Typography  style ={{color:color}} variant="h6" gutterBottom>
         Datos Personales 
       </Typography>
@@ -117,11 +116,11 @@ const Plantilla3 = (props) => {
       <Typography style ={style.parrafo2} variant="body2" gutterBottom>
       Fecha de Nacimiento: {card.fena}
       </Typography>
-      </>
+      </div>
       ))}  
 
       {herra[0].herrami? (
-        <>
+        <div style ={style.borderer}>
       <Typography style ={{color:color}} variant="h6" gutterBottom>
         Herramientas y Habilidades
       </Typography>
@@ -130,11 +129,11 @@ const Plantilla3 = (props) => {
       {card.herrami} : {card.nivel}
       </Typography>
        ))} 
-      </>
+      </div>
       ) : null}
 
       {idi[0].idioma ? (
-        <>
+        <div style ={style.borderer}>
       <Typography style ={{color:color}} variant="h6" gutterBottom>
         Idiomas
       </Typography>
@@ -143,11 +142,11 @@ const Plantilla3 = (props) => {
       {card.idioma} : {card.nivel}
       </Typography>
        ))} 
-      </>
+      </div>
       ) : null}
 
       {refe[0].referencia ? (
-        <>
+        <div style ={style.borderer}>
       <Typography style ={{color:color}} variant="h6" gutterBottom>
         Referencias
       </Typography>
@@ -161,7 +160,7 @@ const Plantilla3 = (props) => {
       </Typography>
       </>
         ))} 
-      </>
+      </div>
       ) : null}     
   
   </div>
