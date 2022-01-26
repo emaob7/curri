@@ -29,10 +29,10 @@ const style = {
     width: "200px",
     paddingTop: "5px",
     borderTop: "2px solid rgb(212, 212, 212)",
-    minWidth: "800px",
+    minHeight: "1200px",
     
   },
-
+ 
   right:{
     width: "500px",
     paddingLeft: "30px",
@@ -74,8 +74,8 @@ const Plantilla3 = (props) => {
    
     return(
       <div style ={style.div}>
-      {datos.map((card) => (
-        <>
+      {datos.map((card,i) => (
+        <div key={i}>
         <Typography style ={style.hero({color:color})} variant="h4" gutterBottom>
         {card.nombre} 
       </Typography>
@@ -85,7 +85,7 @@ const Plantilla3 = (props) => {
       <Typography variant="overline" gutterBottom>
       {card.prof}
       </Typography>
-      </>
+      </div>
       ))}
         
       
@@ -93,8 +93,8 @@ const Plantilla3 = (props) => {
       
   <div style={style.body}>
   <div style ={style.left}>
-  {datos.map((card) => (
-    <div style ={style.borderer}>
+  {datos.map((card, i) => (
+    <div style ={style.borderer} key={i}>
   <Typography  style ={{color:color}} variant="h6" gutterBottom>
         Datos Personales 
       </Typography>
@@ -124,10 +124,12 @@ const Plantilla3 = (props) => {
       <Typography style ={{color:color}} variant="h6" gutterBottom>
         Herramientas y Habilidades
       </Typography>
-      {herra.map((card) => (  
+      {herra.map((card,i) => ( 
+        <div key={i}> 
       <Typography style ={style.parrafo2} variant="body2" gutterBottom>
       {card.herrami} : {card.nivel}
       </Typography>
+      </div>
        ))} 
       </div>
       ) : null}
@@ -137,10 +139,12 @@ const Plantilla3 = (props) => {
       <Typography style ={{color:color}} variant="h6" gutterBottom>
         Idiomas
       </Typography>
-      {idi.map((card) => (
+      {idi.map((card, i) => (
+        <div key={i}>
       <Typography style ={style.parrafo2} variant="body2" gutterBottom>
       {card.idioma} : {card.nivel}
       </Typography>
+      </div>
        ))} 
       </div>
       ) : null}
@@ -150,15 +154,15 @@ const Plantilla3 = (props) => {
       <Typography style ={{color:color}} variant="h6" gutterBottom>
         Referencias
       </Typography>
-      {refe.map((card) => (
-      <>
+      {refe.map((card, i) => (
+      <div key={i}>
       <Typography style ={style.ciudad} variant="body2" gutterBottom>
       {card.referencia} 
       </Typography>
       <Typography style ={style.parrafo} variant="body2" gutterBottom>
       Telef.: {card.telef}
       </Typography>
-      </>
+      </div>
         ))} 
       </div>
       ) : null}     
@@ -182,8 +186,8 @@ const Plantilla3 = (props) => {
       <Typography style ={{color:color}}  variant="h6" gutterBottom>
         Experiencia Especifica
       </Typography>
-      {expe.map((card) => (
-        <>
+      {expe.map((card,i) => (
+        <div key={i}>
       <Typography variant="button" gutterBottom>
       {card.puesto}
       </Typography>
@@ -193,7 +197,7 @@ const Plantilla3 = (props) => {
       <Typography style ={style.parrafo} variant="body2" gutterBottom>
       {card.tareas}
       </Typography>
-      </>
+      </div>
       ))}
       </div>
       ) : null}
@@ -203,8 +207,8 @@ const Plantilla3 = (props) => {
       <Typography style ={{color:color}} variant="h6" gutterBottom>
         Experiencia General
       </Typography>
-      {gene.map((card) => (
-        <>
+      {gene.map((card,i) => (
+        <div key={i}>
         <Typography variant="button" gutterBottom>
         {card.puesto}
         </Typography>
@@ -214,7 +218,7 @@ const Plantilla3 = (props) => {
         <Typography style ={style.parrafo} variant="body2" gutterBottom>
         {card.tareas}
         </Typography>
-        </>
+        </div>
       ))}
       </div>
       ) : null}
@@ -226,8 +230,8 @@ const Plantilla3 = (props) => {
         Educación
       </Typography>
 
-      {educa.map((card) => (
-        <>
+      {educa.map((card,i) => (
+        <div key={i}>
       <Typography variant="button" gutterBottom>
       {card.titu}
       </Typography>
@@ -237,7 +241,7 @@ const Plantilla3 = (props) => {
       <Typography style ={style.ciudad} variant="body2" gutterBottom>
       Duración {card.duracion}, concluido en {card.culminacion}
       </Typography>
-      </>
+      </div>
       ))}
       </div>
       ) : null}
@@ -248,8 +252,8 @@ const Plantilla3 = (props) => {
         Cursos y Capacitaciones
       </Typography>
 
-      {cursos.map((card) => (
-        <>
+      {cursos.map((card,i) => (
+        <div key={i}>
       <Typography variant="button" gutterBottom>
       {card.titu}
       </Typography>
@@ -259,7 +263,7 @@ const Plantilla3 = (props) => {
       <Typography style ={style.ciudad} variant="body2" gutterBottom>
       Duración {card.duracion}, concluido en {card.culminacion}
       </Typography>
-      </>
+      </div>
       ))}
       
       </>

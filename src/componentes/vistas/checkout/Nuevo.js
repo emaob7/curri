@@ -337,7 +337,7 @@ await firebase.db.collection("Datosps")
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Visualizar Datos' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Visualizar Datos' : 'Siguiente'}
                   </Button>
                 </div>
                 

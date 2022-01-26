@@ -82,6 +82,9 @@ import {
               fullWidth
               onChange={e => change(e, i)}
               value={x.fena || ""}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
           </Grid>
 

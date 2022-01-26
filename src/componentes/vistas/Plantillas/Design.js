@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React from 'react';
 import  Plantilla1  from './Plantilla1';
 import  Plantilla2  from './Plantilla2';
 import  Plantilla3  from './Plantilla3';
@@ -13,12 +13,12 @@ const style = {
 }
 
 const Design = (props) => {
-    const {datos,herra,idi,expe,gene,refe,cursos,educa,color} = props;
+    const {datos,herra,idi,expe,gene,refe,cursos,educa,color,selectedIndex} = props;
 
-    const [valor, setValor] = useState(6);
+    
 
-    function DesignContent(valor) {
-        switch (valor) {
+    function DesignContent(selectedIndex) {
+        switch (selectedIndex) {
           case 0:
             return (
             <>
@@ -141,7 +141,7 @@ const Design = (props) => {
 
   return (
     <div style ={style.div}>
-     {DesignContent(valor)}
+     {DesignContent(selectedIndex)}
      
     </div>
   );

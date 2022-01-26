@@ -45,7 +45,7 @@ const style = {
    // borderTop: "2px solid rgb(212, 212, 212)",
    // backgroundColor: "#fafafa",
     minHeight: "1200px",
-    
+     
   },
  
   interer:{

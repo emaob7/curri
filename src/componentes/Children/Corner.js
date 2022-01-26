@@ -5,6 +5,27 @@ import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
 import CloseIcon from '@material-ui/icons/Close';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import ZoomOutIcon from '@material-ui/icons/ZoomOut';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+const options = [
+  'None',
+  'Atria',
+  'Callisto',
+  'Dione',
+  'Ganymede',
+  'Hangouts Call',
+  'Luna',
+  'Oberon',
+  'Phobos',
+  'Pyxis',
+  'Sedna',
+  'Titania',
+  'Triton',
+  'Umbriel',
+];
+
+
 
 
 const style = {
@@ -32,8 +53,23 @@ const style = {
 
 
 
-export default function Hecho (props){
-    const {handlePrint, value, setValue, setLefton, leftOn} = props;
+export default function Corner (props){
+    const {handlePrint, value, setValue, setLefton, leftOn,selectedIndex, setSelectedIndex} = props;
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    
+    const handleMenuItemClick = (event, index) => {
+      setSelectedIndex(index);
+      setAnchorEl(null);
+    };
+
+    
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+ 
       return (
         <>
 <div style={style.corner}>
@@ -71,11 +107,33 @@ export default function Hecho (props){
               style={style.fab}
               size="medium"
               color="primary"
-              onClick={""}
+              onClick={handleClick}
             >
               <PaletteOutlinedIcon/>
      </Fab>
      </Tooltip>
+     <Menu
+        id="long-menu"
+       anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        PaperProps={{
+          style: {
+            maxHeight: 250,
+            width: '20ch',
+          },
+        }}
+      >
+         {options.map((option, index) => (
+          <MenuItem  key={option}
+          disabled={index === 0}
+          selected={index === selectedIndex}
+          onClick={(event) => handleMenuItemClick(event, index)}
+          >
+            {option}
+          </MenuItem>
+        ))}
+      </Menu>
      <Tooltip title="Descargar" placement="left">
      <Fab  
               style={style.fab}

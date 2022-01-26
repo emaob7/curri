@@ -130,7 +130,7 @@ const Plantilla4 = (props) => {
       <div style ={style.div} className="plantilla4">
         
       {datos.map((card, i) => (
-        <div style ={style.super} key={i}>
+        <div style ={style.super} key={i}> 
         <h1>
         {card.nombre}{card.ape}
       </h1>

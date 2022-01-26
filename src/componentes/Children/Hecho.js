@@ -30,7 +30,9 @@ const style = {
 };
 
 export default function Hecho (props){
-    const {guardar, disable, leftOn, setLefton} = props;
+    const {guardar, disable, leftOn, setLefton,setValue} = props;
+
+
       return (
         <>
           <Hidden smDown>
@@ -49,13 +51,14 @@ export default function Hecho (props){
         <Hidden smUp>
           <Fab
         style={style.buttonPreview}  
-        onClick={()=>{setLefton(!leftOn)}}
+        onClick={()=>{setValue(40);setLefton(!leftOn)}}
         color="primary"
         size="medium"
         >
         <FindInPageOutlinedIcon/>
         </Fab>
         </Hidden>
+        
         <Hidden smUp>
           <Fab
         style={style.buttonMobile} 

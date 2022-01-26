@@ -1,18 +1,12 @@
 import React, { Component } from "react";
 import {
   Grid,
-  ButtonBase,
   Card,
   CardContent,
-  CardActions,
-  Fab,
-  Button,
-  Tooltip,
   CardMedia,
   CardActionArea,
   Typography
 } from "@material-ui/core";
-import { consumerFirebase } from "../../server";
 import { Link } from "react-router-dom";
 import Content from "../Children/Content";
 import auth from "../../componentes/Imagenes/Botones/auth.png";
@@ -45,6 +39,7 @@ const style = {
 
 
   cardContent: {
+    minHeight: 150,
     flexGrow: 1,
     paddingTop: "4px",
     paddingBottom: "1%",
@@ -52,14 +47,14 @@ const style = {
  
 };
 
-export default function Home(){
+function Home(){
 
   
     return (
       <>
         <Content>
         <Grid container spacing={2}>
-        <Grid item  xs={12} sm={12} md={6}>
+        <Grid item  xs={12} sm={12} md={4}>
             <Card>
             <CardActionArea
             component={Link}
@@ -71,7 +66,7 @@ export default function Home(){
             image={cloudmessaging}
             title="Agregar Nuevo"
             />
-         <CardContent>
+         <CardContent style={style.cardContent}>
          <Typography variant="h6" gutterBottom>
         Agregar
       </Typography>
@@ -84,7 +79,7 @@ export default function Home(){
         </CardActionArea>
             </Card>
             </Grid>
-        <Grid item  xs={12} sm={12} md={6}>
+        <Grid item  xs={12} sm={12} md={4}>
             <Card>
             <CardActionArea
             component={Link}
@@ -96,7 +91,7 @@ export default function Home(){
             image={auth}
             title="Lista de curriculums"
             />
-         <CardContent>
+         <CardContent style={style.cardContent}>
          <Typography variant="h6" gutterBottom>
         Tu lista
       </Typography>
@@ -108,7 +103,7 @@ export default function Home(){
         </CardActionArea>
             </Card>
             </Grid>
-            <Grid item  xs={12} sm={12} md={12}>
+            <Grid item  xs={12} sm={12} md={4}>
             <Card>
             <CardActionArea
             component={Link}
@@ -120,7 +115,7 @@ export default function Home(){
             image={experiments}
             title="Muy pronto, mas novedades"
             />
-         <CardContent>
+         <CardContent style={style.cardContent}>
          <Typography variant="h6" gutterBottom>
         Sugerencias
       </Typography>
@@ -128,19 +123,15 @@ export default function Home(){
       Avisanos si falta agregar, modificar alguna cosa, o tambien si se te ocurre alguna idea, lo tendremos en cuenta.
       </Typography>
              
-         
          </CardContent>
         </CardActionArea>
             </Card>
             </Grid>
-
-
-           
             </Grid>
-        
         </Content>
         
         
       </>
     );
   }
+  export default React.memo(Home);

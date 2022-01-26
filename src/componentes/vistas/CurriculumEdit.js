@@ -110,6 +110,8 @@ const CurriculumEdit = (props) => {
     const [open, setOpen] = useState(false);
     const [disable, setDisable] = useState(initialState);
     const [value, setValue] = useState(80);
+    const [selectedIndex, setSelectedIndex] = useState(1);
+
    // const [color, setColor] = useState('#000');
     let { id } = useParams();
     
@@ -534,6 +536,7 @@ const change = (e, index) => {
             guardar={guardarDatos}
             leftOn={leftOn}
             setLefton={setLefton}
+            setValue={setValue}
             />
           </>);
           
@@ -549,6 +552,7 @@ const change = (e, index) => {
             guardar={guardarDatos}
             leftOn={leftOn}
             setLefton={setLefton}
+            setValue={setValue}
             />
           </>
           );
@@ -566,6 +570,7 @@ const change = (e, index) => {
             guardar={guardarExpe}
             leftOn={leftOn}
             setLefton={setLefton}
+            setValue={setValue}
             />
           </>
           );
@@ -583,6 +588,7 @@ const change = (e, index) => {
             guardar={guardarGene}
             leftOn={leftOn}
             setLefton={setLefton}
+            setValue={setValue}
             />
           </>
           );
@@ -600,6 +606,7 @@ const change = (e, index) => {
             guardar={guardarEduca}
             leftOn={leftOn}
             setLefton={setLefton}
+            setValue={setValue}
             />
          </>
           );
@@ -617,6 +624,7 @@ const change = (e, index) => {
             guardar={guardarCursos}
             leftOn={leftOn}
             setLefton={setLefton}
+            setValue={setValue}
             />
          </>
           );
@@ -634,6 +642,7 @@ const change = (e, index) => {
             guardar={guardarIdiomas}
             leftOn={leftOn}
             setLefton={setLefton}
+            setValue={setValue}
             />
          </>
           );
@@ -651,6 +660,7 @@ const change = (e, index) => {
             guardar={guardarHerra}
             leftOn={leftOn}
             setLefton={setLefton}
+            setValue={setValue}
             />
          </>
           );
@@ -668,6 +678,7 @@ const change = (e, index) => {
             guardar={guardarRefe}
             leftOn={leftOn}
             setLefton={setLefton}
+            setValue={setValue}
             />
          </>
           );
@@ -752,6 +763,7 @@ educa={educa}
 cursos={cursos}
 idi={idi}
 refe={refe}
+selectedIndex={selectedIndex}
 //color={color}
 />
 
@@ -764,6 +776,8 @@ datos={datos}/>*/}
   value={value}
   setValue={setValue}
   handlePrint={handlePrint}
+  selectedIndex={selectedIndex}
+  setSelectedIndex={setSelectedIndex}
   />
  
 </div>
@@ -790,6 +804,8 @@ educa={educa}
 cursos={cursos}
 idi={idi}
 refe={refe}
+selectedIndex={selectedIndex}
+
 //color={color}
 />
 </PapelClass>
@@ -801,6 +817,7 @@ refe={refe}
   handlePrint={handlePrint}
   leftOn={leftOn}
   setLefton={setLefton}
+  setSelectedIndex={setSelectedIndex}
   />
  
 </div>
