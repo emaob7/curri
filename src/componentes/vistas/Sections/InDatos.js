@@ -7,7 +7,7 @@ import {
  
 
   function InDatos(props) {
-  const {datos, change, guardarDatos, ...other } = props;
+  const {datos, change, guardarDatos,id, ...other } = props;
 
 
     return (
@@ -16,6 +16,7 @@ import {
           {datos.map((x, i) => {
         return (
         <Grid container spacing={3} key={i}>
+          
      
           <Grid item xs={12} md={6}>
             <TextField

@@ -22,6 +22,7 @@ import PapelClass from '../Children/PapelClass';
 import SimpleBackdrop from '../Children/SimpleBackdrop';
 import Cargando from '../Children/Cargando';
 import Design from './Plantillas/Design';
+import InFoto from './Sections/InFoto';
 
 
 
@@ -106,11 +107,13 @@ const CurriculumEdit = (props) => {
     const [idi, setIdi] = useState([{idioma: "", nivel: ""}]);
     const [herra, setHerra] = useState([{herrami: "", nivel: ""}]);
     const [refe, setRefe] = useState([{referencia: "", telef: ""}]);
+    const [fotog, setFotog] = useState("");
     const [valor, setValor] = useState(0);
     const [open, setOpen] = useState(false);
     const [disable, setDisable] = useState(initialState);
     const [value, setValue] = useState(80);
     const [selectedIndex, setSelectedIndex] = useState(1);
+    
 
    // const [color, setColor] = useState('#000');
     let { id } = useParams();
@@ -160,6 +163,13 @@ const CurriculumEdit = (props) => {
                 if (data.refe) {
                   setRefe(data.refe);
                 };
+                if (data.selectedIndex) {
+                  setSelectedIndex(data.selectedIndex);
+                };
+                if (data.foto) {
+                  setFotog(data.foto);
+                };
+             //   console.log(data.foto)
                 
                /* if (data.color) {
                   setColor(data.color);
@@ -278,6 +288,18 @@ const guardarRefe = async () => {
     setOpen(true);
 })
 }
+
+const guardarDesign = async () => {
+  setLoad(true);
+      await firebase.db.collection("Datosps")
+      .doc(id)
+      .set({selectedIndex},{merge: true})
+      .then(success =>{
+       // setDisable(initialState);
+       setLoad(false);
+        setOpen(true);
+    })
+  }
 /*
 const guardarColor = async () => {
   setLoad(true);
@@ -530,6 +552,7 @@ const change = (e, index) => {
           <InDatos 
           datos={datos}
           change ={change}
+          id={id}
           />
           <Hecho
             disable ={disable.datos}
@@ -682,6 +705,17 @@ const change = (e, index) => {
             />
          </>
           );
+          case 9:
+            return( 
+            <>
+             <InFoto
+           id={id}
+           fotog={fotog}
+           setFotog={setFotog}
+            />
+              
+           </>
+            );
       /*    case 9:
             return( 
             <>
@@ -731,6 +765,7 @@ setLoad={setLoad}
     <Tab label="Idiomas" wrapped/>
     <Tab label="Herramientas y Habilidades" wrapped/>
     <Tab label="Referencias" wrapped/>
+    <Tab label="Foto" wrapped/>
 {/*<Tab label="Color" wrapped/>*/}
   </Tabs>
   </Box>
@@ -755,6 +790,7 @@ setLoad={setLoad}
 <Zoom zoom={value}>
 <PapelClass ref={componentRef}>
 <Design
+fotog={fotog}
 datos={datos}
 herra={herra}
 expe={expe}
@@ -778,6 +814,7 @@ datos={datos}/>*/}
   handlePrint={handlePrint}
   selectedIndex={selectedIndex}
   setSelectedIndex={setSelectedIndex}
+  guardarDesign={guardarDesign}
   />
  
 </div>
@@ -796,6 +833,7 @@ datos={datos}/>*/}
 <PapelClass ref={componentRef}>
 
 <Design
+fotog={fotog}
 datos={datos}
 herra={herra}
 expe={expe}
@@ -818,6 +856,7 @@ selectedIndex={selectedIndex}
   leftOn={leftOn}
   setLefton={setLefton}
   setSelectedIndex={setSelectedIndex}
+  guardarDesign={guardarDesign}
   />
  
 </div>

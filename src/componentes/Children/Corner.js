@@ -54,13 +54,14 @@ const style = {
 
 
 export default function Corner (props){
-    const {handlePrint, value, setValue, setLefton, leftOn,selectedIndex, setSelectedIndex} = props;
+    const {handlePrint, value, setValue, setLefton, leftOn,selectedIndex, setSelectedIndex, guardarDesign} = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     
     const handleMenuItemClick = (event, index) => {
       setSelectedIndex(index);
       setAnchorEl(null);
+      guardarDesign();
     };
 
     

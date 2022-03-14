@@ -29,13 +29,7 @@ const style = {
      // paddingLeft:5,
     },
 
-  super:{
-    marginBottom: 10,
-    paddingLeft: 15,
-    paddingBottom:10,
-    letterSpacing: "1pt",
-    //textTransform: "uppercase",
-  },
+ 
   
   left: {
     width: "200px",
@@ -45,47 +39,102 @@ const style = {
    // borderTop: "2px solid rgb(212, 212, 212)",
    // backgroundColor: "#fafafa",
     minHeight: "1200px",
-     
+    
   },
  
-  interer:{
-    marginTop: 2,
+  
+  lign:{
+float:"right",
+marginTop: -2,
+color: "gray",
+  },
+   super:{
+    //marginBottom: 10,
+    paddingLeft: 15,
+    paddingBottom:10,
+    letterSpacing: "1.5pt",
+    textTransform: "uppercase",
+    fontSize: "9px",
+  },
+  overlay:{
+    marginTop: -15,
     marginBottom: "0%",
+    fontSize: "12px",
+    //textTransform: "uppercase",
+    letterSpacing: "1pt",
+  },
+  subtitle:{
+    marginTop: 13,
+    marginBottom: 5,
+    textTransform: "uppercase",
+    letterSpacing: "2pt",
+    textAlign:"center",
+    fontSize: "12px",
+    //textDecoration:"blink",
+    //color: "#263238",
+  //  backgroundColor:"#eeeeee",
+    float:"center",
+   paddingBottom:3,
+   paddingTop:5,
+   borderTop: "2px solid rgb(212, 212, 212)",
+   borderBottom: "2px solid rgb(212, 212, 212)",
+
+   //borderBottomStyle:"double"
+  },
+  subtitle2:{
+    marginTop: 13,
+    marginBottom: 5,
+    textTransform: "uppercase",
+    letterSpacing: "2pt",
+    fontSize: "12px",    
+   //borderBottom: "2px solid rgb(212, 212, 212)",
+   borderBottomStyle:"double",
+    //textAlign:"center",
+    //textDecoration:"blink",
+    //color: "#263238",
+   // backgroundColor:"#eeeeee",
+    float:"center",
+    paddingBottom:3,
+   paddingTop:5,
+   borderTop: "2px solid rgb(212, 212, 212)",
+   borderBottom: "2px solid rgb(212, 212, 212)",
   },
   intertitle:{
-    marginTop: 8,
-    marginBottom: 0,
+    marginTop: 2,
+    marginBottom: -5,
+    
    // textTransform: "uppercase",
-   fontSize: "14px",
-    letterSpacing: "1pt",
-    color: "#616161"
+   fontSize: "13px",
+    letterSpacing: "0.5pt",
+    //color: "#616161"
 
   },
   intertitle2:{
-    marginTop: 4,
+    marginTop: -14,
+    marginBottom: 0,
+   // textTransform: "uppercase",
+   fontSize: "12px",
+    letterSpacing: "1pt",
+    color: "gray",
+  },
+  intertitle3:{
+    marginTop: -10,
     marginBottom: 0,
    // textTransform: "uppercase",
    fontSize: "12px",
     letterSpacing: "1pt",
   },
-  lign:{
-float:"right",
-marginTop: -5,
-  },
-  overlay:{
-    marginTop: -20,
+  interer:{
+    marginTop: 2,
     marginBottom: "0%",
-    fontSize: "16px",
-    //textTransform: "uppercase",
-    letterSpacing: "1pt",
+    fontSize: "14px",
   },
-  subtitle:{
-    marginTop: 19,
-    marginBottom: 5,
-    textTransform: "uppercase",
-    letterSpacing: "1pt",
-    color: "#263238"
+  interer2:{
+    marginTop: -12,
+    marginBottom: "0%",
+    fontSize: "14px",
   },
+
 
   right:{
     width: "500px",
@@ -108,7 +157,7 @@ const Plantilla2 = (props) => {
    const {datos,herra,idi,expe,gene,refe,cursos,educa,color} = props;
    
     return(
-      <div style ={style.div} className="plantilla2">
+      <div style ={style.div} className="plantilla5">
         
       {datos.map((card, i) => (
         <div style ={style.super} key={i}>
@@ -128,7 +177,7 @@ const Plantilla2 = (props) => {
   <div style ={style.left}>
   {datos.map((card,i) => (
     <div style ={style.borderer2} key={i}>
-  <h4  style ={style.subtitle}>
+  <h4  style ={style.subtitle2}>
         Datos Personales 
       </h4>
       {card.cin ? (
@@ -195,7 +244,7 @@ const Plantilla2 = (props) => {
 
       {herra[0].herrami? (
         <div style ={style.borderer2}>
-      <h4  style ={style.subtitle}>
+      <h4  style ={style.subtitle2}>
         Herramientas y Habilidades
       </h4>
       {herra.map((card,i) => (
@@ -213,7 +262,7 @@ const Plantilla2 = (props) => {
 
       {idi[0].idioma ? (
         <div style ={style.borderer2}>
-      <h4  style ={style.subtitle}>
+      <h4  style ={style.subtitle2}>
         Idiomas
       </h4>
       {idi.map((card,i) => (
@@ -230,7 +279,7 @@ const Plantilla2 = (props) => {
 
       {refe[0].referencia ? (
         <div style ={style.borderer2}>
-      <h4  style ={style.subtitle}>
+      <h4  style ={style.subtitle2}>
         Referencias
       </h4>
       {refe.map((card,i) => (
@@ -270,9 +319,11 @@ const Plantilla2 = (props) => {
       <div style={style.borderer}>
       {expe.map((card,i) => (
         <div key={i}>
-      <h5 style={style.intertitle}>
+       <ul><li>
+      <h5 style={style.intertitle3}>
       {card.puesto}, {card.empre}
       </h5>
+      </li></ul>
       <h6 style={style.intertitle2}>
       Desde {card.finicio} --  hasta {card.ffinal} <span style={style.lign}> <RoomIcon style={style.icon}/>{card.ubicacion}</span>
       </h6>
@@ -293,9 +344,11 @@ const Plantilla2 = (props) => {
       <div style={style.borderer}>
       {gene.map((card,i) => (
         <div key={i}>
-        <h5 style={style.intertitle}>
-        {card.puesto}, {card.empre}
-        </h5>
+        <ul><li>
+      <h5 style={style.intertitle3}>
+      {card.puesto}, {card.empre}
+      </h5>
+      </li></ul>
         <h6 style={style.intertitle2}>
         Desde {card.finicio} --  hasta {card.ffinal}  <span style={style.lign}><RoomIcon style={style.icon}/>{card.ubicacion}</span> 
         </h6>
@@ -317,10 +370,12 @@ const Plantilla2 = (props) => {
       <div style={style.borderer}>
       {educa.map((card,i) => (
         <div key={i}>
-      <h5 style={style.intertitle}>
+            <ul><li>
+      <h5 style={style.intertitle3}>
       {card.titu}
       </h5>
-      <p style={style.interer}>
+      </li></ul>
+      <p style={style.interer2}>
       {card.insti}
       </p>
       <p style={style.interer}>
@@ -340,11 +395,12 @@ const Plantilla2 = (props) => {
       <div style={style.borderer}>
       {cursos.map((card,i) => (
         <div key={i}>
-      <h5 style={style.intertitle}>
+            <ul><li>
+      <h5 style={style.intertitle3}>
       {card.titu}
       </h5>
-      
-      <p style={style.interer}>
+      </li></ul>
+      <p style={style.interer2}>
       {card.insti}
       </p>
       <p style={style.interer}>
@@ -367,9 +423,6 @@ const Plantilla2 = (props) => {
   }  
   
   export default Plantilla2;
-
-
-
   /*inter:{
     marginTop: -25,
     marginBottom: "0%",

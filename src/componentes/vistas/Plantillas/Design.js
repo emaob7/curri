@@ -13,7 +13,7 @@ const style = {
 }
 
 const Design = (props) => {
-    const {datos,herra,idi,expe,gene,refe,cursos,educa,color,selectedIndex} = props;
+    const {datos,herra,idi,expe,gene,refe,cursos,educa,color,selectedIndex,fotog} = props;
 
     
 
@@ -110,6 +110,7 @@ const Design = (props) => {
             return( 
             <>
               <Plantilla6
+              fotog={fotog}
       datos={datos}
       herra={herra}
       expe={expe}
