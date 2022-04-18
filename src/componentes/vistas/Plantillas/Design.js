@@ -13,7 +13,7 @@ const style = {
 }
 
 const Design = (props) => {
-    const {datos,herra,idi,expe,gene,refe,cursos,educa,color,selectedIndex,fotog} = props;
+    const {datos,herra,idi,expe,gene,refe,cursos,educa,color,selectedIndex,fotog,pref} = props;
 
     
 
@@ -38,6 +38,8 @@ const Design = (props) => {
       cursos={cursos}
       idi={idi}
       refe={refe}
+      pref={pref}
+      fotog={fotog}
       />
             </>
             );
@@ -54,6 +56,8 @@ const Design = (props) => {
       idi={idi}
       refe={refe}
       color={color}
+      pref={pref}
+      fotog={fotog}
       />
             </>
             );
@@ -70,6 +74,8 @@ const Design = (props) => {
       idi={idi}
       refe={refe}
       color={color}
+      pref={pref}
+      fotog={fotog}
       />
             
             </>
@@ -87,6 +93,8 @@ const Design = (props) => {
       idi={idi}
       refe={refe}
       color={color}
+      pref={pref}
+      fotog={fotog}
       />
            </>
             );
@@ -103,6 +111,8 @@ const Design = (props) => {
       idi={idi}
       refe={refe}
       color={color}
+      pref={pref}
+      fotog={fotog}
       />
            </>
             );
@@ -110,7 +120,7 @@ const Design = (props) => {
             return( 
             <>
               <Plantilla6
-              fotog={fotog}
+              
       datos={datos}
       herra={herra}
       expe={expe}
@@ -120,6 +130,8 @@ const Design = (props) => {
       idi={idi}
       refe={refe}
       color={color}
+      pref={pref}
+      fotog={fotog}
       />
            </>
             );

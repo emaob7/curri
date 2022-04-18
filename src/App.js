@@ -16,8 +16,6 @@ import LoginTelefono from "./componentes/Seguridad/LoginTelefono";
 import NuevaPersona from "./componentes/vistas/NuevaPersona";
 import CurriculumList from "./componentes/vistas/CurriculumList";
 import CurriculumEdit from "./componentes/vistas/CurriculumEdit";
-import NuevoObs from "./componentes/vistas/Nuevo/NuevoObs";
-import NuevoExpEs from "./componentes/vistas/Nuevo/NuevoExpEs";
 import Descargar from "./componentes/vistas/Plantillas/Descargar";
 import Nuevo from "./componentes/vistas/checkout/Nuevo";
 import Home from "./componentes/vistas/Home";
@@ -112,19 +110,8 @@ function App(props) {
                 autenticadoFirebase="{firebase.auth.currentUser}"
                 component={Nuevo}
               />
-                <RutaAutenticada
-                exact
-                path="/nuevo/objetivo/:id"
-                autenticadoFirebase="{firebase.auth.currentUser}"
-                component={NuevoObs}
-              />
-               <RutaAutenticada
-                exact
-                path="/nuevo/experienciae/:id"
-                autenticadoFirebase="{firebase.auth.currentUser}"
-                component={NuevoExpEs}
-              />
- 
+               
+               
             
             
 

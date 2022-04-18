@@ -1,18 +1,12 @@
 import React from "react";
 import "../../../App.css";
 import RoomIcon from '@material-ui/icons/Room';
-import { Avatar } from "@material-ui/core";
+import AvatarCv from "../../Children/AvatarCv";
 
 
 
 const style = {
-  avatar : {
-    marginLeft: 50,
-    marginBottom:20,
-    width : 120,
-    height: 120
-
-  },
+  
   div: {
     minWidth: "816px",
     minHeight: "1300px",
@@ -26,17 +20,10 @@ const style = {
     display: "flex",
     flexDirection: "row"
   },
-  borderer:{
-  //  borderBottom: "2px solid rgb(212, 212, 212)",
-    marginBottom:7,
-    //paddingLeft:7,
+  avatar:{
+    marginLeft: 45,
+    marginBottom:20,
   },
-  borderer2:{
-    //  borderBottom: "2px solid rgb(212, 212, 212)",
-      marginBottom:7,
-      paddingBottom:7,
-     // paddingLeft:5,
-    },
   left: {
     width: "250px",
     paddingTop: "5px",
@@ -53,6 +40,18 @@ const style = {
     paddingTop: 6,
    // borderTop: "2px solid rgb(212, 212, 212)"
   },
+  borderer:{
+  //  borderBottom: "2px solid rgb(212, 212, 212)",
+    marginBottom:7,
+    //paddingLeft:7,
+  },
+  borderer2:{
+    //  borderBottom: "2px solid rgb(212, 212, 212)",
+      marginBottom:7,
+      paddingBottom:7,
+     // paddingLeft:5,
+    },
+ 
   lign:{
 float:"right",
 marginTop: -2,
@@ -69,7 +68,7 @@ color: "gray",
   overlay:{
     marginTop: -10,
     marginBottom: "0%",
-    fontSize: "10px",
+    fontSize: "11px",
     //textTransform: "uppercase",
     letterSpacing: "1pt",
   },
@@ -154,21 +153,19 @@ color: "gray",
 
 
 const Plantilla6 = (props) => {
-   const {datos,herra,idi,expe,gene,refe,cursos,educa,fotog} = props;
+   const {datos,herra,idi,expe,gene,refe,cursos,educa,fotog,pref} = props;
    
     return(
       <div style ={style.div} className="plantilla2">
-        
-    
-        
-      
-      
       
   <div style={style.body}>
   <div style ={style.left}>
-  {fotog ? ( 
-  <Avatar style={style.avatar} src={fotog || null} />
-  ) : null}
+    <div style={style.avatar}>
+  <AvatarCv
+  fotog={fotog}
+  pref={pref}
+  />
+  </div>
   {datos.map((card, i) => (
         <div style ={style.super} key={i}>
         <h1>

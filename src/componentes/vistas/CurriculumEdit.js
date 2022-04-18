@@ -113,6 +113,10 @@ const CurriculumEdit = (props) => {
     const [disable, setDisable] = useState(initialState);
     const [value, setValue] = useState(80);
     const [selectedIndex, setSelectedIndex] = useState(1);
+    const [pref, setPref] = useState({
+      con: false,
+      cuadrado: false,
+    }); 
     
 
    // const [color, setColor] = useState('#000');
@@ -169,6 +173,9 @@ const CurriculumEdit = (props) => {
                 if (data.foto) {
                   setFotog(data.foto);
                 };
+                if (data.pref) {
+                  setPref(data.pref);
+                };
              //   console.log(data.foto)
                 
                /* if (data.color) {
@@ -200,7 +207,7 @@ const guardarDatos = async () => {
         setLoad(true);
         await firebase.db.collection("Datosps")
         .doc(id)
-        .set((Object.assign({}, {datos})),{merge: true})
+        .set((Object.assign({}, {datos},{pref})),{merge: true})
         .then(success =>{
           setDisable(initialState);
           setLoad(false);
@@ -549,6 +556,15 @@ const change = (e, index) => {
         case 0:
           return (
           <>
+          <InFoto
+           id={id}
+           fotog={fotog}
+           setFotog={setFotog}
+          pref={pref}
+          setPref={setPref}
+          disable ={disable}
+          setDisable={setDisable}
+            />
           <InDatos 
           datos={datos}
           change ={change}
@@ -705,17 +721,7 @@ const change = (e, index) => {
             />
          </>
           );
-          case 9:
-            return( 
-            <>
-             <InFoto
-           id={id}
-           fotog={fotog}
-           setFotog={setFotog}
-            />
-              
-           </>
-            );
+         
       /*    case 9:
             return( 
             <>
@@ -765,7 +771,6 @@ setLoad={setLoad}
     <Tab label="Idiomas" wrapped/>
     <Tab label="Herramientas y Habilidades" wrapped/>
     <Tab label="Referencias" wrapped/>
-    <Tab label="Foto" wrapped/>
 {/*<Tab label="Color" wrapped/>*/}
   </Tabs>
   </Box>
@@ -800,6 +805,7 @@ cursos={cursos}
 idi={idi}
 refe={refe}
 selectedIndex={selectedIndex}
+pref={pref}
 //color={color}
 />
 
@@ -843,6 +849,7 @@ cursos={cursos}
 idi={idi}
 refe={refe}
 selectedIndex={selectedIndex}
+pref={pref}
 
 //color={color}
 />

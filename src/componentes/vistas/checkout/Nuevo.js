@@ -4,10 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { v4 as uuidv4 } from "uuid";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
+import Tooltip from '@material-ui/core/Tooltip';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import InDatos from '../Sections/InDatos';
 import InPerfil from '../Sections/InPerfil';
@@ -16,6 +17,7 @@ import InEspecifica from '../Sections/InEspecifica';
 import InEducacion from '../Sections/InEducacion';
 import InCursos from '../Sections/InCursos';
 import Papel from '../../Children/Papel';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
+    
   },
   
 }));
@@ -82,7 +85,7 @@ const guardarDatos = async () => {
   guardarEduca();
   guardarCursos();
   guardarPropi();
- props.history.push("/curriculum/edit/" + id);
+  
 
 }
 
@@ -90,11 +93,13 @@ const guardarPropi = async () => {
   await firebase.db.collection("Datosps")
   .doc(id)
   .set(propi, {merge: true})
+  .then(props.history.push("/curriculum/edit/" + id));
   }
 const guardarExpe = async () => {
 await firebase.db.collection("Datosps")
 .doc(id)
 .set((Object.assign({}, {expe})),{merge: true})
+
 
 }
 const guardarGene = async () => {
@@ -307,19 +312,18 @@ await firebase.db.collection("Datosps")
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
                 </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
-                </Typography>
+                
+                
                 <div className={classes.buttons}>
-                <Button
-                    variant="contained"
+                <Fab
+                    variant="extended"
+                    size="medium"
                     color="primary"
                     onClick={guardarDatos}
                     className={classes.button}
                   >
                    Guardar Datos
-                  </Button>
+                  </Fab>
                   </div>
               </React.Fragment>
             ) : (
@@ -327,18 +331,25 @@ await firebase.db.collection("Datosps")
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Atrás
-                    </Button>
+                    <Tooltip title="Atrás" placement="top">
+                    <Fab 
+                    size="small"
+                    onClick={handleBack} 
+                    className={classes.button}>
+                      <NavigateBeforeIcon/>
+                    </Fab>
+                    </Tooltip>
+                    
                   )}
-                  <Button
-                    variant="contained"
+                  <Fab
+                  variant="extended"
+                  size="medium"
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Visualizar Datos' : 'Siguiente'}
-                  </Button>
+                  </Fab>
                 </div>
                 
               </React.Fragment>

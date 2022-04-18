@@ -1,5 +1,6 @@
 import React from "react";
 import "../../../App.css";
+import AvatarCv from "../../Children/AvatarCv";
 
 
 const style = {
@@ -7,9 +8,15 @@ const style = {
     minWidth: "816px",
     minHeight: "1300px",
     marginBottom: 22,
-    marginRight: 17,
-    paddingLeft: 37,
-    paddingTop: 37,
+    marginRight: 15,
+    paddingLeft: 1,
+    paddingTop: 1,
+  },
+  avatar:{
+    marginLeft: 20,
+    marginBottom:20,
+    marginTop: 20,
+
   },
   body:{
     display: "flex",
@@ -23,19 +30,51 @@ const style = {
 
   super:{
     marginBottom: 10,
-    paddingLeft: 15,
+    paddingLeft: 0,
     paddingBottom:10
+  },
+  overlay:{
+    marginTop: -20,
+    marginBottom: "0%",
+    textTransform: "uppercase",
+    letterSpacing: "1pt",
+    
+  },
+  perfil:{
+    marginTop: 2,
+    marginBottom: 2,
+    textTransform: "uppercase",
+    letterSpacing: "2pt",
+   // textAlign:"center",
+    fontSize: "12px",
+    //textDecoration:"blink",
+    //color: "#263238",
+  //  backgroundColor:"#eeeeee",
+    //float:"center",
+   paddingBottom:3,
+   paddingTop:5,
+   //borderTop: "2px solid rgb(212, 212, 212)",
+  //borderBottom: "2px solid rgb(212, 212, 212)",
+
+   //borderBottomStyle:"double"
   },
   
   left: {
-    width: "200px",
+    width: "250px",
     paddingTop: 0,
     paddingLeft: 15,
     paddingRight: 15,
-    borderTop: "2px solid rgb(212, 212, 212)",
+//borderTop: "2px solid rgb(212, 212, 212)",
     backgroundColor: "#fafafa",
     minHeight: "1200px",
     
+  },
+
+  right:{
+    width: "600px",
+    paddingLeft: "15px",
+    paddingTop: 0,
+  //  borderTop: "2px solid rgb(212, 212, 212)"
   },
  
   interer:{
@@ -43,54 +82,62 @@ const style = {
     marginBottom: "0%",
   },
   intertitle:{
-    marginTop: 8,
+    marginTop: 5,
     marginBottom: 0,
     textTransform: "uppercase",
+    fontSize: "12px",
+    letterSpacing: "1pt",
   },
   lign:{
 float:"right"
   },
-  overlay:{
-    marginTop: -20,
-    marginBottom: "0%",
-    textTransform: "uppercase",
-    letterSpacing: "1pt",
-  },
+ 
   subtitle:{
-    marginTop: 16,
+    marginTop: 10,
     marginBottom: 8,
     textTransform: "uppercase",
     letterSpacing: "1pt",
     fontWeight: "bolder",
-  },
-
-  right:{
-    width: "500px",
-    paddingLeft: "20px",
-    paddingTop: 0,
-    borderTop: "2px solid rgb(212, 212, 212)"
-  },
+  }
 }
 
 
 
 
 const Plantilla1 = (props) => {
-   const {datos,herra,idi,expe,gene,refe,cursos,educa,color} = props;
+   const {datos,herra,idi,expe,gene,refe,cursos,educa,color,fotog,pref} = props;
    
     return(
       <div style ={style.div} className="plantilla1">
+  
+  <div style ={style.body}>
+  <did  style={style.avatar}>
+      <AvatarCv
+      fotog={fotog}
+      pref={pref}
+      />   
+  </did>
         
       {datos.map((card, i) => (
         <div style ={style.super} key={i}>
-        <h1>
-        {card.nombre}{card.ape}
-      </h1>
+        <h2>{card.nombre}{card.ape}</h2>
       <h5 style={style.overlay}>
       {card.prof}
       </h5>
+      {datos[0].perfil   ? (
+    <div style={style.borderer}>
+  <h4  style ={style.perfil}>
+        Perfil
+      </h4> 
+      <p style={style.interer}>
+      {datos[0].perfil}
+      </p>
+      </div>
+      ) : null}
       </div>
       ))}
+  </div>
+  
         
       
       
@@ -220,16 +267,7 @@ const Plantilla1 = (props) => {
   </div>
   
   <div style ={style.right}>
-  {datos[0].perfil   ? (
-    <div style={style.borderer}>
-  <h4  style ={style.subtitle}>
-        Perfil
-      </h4> 
-      <p style={style.interer}>
-      {datos[0].perfil}
-      </p>
-      </div>
-      ) : null} 
+   
       
       {expe[0].puesto  ? (
         <div style={style.borderer}>

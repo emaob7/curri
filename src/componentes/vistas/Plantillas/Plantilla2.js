@@ -1,6 +1,7 @@
 import React from "react";
 import "../../../App.css";
 import RoomIcon from '@material-ui/icons/Room';
+import AvatarCv from "../../Children/AvatarCv";
 
 
 const style = {
@@ -9,12 +10,34 @@ const style = {
     minHeight: "1300px",
     marginBottom: 22,
     marginRight: 17,
-    paddingLeft: 37,
-    paddingTop: 37,
+    paddingLeft: 1,
+    paddingRight: 10,
+    paddingTop: 1,
   },
   body:{
     display: "flex",
     flexDirection: "row"
+  },
+  avatar:{
+    marginLeft: 20,
+    marginBottom:20,
+    marginTop: 20,
+  },
+  left: {
+    width: "250px",
+   // paddingTop: "5px",
+    paddingLeft: 17,
+    paddingRight: 15,
+   // borderTop: "2px solid rgb(212, 212, 212)",
+   // backgroundColor: "#fafafa",
+    minHeight: "1200px",
+  },
+  
+  right:{
+    width: "600px",
+    paddingLeft: "20px",
+   // paddingTop: 6,
+   // borderTop: "2px solid rgb(212, 212, 212)"
   },
   borderer:{
   //  borderBottom: "2px solid rgb(212, 212, 212)",
@@ -29,20 +52,6 @@ const style = {
      // paddingLeft:5,
     },
 
- 
-  
-  left: {
-    width: "200px",
-    paddingTop: "5px",
-    paddingLeft: 15,
-    paddingRight: 15,
-   // borderTop: "2px solid rgb(212, 212, 212)",
-   // backgroundColor: "#fafafa",
-    minHeight: "1200px",
-    
-  },
- 
-  
   lign:{
 float:"right",
 marginTop: -2,
@@ -50,30 +59,43 @@ color: "gray",
   },
    super:{
     //marginBottom: 10,
-    paddingLeft: 15,
-    paddingBottom:10,
+    //paddingLeft: 30,
+    paddingBottom:0,
+    paddingTop:6,
+    fontSize: "10px",
+    whiteSpace: "normal"
+  },
+  nombre:{
     letterSpacing: "1.5pt",
     textTransform: "uppercase",
-    fontSize: "9px",
+    marginTop: 8,
+    marginBottom: 0,
+    fontSize: "14px",
+  },
+  surname:{
+    marginTop: -15, 
+    
   },
   overlay:{
-    marginTop: -15,
-    marginBottom: "0%",
+    textTransform: "uppercase",
+    marginTop: 1, 
+    marginBottom: 0,
     fontSize: "12px",
+    color: "#263238",
     //textTransform: "uppercase",
     letterSpacing: "1pt",
   },
-  subtitle:{
-    marginTop: 13,
+  perfil:{
+    marginTop: 5,
     marginBottom: 5,
     textTransform: "uppercase",
     letterSpacing: "2pt",
-    textAlign:"center",
+   // textAlign:"center",
     fontSize: "12px",
     //textDecoration:"blink",
     //color: "#263238",
   //  backgroundColor:"#eeeeee",
-    float:"center",
+    //float:"center",
    paddingBottom:3,
    paddingTop:5,
    borderTop: "2px solid rgb(212, 212, 212)",
@@ -81,8 +103,27 @@ color: "gray",
 
    //borderBottomStyle:"double"
   },
+  subtitle:{
+    marginTop: 10,
+    marginBottom: 5,
+    textTransform: "uppercase",
+    letterSpacing: "2pt",
+   // textAlign:"center",
+    fontSize: "12px",
+    //textDecoration:"blink",
+    //color: "#263238",
+  //  backgroundColor:"#eeeeee",
+    //float:"center",
+   paddingBottom:3,
+   paddingTop:5,
+   borderTop: "2px solid rgb(212, 212, 212)",
+   borderBottom: "2px solid rgb(212, 212, 212)",
+
+   //borderBottomStyle:"double"
+  },
+
   subtitle2:{
-    marginTop: 13,
+    marginTop: 10,
     marginBottom: 5,
     textTransform: "uppercase",
     letterSpacing: "2pt",
@@ -134,14 +175,9 @@ color: "gray",
     marginBottom: "0%",
     fontSize: "14px",
   },
+  
 
 
-  right:{
-    width: "500px",
-    paddingLeft: "20px",
-    paddingTop: 6,
-   // borderTop: "2px solid rgb(212, 212, 212)"
-  },
   icon:{
     width:14,
     marginBottom:-8,
@@ -154,21 +190,42 @@ color: "gray",
 
 
 const Plantilla2 = (props) => {
-   const {datos,herra,idi,expe,gene,refe,cursos,educa,color} = props;
+   const {datos,herra,idi,expe,gene,refe,cursos,educa,color,fotog,pref} = props;
    
     return(
       <div style ={style.div} className="plantilla5">
         
+        <div style ={style.body}>
+      <div  style={style.avatar}>
+      <AvatarCv
+      fotog={fotog} 
+      pref={pref}
+      />   
+  </div>
+        
       {datos.map((card, i) => (
+        
         <div style ={style.super} key={i}>
-        <h1>
-        {card.nombre}{card.ape}
-      </h1>
-      <p style={style.overlay}>
+        <h2 style ={style.nombre} >{card.nombre}{" "}{card.ape}</h2>
+      <h5 style={style.overlay}>
       {card.prof}
+      </h5>
+      {datos[0].perfil   ? (
+    <>
+  <h6  style ={style.perfil}>
+        Perfil
+      </h6>
+      <div style={style.borderer}>
+      <p style={style.interer}>
+      {datos[0].perfil}
       </p>
       </div>
+      </>
+      ) : null} 
+      </div>
       ))}
+  
+  </div>
         
       
       
@@ -298,18 +355,7 @@ const Plantilla2 = (props) => {
   </div>
   
   <div style ={style.right}>
-  {datos[0].perfil   ? (
-    <>
-  <h4  style ={style.subtitle}>
-        Perfil
-      </h4>
-      <div style={style.borderer}>
-      <p style={style.interer}>
-      {datos[0].perfil}
-      </p>
-      </div>
-      </>
-      ) : null} 
+  
       
       {expe[0].puesto  ? (
         <>

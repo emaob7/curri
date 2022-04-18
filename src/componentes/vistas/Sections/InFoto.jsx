@@ -4,6 +4,13 @@ import reactFoto from "../../../logo.svg";
 import {consumerFirebase} from '../../../server';
 import ImageUploader from 'react-images-upload';
 import {v4 as uuidv4} from "uuid";
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import AvatarCv from "../../Children/AvatarCv";
+
 
 
 const style = {
@@ -21,20 +28,20 @@ const style = {
     marginTop: 15,
     marginBottom: 20
   }, 
-  input: {
-    display: 'none',
-  },
   avatar : {
     margin: 10,
     width : 100,
     height: 100
-
+  },
+  div:{
+   marginLeft:15,
   }
 };
 
 const InFoto = props => {
-  const {fotog,setFotog,id, ...other } = props;
-  const [estado, cambiarEstado] = useState([{foto: ""}]); 
+  const {fotog,setFotog,id,pref, setPref,disable, setDisable, ...other } = props;
+  const [estado, cambiarEstado] = useState([{foto: ""}]);
+  
   const firebase = props.firebase;
  
 
@@ -47,6 +54,14 @@ const InFoto = props => {
           [name] : value
       }))
   }
+
+
+  const handleChange = (event) => {
+    setPref({ ...pref, [event.target.name]: event.target.checked });
+    if(disable.datos === true){
+      setDisable({datos: false, expe: true, gene: true,educa: true,cursos: true,idi: true,herra: true,refe: true});
+    }
+  };
 
   
   const borrarfoto = () => {
@@ -116,39 +131,76 @@ const InFoto = props => {
   return (
     <Container component="main" maxWidth="md" justify="center">
       <div style={style.paper}>
-        <Avatar style={style.avatar} src={fotog || reactFoto} />
-        <Typography component="h1" variant="h5">
-          Elija una fotografia
-        </Typography>
+     
 
         
-        <form style={style.form}>
+        
           <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
-            <Button 
+          <Grid item xs={6} md={6}>
+          
+          {pref.con?(
+ <AvatarCv
+ fotog={fotog}
+ pref={pref}
+ />
+):<Avatar style={style.avatar}/>}
+
+          {fotog?(
+      <div style={style.div}>
+       <Button
+            color ="secondary" 
             onClick={borrarfoto}
             >
               borrar
             </Button>
+      </div>
+     ):null}
+          
+         
+        
+        
           </Grid>
+          <Grid item xs={6} md={6}>
+          
+          <FormControl component="fieldset">
+    <FormLabel component="legend">Preferencias</FormLabel>
+    <FormGroup>
+      <FormControlLabel
+        control={<Switch color="primary" checked={pref.con} onChange={handleChange} name="con" />}
+        label="Con Fotografia"
+      />
+      <FormControlLabel
+        control={<Switch color="primary" checked={pref.cuadrado} onChange={handleChange} name="cuadrado" />}
+        label="Cuadrado"
+      />
+      
+      
+    </FormGroup>
+  </FormControl>
+          </Grid>
+          <form style={style.form}>
+
+          
+        
 
             <Grid item xs={12} md={12}>
                 <ImageUploader 
                   withIcon={false}
                   key={fotoKey}
                   singleImage={true}
-                  buttonText="Seleccione su imagen de perfil"
+                  buttonText="Elija su foto"
                   onChange={subirFoto}
                   imgExtension={[".jpg",".gif",".png", ".jpeg"]}
                   maxFileSize={5242880}
                 />
 
             </Grid>
+           
 
-
+            </form>
           </Grid>
           
-        </form>
+       
       </div>
     </Container>
     )
