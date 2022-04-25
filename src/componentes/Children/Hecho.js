@@ -17,14 +17,14 @@ const style = {
       marginRight:10,
       position: 'absolute',
       bottom: 126,
-      left: 300,
+      left: 350,
   },
     
     buttonMobile: {
       marginRight:10,
       position: 'absolute',
       bottom: 56,
-      left: 300,
+      left: 350,
   },
     
 };

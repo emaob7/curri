@@ -63,6 +63,8 @@ const Nuevo =(props)=> {
   const [cursos, setCursos] = useState([{titu: "", insti: "",duracion: "", culminacion: "" }]);
   const id = uuidv4();
   const propi = ({propietario:firebase.auth.currentUser.uid});
+  const foto = ("");
+
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -84,6 +86,7 @@ const guardarDatos = async () => {
   guardarGene();
   guardarEduca();
   guardarCursos();
+  guardarFoto();
   guardarPropi();
   
 
@@ -95,6 +98,18 @@ const guardarPropi = async () => {
   .set(propi, {merge: true})
   .then(props.history.push("/curriculum/edit/" + id));
   }
+
+  const guardarFoto = async () => {
+    await firebase.db.collection("Datosps")
+    .doc(id)
+    .set(
+      {
+        foto : null
+      },
+      {merge: true}
+    )
+    }
+
 const guardarExpe = async () => {
 await firebase.db.collection("Datosps")
 .doc(id)

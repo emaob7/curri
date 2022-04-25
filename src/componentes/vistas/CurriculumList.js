@@ -1,28 +1,33 @@
 import React, { Component } from "react";
-import IconButton from '@material-ui/core/IconButton';
 import {
   Grid,
+  Avatar,
   Typography,
   Card,
+  CardHeader,
   CardContent,
   CardActions,
   Fab,
   Button,
-  Tooltip
+  Tooltip,
+  IconButton,
 } from "@material-ui/core";
 import { consumerFirebase } from "../../server";
 import { Link } from "react-router-dom";
-import Papel from "../Children/Papel";
+import Content from "../Children/Content";
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import DeleteIcon from '@material-ui/icons/Delete';
-import GetAppIcon from '@material-ui/icons/GetApp';
 
 
 
 
 const style = {
+  paper:{
+    overflowX: "hidden",
+    overflowY: "hidden",
+  },
   cardGrid: {
     paddingTop: 8,
     paddingBottom: 8,
@@ -33,11 +38,13 @@ const style = {
     marginBottom: 35,
     marginRight: 17,
   },
-
-
-
+  avatar: {
+    width : 50,
+      height: 50
+  },
   card: {
     height: "100%",
+   // width : 280,
     display: "flex",
     flexDirection: "column",
   },
@@ -71,12 +78,14 @@ class CurriculumList extends Component {
 
   eliminarDatosps = (id) => {
     this.props.firebase.db
-      .collection("Datosps")
-      .doc(id)
-      .delete()
-      .then((success) => {
-        this.eliminarDatospsDeListaEstado(id);
-      });
+    .collection("Datosps")
+    .doc(id)
+    .delete()
+    .then((success) => {
+      this.eliminarDatospsDeListaEstado(id);
+    });
+
+   
   };
 
   eliminarDatospsDeListaEstado = (id) => {
@@ -99,10 +108,10 @@ class CurriculumList extends Component {
 
   render() {
     return (
-      <>
+      <Content>
       <Grid container spacing={2}>
       <Grid item  xs={12} sm={12} md={12}>
-        <Papel>
+        
           <Typography variant="h4" color="textSecondary">
             Curriculums
           </Typography>
@@ -125,9 +134,26 @@ class CurriculumList extends Component {
             {this.state.datosps.map((card) => (
               <Grid item key={card.id} xs={12} sm={12} md={4} >
                 <Card style={style.card}>
+                <CardHeader
+                  avatar={
+                  <Avatar
+                  style={style.avatar}
+                        src={card.foto}
+                  />
+                          }
+        action={
+          <IconButton 
+          aria-label="delete"
+          onClick={() => this.eliminarDatosps(card.id)}>
+            <HighlightOffIcon color="secondary" />
+          </IconButton>
+        }
+        title= {card.datos[0].nombre + " " + card.datos[0].ape}
+        /*subheader={card.datos[0].perfil}*/
+      />
                   <CardContent style={style.cardContent}>
-                    <Typography gutterBottom variant="h6" >
-                      {card.datos[0].nombre + " " + card.datos[0].ape} 
+                    <Typography gutterBottom variant="caption" >
+                    {card.datos[0].perfil}
                     </Typography>
  </CardContent>
 
@@ -140,14 +166,6 @@ class CurriculumList extends Component {
                       
                       Editar
                     </Button>
-                    <Button
-                      startIcon={<DeleteIcon/>}
-                      color="secondary"
-                      onClick={() => this.eliminarDatosps(card.id)}
-                    >
-                      
-                     Eliminar
-                    </Button>
                   
 
                   </CardActions>
@@ -155,11 +173,9 @@ class CurriculumList extends Component {
               </Grid>
             ))}
             </Grid>
-          
-        </Papel>
         </Grid>
         </Grid>
-      </>
+      </Content>
     );
   }
 }

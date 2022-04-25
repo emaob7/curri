@@ -155,10 +155,15 @@ class BarSession extends Component {
         <Grid item xs={12} sm={5} md={5}>
           <Link  to="/">
           <Tooltip title="Ir a inicio">
-            <img  src ={boton} style={style.logo} />
+            
+           <img  src ={boton} style={style.logo} />
+            
+          
             </Tooltip>
             
+            
            </Link>
+           
             </Grid>
 
           <div className={classes.grow}></div>

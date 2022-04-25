@@ -29,9 +29,11 @@ import InFoto from './Sections/InFoto';
 
 const style = {
   
-  div:{
-    margin: "auto",
-    overflowY:"scroll",
+  
+  paper:{
+    overflowX: "hidden",
+    overflowY: "hidden",
+    height: "100vh",
   },
  
   cornerLeft: {
@@ -64,21 +66,22 @@ const style = {
   },
   left: {
   //  width: "98%",
-    height: "535px",
+    height: "100vh",
     marginTop: 58,
-    paddingTop: "5px",
+    paddingTop: "10px",
     overflowY:"scroll",
     overflowX: "hidden",
     backgroundColor: "white"
   },
   right:{
    // width: "65%",
-    height: "495px",
+    height: "100vh",
     marginTop: 58,
-    padding: "10px",
-    paddingTop: "32px",
+    //padding: "10px",
+    paddingTop: "20px",
     overflowY:"scroll",
     overflowX: "hidden",
+    backgroundColor: '#757575'
   },
   box:{
      marginTop: 20,
@@ -111,7 +114,7 @@ const CurriculumEdit = (props) => {
     const [valor, setValor] = useState(0);
     const [open, setOpen] = useState(false);
     const [disable, setDisable] = useState(initialState);
-    const [value, setValue] = useState(80);
+    const [value, setValue] = useState(70);
     const [selectedIndex, setSelectedIndex] = useState(1);
     const [pref, setPref] = useState({
       con: false,
@@ -744,13 +747,13 @@ const change = (e, index) => {
       }
     }
   return (
-    <>
+    <div style={style.paper}>
 <SimpleBackdrop
 load={load}
 setLoad={setLoad}
 />
 {datos[0].nombre || datos[0].ape || datos[0].cin ? (
-  <Grid container spacing={1}>
+  <Grid container spacing={1} >
  <Grid item xs={12} md={5}>
 <div style={style.left}>
 <Box style={style.bar}>
@@ -877,7 +880,7 @@ pref={pref}
 ):<Cargando/>}
     
     
-    </>
+    </div>
   );
 };
 
