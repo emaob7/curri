@@ -23,6 +23,7 @@ import SimpleBackdrop from '../Children/SimpleBackdrop';
 import Cargando from '../Children/Cargando';
 import Design from './Plantillas/Design';
 import InFoto from './Sections/InFoto';
+import InFotoDos from './Sections/InFotoDos';
 
 
 
