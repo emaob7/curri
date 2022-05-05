@@ -18,12 +18,20 @@ import Corner from '../Children/Corner';
 import {Zoom, Scale} from 'react-scaling'
 import PapelDos from '../Children/PapelDos';
 import PapelClass from '../Children/PapelClass';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import TocIcon from '@material-ui/icons/Toc';
+import WorkOutlineRoundedIcon from '@material-ui/icons/WorkOutlineRounded';
+import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
+import TranslateRoundedIcon from '@material-ui/icons/TranslateRounded';
+import WorkRoundedIcon from '@material-ui/icons/WorkRounded';
+import CastForEducationRoundedIcon from '@material-ui/icons/CastForEducationRounded';
+import WbIncandescentRoundedIcon from '@material-ui/icons/WbIncandescentRounded';
+import ContactPhoneRoundedIcon from '@material-ui/icons/ContactPhoneRounded';
 //import Colors from './Plantillas/Colors';
 import SimpleBackdrop from '../Children/SimpleBackdrop';
 import Cargando from '../Children/Cargando';
 import Design from './Plantillas/Design';
 import InFoto from './Sections/InFoto';
-import InFotoDos from './Sections/InFotoDos';
 
 
 
@@ -72,7 +80,7 @@ const style = {
     paddingTop: "10px",
     overflowY:"scroll",
     overflowX: "hidden",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   right:{
    // width: "65%",
@@ -300,7 +308,7 @@ const guardarRefe = async () => {
 })
 }
 
-const guardarDesign = async () => {
+const guardarDesign = async (selectedIndex) => {
   setLoad(true);
       await firebase.db.collection("Datosps")
       .doc(id)
@@ -766,15 +774,15 @@ setLoad={setLoad}
     textColor="primary"
     indicatorColor="primary"
   >
-    <Tab label="Datos Personales" wrapped/>
-    <Tab label="Perfil" wrapped/>
-    <Tab label="Experiencias Específicas" wrapped/>
-    <Tab label="Experiencias Generales" wrapped/>
-    <Tab label="Educación" wrapped/>
-    <Tab label="Cursos Realizados" wrapped/>
-    <Tab label="Idiomas" wrapped/>
-    <Tab label="Herramientas y Habilidades" wrapped/>
-    <Tab label="Referencias" wrapped/>
+    <Tab icon={<AssignmentIndIcon/>} label="Datos Personales" wrapped/>
+    <Tab icon={<TocIcon/>} label="Perfil" wrapped/>
+    <Tab icon={<WorkOutlineRoundedIcon/>} label="Experiencias Específicas" wrapped/>
+    <Tab icon={<WorkRoundedIcon/>} label="Experiencias Generales" wrapped/>
+    <Tab icon={<SchoolRoundedIcon/>} label="Educación" wrapped/>
+    <Tab icon={<CastForEducationRoundedIcon/>} label="Cursos Realizados" wrapped/>
+    <Tab icon={<TranslateRoundedIcon/>} label="Idiomas" wrapped/>
+    <Tab icon={<WbIncandescentRoundedIcon/>} label="Herramientas y Habilidades" wrapped/>
+    <Tab icon={<ContactPhoneRoundedIcon/>} label="Referencias" wrapped/>
 {/*<Tab label="Color" wrapped/>*/}
   </Tabs>
   </Box>

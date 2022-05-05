@@ -12,6 +12,7 @@
 
 }
 
+
 .cuerpo {
   width: auto;
   display: grid;
@@ -38,4 +39,20 @@
 }
 .plantilla5{
   font-family: 'Martel', serif;
+}
+
+
+
+::-webkit-scrollbar{
+  width: 11px;
+}
+
+::-webkit-scrollbar-track{
+  background: #eeeeee;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb{
+  background: #bdbdbd;
+  border-radius: 50px;
 }

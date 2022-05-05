@@ -132,7 +132,7 @@ class CurriculumList extends Component {
 
           <Grid container spacing={2}>
             {this.state.datosps.map((card) => (
-              <Grid item key={card.id} xs={12} sm={12} md={4} >
+              <Grid item key={card.id} xs={12} sm={6} md={3} >
                 <Card style={style.card}>
                 <CardHeader
                   avatar={

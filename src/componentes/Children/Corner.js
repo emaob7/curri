@@ -61,7 +61,7 @@ export default function Corner (props){
     const handleMenuItemClick = (event, index) => {
       setSelectedIndex(index);
       setAnchorEl(null);
-      guardarDesign();
+      guardarDesign(selectedIndex);
     };
 
     

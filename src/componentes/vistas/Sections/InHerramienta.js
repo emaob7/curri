@@ -9,7 +9,7 @@ import {
   } from "@material-ui/core";
   import AddIcon from "@material-ui/icons/Add";
   import AccordionDetail from "@material-ui/core/AccordionDetails";
-import CreateIcon from "@material-ui/icons/Create";
+  import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
   const style = {
@@ -39,7 +39,7 @@ function InHerramienta(props) {
       {herra.map((x, i) => {
         return (
           <Accordion style={style.accordeon} key={i}>
-          <AccordionSummary expandIcon={<CreateIcon/>}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
           <Chip 
           style={style.chips} 
           color="primary"  

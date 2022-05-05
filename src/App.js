@@ -125,7 +125,7 @@ function App(props) {
                 exact
                 path="/"
                 autenticadoFirebase="{firebase.auth.currentUser}"
-                component={Home}
+                component={CurriculumList}
               />
               <RutaAutenticada
                 exact
